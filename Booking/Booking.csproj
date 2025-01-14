@@ -23,4 +23,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BusinicService\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
 </Project>
