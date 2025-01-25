@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Booking.ViewModels;
 using Booking.Services;
+using Booking.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Booking.Controllers
 {
@@ -21,21 +23,99 @@ namespace Booking.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IEmailSender emailSender = null)
+        public HomeController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IEmailSender emailSender = null, ApplicationDbContext context = null)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _emailSender = emailSender;
+            _context = context;
         }
 
         //  private readonly IEmailSender _emailSender;
 
         public async Task<IActionResult> Index()
         {
+        var list = new List<ListProduct>();
+        var infoHotel = new List<ListHotels>();
+        var getHotel = await this._context.Hotels
+        .Where(h => h.HotelName!="") 
+        .OrderBy(h => h.Established) 
+        .ToListAsync();        
+           foreach(var item in getHotel)
+            {
+                var user = await this._userManager.FindByIdAsync(item.UserID);
+                var temImg = new List<GalleriesImg>();
+                var getImg = await this._context.Galleries.Where(u =>u.HotelID == item.HotelID)
+             .OrderByDescending(h => h.IsFeatureImage)
+             .ToListAsync();
+                if (getImg.Any())
+                {
+                    foreach (var itemImg in getImg)
+                {
+                    if (!string.IsNullOrWhiteSpace(itemImg.ImagePath))
+                    {
+                        temImg.Add(new GalleriesImg { img= itemImg.ImagePath });
+                    }
+                }
+                }
+                infoHotel.Add(new ListHotels
+                {
+                    HotelID = item.HotelID,
+                    HotelName = item.HotelName,
+                    img = temImg,
+                    Location = $"{item.City},{item.Country}",
+                    NameSeller =user.UserName,
+                    NumberReview =200,
+                    price = 502
+                    
+                }); 
+            }
+            list.Add(new ListProduct
+            {
+                Hotels = infoHotel
+            });
+            ViewBag.List = list;
             return View();
         }
+        public async Task<IActionResult> HotelDetail(Guid id)
+        {
+            var infoHotel = await this._context.Hotels.FirstOrDefaultAsync(u => u.HotelID == id);
+            var tem = new HotelsDetail();
+            if (infoHotel == null)
+            {
+                return RedirectToAction("Erro404");
+            }
+            else
+            {
+               
+                tem.HotelName = infoHotel.HotelName;
+                tem.HotelTye = infoHotel.Category;
+                tem.Locations = $"{infoHotel.City},{infoHotel.Country}";
+                tem.Descriptions = infoHotel.Description;
+                var Highlights = await this._context.Highlights.Where(u => u.HotelID == infoHotel.HotelID).Select(h => h.HighlightText).ToListAsync();
+                tem.Highlights.AddRange(Highlights);
+                var Amenities = await this._context.Amenities.Where(u => u.HotelID == infoHotel.HotelID).Select(h => h.AmenityName).ToListAsync();
+                tem.Amenities.AddRange(Amenities);
+                var romType = await this._context.RoomTypes.Where(u => u.HotelID == infoHotel.HotelID).Select(h => h.RoomTypeName).ToListAsync();
+                tem.Roomtypes.AddRange(romType); 
+                var services = await this._context.Services.Where(u => u.HotelID == infoHotel.HotelID).Select(h => h.ServiceName).ToListAsync();
+                tem.Services.AddRange(services);
+
+                var faq1 = await this._context.FAQs.Where(u => u.HotelID == infoHotel.HotelID).ToListAsync();
+                tem.faq = faq1.ToDictionary(faq => faq.Question, faq => faq.Answer);
+
+            }
+
+            return View(tem);
+        }
+        public IActionResult Erro404()
+        {
+            return View();
+        }
+
 
         [HttpGet]
         public IActionResult Login(string ReturnUrl = null)
