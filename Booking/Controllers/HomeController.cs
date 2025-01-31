@@ -48,7 +48,7 @@ namespace Booking.Controllers
             {
                 var user = await this._userManager.FindByIdAsync(item.UserID);
                 var temImg = new List<GalleriesImg>();
-                var getImg = await this._context.Galleries.Where(u =>u.HotelID == item.HotelID)
+                var getImg = await this._context.Galleries.Where(u =>u.HotelID == item.ID)
              .OrderByDescending(h => h.IsFeatureImage)
              .ToListAsync();
                 if (getImg.Any())
@@ -63,7 +63,7 @@ namespace Booking.Controllers
                 }
                 infoHotel.Add(new ListHotels
                 {
-                    HotelID = item.HotelID,
+                    HotelID = item.ID,
                     HotelName = item.HotelName,
                     img = temImg,
                     Location = $"{item.City},{item.Country}",
@@ -82,8 +82,9 @@ namespace Booking.Controllers
         }
         public async Task<IActionResult> HotelDetail(Guid id)
         {
-            var infoHotel = await this._context.Hotels.FirstOrDefaultAsync(u => u.HotelID == id);
+            var infoHotel = await this._context.Hotels.FirstOrDefaultAsync(u => u.ID == id);
             var tem = new HotelsDetail();
+           
             if (infoHotel == null)
             {
                 return RedirectToAction("Erro404");
@@ -95,17 +96,48 @@ namespace Booking.Controllers
                 tem.HotelTye = infoHotel.Category;
                 tem.Locations = $"{infoHotel.City},{infoHotel.Country}";
                 tem.Descriptions = infoHotel.Description;
-                var Highlights = await this._context.Highlights.Where(u => u.HotelID == infoHotel.HotelID).Select(h => h.HighlightText).ToListAsync();
+                var Highlights = await this._context.Highlights.Where(u => u.HotelID == infoHotel.ID).Select(h => h.HighlightText).ToListAsync();
                 tem.Highlights.AddRange(Highlights);
-                var Amenities = await this._context.Amenities.Where(u => u.HotelID == infoHotel.HotelID).Select(h => h.AmenityName).ToListAsync();
+                var Amenities = await this._context.Amenities.Where(u => u.HotelID == infoHotel.ID).Select(h => h.AmenityName).ToListAsync();
                 tem.Amenities.AddRange(Amenities);
-                var romType = await this._context.RoomTypes.Where(u => u.HotelID == infoHotel.HotelID).Select(h => h.RoomTypeName).ToListAsync();
+                var romType = await this._context.RoomTypes.Where(u => u.HotelID == infoHotel.ID).Select(h => h.RoomTypeName).ToListAsync();
                 tem.Roomtypes.AddRange(romType); 
-                var services = await this._context.Services.Where(u => u.HotelID == infoHotel.HotelID).Select(h => h.ServiceName).ToListAsync();
+                var services = await this._context.Services.Where(u => u.HotelID == infoHotel.ID).Select(h => h.ServiceName).ToListAsync();
                 tem.Services.AddRange(services);
-
-                var faq1 = await this._context.FAQs.Where(u => u.HotelID == infoHotel.HotelID).ToListAsync();
+                var img = await this._context.Galleries.Where(u => u.HotelID == infoHotel.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync();
+                tem.imgView.AddRange(img);
+                var faq1 = await this._context.FAQs.Where(u => u.HotelID == infoHotel.ID).ToListAsync();
                 tem.faq = faq1.ToDictionary(faq => faq.Question, faq => faq.Answer);
+
+                var getInfoRoom = this._context.Rooms.Where(u => u.HotelID == infoHotel.ID).ToList();
+
+                if (getInfoRoom.Any())
+                {
+                    var romView = new RoomView();
+                    foreach (var item in getInfoRoom)
+                    {
+                        romView = new RoomView();
+                        /*                        var getImrss = await this._context.GalleryRooms
+                                               .Where(u => u.RoomID == item.RoomID)
+                                               .OrderByDescending(h => h.IsFeatureImage) 
+                                               .Select(h => h.ImagePath) 
+                                               .FirstOrDefaultAsync();*/
+                        romView.RoomName = item.RoomName;
+                        romView.newPrice = item.PricePerNight;
+                        romView.oldPrice = item.PricePerNight -100;
+                 
+                        romView.RoomID = item.RoomID;
+                        tem.Room.Add(romView);
+                        var getImr = await this._context.GalleryRooms
+                    .Where(u => u.RoomID == romView.RoomID)
+                    .OrderByDescending(h => h.IsFeatureImage)
+                    .Select(h => h.ImagePath).ToListAsync();
+                        romView.imgRoom.AddRange(getImr);
+                    }
+                 
+                 
+                }
+
 
             }
 
@@ -212,7 +244,7 @@ namespace Booking.Controllers
                     {
                         status = "success",
                         msg = "Đăng nhập thành công",
-                        redirectUrl = ViewData["ReturnUrl"]?.ToString()
+                    redirectUrl = ViewData["ReturnUrl"]?.ToString()
                     });
      
             }

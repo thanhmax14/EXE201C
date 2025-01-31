@@ -5,7 +5,7 @@ namespace Booking.Models
     public class Hotel
     {
         [Key]
-        public Guid HotelID { get; set; } = Guid.NewGuid(); // Khóa chính
+        public Guid ID { get; set; } = Guid.NewGuid(); // Khóa chính
         public string UserID { get; set; }
         public string HotelName { get; set; } // Tên khách sạn
         public string Category { get; set; } // Phân loại
@@ -28,6 +28,7 @@ namespace Booking.Models
         public ICollection<Service> Services { get; set; }
         public ICollection<RoomType> RoomTypes { get; set; }
         public ICollection<Amenity> Amenities { get; set; }
+        public ICollection<WishlistHotel> WishlistHotels { get; set; }
         public ICollection<FAQ> FAQs { get; set; }
         public ICollection<Gallery> Galleries { get; set; }
         public ICollection<Room> Rooms { get; set; }

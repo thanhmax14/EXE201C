@@ -6,5 +6,6 @@ namespace Booking.Models
     {
         public string? address { get; set; }
         public ICollection<Hotel> Hotels { get; set; }
+        public ICollection<WishlistHotel> WishlistHotels { get; set; }
     }
 }

@@ -7,6 +7,6 @@
         List<string> shortService  { get; set; }
         public decimal newPrice { get; set; } = 0;
         public decimal oldPrice { get; set; } = 0;
-        public string? imgRoom { get; set; }
+        public List<string?> imgRoom { get; set; } = new List<string?>();
     }
 }

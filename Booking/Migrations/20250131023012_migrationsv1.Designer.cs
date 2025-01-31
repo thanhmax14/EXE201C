@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Booking.Data.Migrations
+namespace Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250125021800_migrationsv6")]
-    partial class migrationsv6
+    [Migration("20250131023012_migrationsv1")]
+    partial class migrationsv1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -220,7 +220,7 @@ namespace Booking.Data.Migrations
 
                     b.HasIndex("RoomID");
 
-                    b.ToTable("GalleryRoom");
+                    b.ToTable("GalleryRooms");
                 });
 
             modelBuilder.Entity("Booking.Models.Highlight", b =>
@@ -245,7 +245,7 @@ namespace Booking.Data.Migrations
 
             modelBuilder.Entity("Booking.Models.Hotel", b =>
                 {
-                    b.Property<Guid>("HotelID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -304,7 +304,7 @@ namespace Booking.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("HotelID");
+                    b.HasKey("ID");
 
                     b.HasIndex("UserID");
 
@@ -356,7 +356,7 @@ namespace Booking.Data.Migrations
 
                     b.HasIndex("HotelID");
 
-                    b.ToTable("Room");
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("Booking.Models.RoomType", b =>
@@ -417,6 +417,31 @@ namespace Booking.Data.Migrations
                     b.HasIndex("RoomID");
 
                     b.ToTable("ServiceRooms");
+                });
+
+            modelBuilder.Entity("Booking.Models.WishlistHotel", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("HotelID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("HotelID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("WishlistHotels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -684,6 +709,25 @@ namespace Booking.Data.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("Booking.Models.WishlistHotel", b =>
+                {
+                    b.HasOne("Booking.Models.Hotel", "Hotel")
+                        .WithMany("WishlistHotels")
+                        .HasForeignKey("HotelID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Booking.Models.AppUser", "AppUser")
+                        .WithMany("WishlistHotels")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Hotel");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -738,6 +782,8 @@ namespace Booking.Data.Migrations
             modelBuilder.Entity("Booking.Models.AppUser", b =>
                 {
                     b.Navigation("Hotels");
+
+                    b.Navigation("WishlistHotels");
                 });
 
             modelBuilder.Entity("Booking.Models.Hotel", b =>
@@ -755,6 +801,8 @@ namespace Booking.Data.Migrations
                     b.Navigation("Rooms");
 
                     b.Navigation("Services");
+
+                    b.Navigation("WishlistHotels");
                 });
 
             modelBuilder.Entity("Booking.Models.Room", b =>

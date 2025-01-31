@@ -25,7 +25,7 @@ namespace Booking.ViewModels
         public string? EmailSeller { get; set; }
         public string? status { get; set; } = "Verified";
         public string farovite { get; set; } = "";
-        public List<RoomView> MyProperty { get; set; } = new List<RoomView>();
+        public List<RoomView> Room { get; set; } = new List<RoomView>();
 
 
     }
