@@ -4,6 +4,7 @@ using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250203150239_migrationsv3")]
+    partial class migrationsv3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -490,47 +493,6 @@ namespace Booking.Migrations
                     b.ToTable("WishlistHotels");
                 });
 
-            modelBuilder.Entity("Booking.Models.dongtien", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("method")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("noidung")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("ordercode")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal>("sotiensau")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("sotienthaydoi")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("sotientruoc")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("thoigian")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("trangthai")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("Dongtiens");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -834,17 +796,6 @@ namespace Booking.Migrations
                     b.Navigation("Hotel");
                 });
 
-            modelBuilder.Entity("Booking.Models.dongtien", b =>
-                {
-                    b.HasOne("Booking.Models.AppUser", "AppUser")
-                        .WithMany("Dongtiens")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -898,8 +849,6 @@ namespace Booking.Migrations
 
             modelBuilder.Entity("Booking.Models.AppUser", b =>
                 {
-                    b.Navigation("Dongtiens");
-
                     b.Navigation("Hotels");
 
                     b.Navigation("ReviewHotels");

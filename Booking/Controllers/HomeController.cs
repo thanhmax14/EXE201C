@@ -43,7 +43,8 @@ namespace Booking.Controllers
         var getHotel = await this._context.Hotels
         .Where(h => h.HotelName!="") 
         .OrderBy(h => h.Established) 
-        .ToListAsync();        
+        .ToListAsync();
+            var farevo = "";
            foreach(var item in getHotel)
             {
                 var user = await this._userManager.FindByIdAsync(item.UserID);
@@ -61,6 +62,15 @@ namespace Booking.Controllers
                     }
                 }
                 }
+                var flagUser = await _userManager.GetUserAsync(User);
+                if (flagUser != null && await this._context.WishlistHotels.AnyAsync(u => u.UserID == flagUser.Id && u.HotelID == item.ID))
+                {
+                    farevo = "text-danger";
+                }
+                else
+                {
+                    farevo = "";
+                }
                 infoHotel.Add(new ListHotels
                 {
                     HotelID = item.ID,
@@ -69,8 +79,9 @@ namespace Booking.Controllers
                     Location = $"{item.City},{item.Country}",
                     NameSeller =user.UserName,
                     NumberReview =200,
-                    price = 502
-                    
+                    price = 502,
+                    farovite = farevo
+
                 }); 
             }
             list.Add(new ListProduct
@@ -91,7 +102,13 @@ namespace Booking.Controllers
             }
             else
             {
-               
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null && await this._context.WishlistHotels.AnyAsync(u => u.UserID == user.Id && u.HotelID == id))
+                {
+                        tem.farovite = "text-danger";
+                }
+                
+               tem.HotelID = infoHotel.ID;
                 tem.HotelName = infoHotel.HotelName;
                 tem.HotelTye = infoHotel.Category;
                 tem.Locations = $"{infoHotel.City},{infoHotel.Country}";
@@ -108,9 +125,9 @@ namespace Booking.Controllers
                 tem.imgView.AddRange(img);
                 var faq1 = await this._context.FAQs.Where(u => u.HotelID == infoHotel.ID).ToListAsync();
                 tem.faq = faq1.ToDictionary(faq => faq.Question, faq => faq.Answer);
-
+                tem.LocationsURL = infoHotel.linkLocation;
                 var getInfoRoom = this._context.Rooms.Where(u => u.HotelID == infoHotel.ID).ToList();
-
+                tem.TotalRom = getInfoRoom.Count;
                 if (getInfoRoom.Any())
                 {
                     var romView = new RoomView();
@@ -147,6 +164,12 @@ namespace Booking.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> AllHotel()
+        {
+            return View();
+        }
+
 
 
         [HttpGet]

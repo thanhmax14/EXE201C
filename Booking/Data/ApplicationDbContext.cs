@@ -25,6 +25,7 @@ namespace Booking.Data
         public DbSet<Room> Rooms { get; set; }
         public DbSet<GalleryRoom> GalleryRooms { get; set; }
         public DbSet<WishlistHotel> WishlistHotels { get; set; }
+        public DbSet<dongtien> Dongtiens { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -128,6 +129,35 @@ namespace Booking.Data
          .WithMany(h => h.WishlistHotels)
         .HasForeignKey(w => w.HotelID)
         .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<ReviewHotels>().HasKey(a => a.ID);
+
+            modelBuilder.Entity<ReviewHotels>()
+        .HasOne(w => w.AppUser)
+        .WithMany(h => h.ReviewHotels)
+        .HasForeignKey(w => w.UserID)
+        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ReviewHotels>()
+           .HasOne(w => w.Hotel)
+            .WithMany(h => h.ReviewHotels)
+           .HasForeignKey(w => w.HotelID)
+           .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<dongtien>().HasKey(a => a.ID);
+            modelBuilder.Entity<dongtien>()
+.HasOne(w => w.AppUser)
+.WithMany(h => h.Dongtiens)
+.HasForeignKey(w => w.UserID)
+.OnDelete(DeleteBehavior.NoAction);
+
+
+
+
+
+
+
 
             /*
                         // Dữ liệu mẫu cho bảng Services

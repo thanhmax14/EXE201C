@@ -2262,8 +2262,8 @@
            <div class="fav-item">
                <span class="badge bg-info d-inline-flex align-items-center"><i
                        class="isax isax-ranking me-1"></i>Trending</span>
-               <a href="javascript:void(0);" class="fav-icon @itemHotel.farovite">
-                   <i class="isax isax-heart5"></i>
+               <a  class="fav-icon" onclick="AddWishlist('@itemHotel.HotelID')">
+                   <i  id="iconsave-@itemHotel.HotelID" class="isax isax-heart5 @itemHotel.farovite"></i>
                </a>
            </div>
        </div>
@@ -3960,5 +3960,79 @@
     });
 
 </script>
+  <script>
+
+        function AddWishlist(id) {
+              var icon = document.getElementById("iconsave-" + id);
+        
+          if (icon.classList.contains("text-danger")) {
+                Swal.fire({
+                    title: "Bạn có chắc chắn?",
+                    text: "Bạn muốn xóa khỏi danh sách yêu thích?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Có, xóa!",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/account/RemoveWish",
+                            type: "POST",
+                            data: { id: id },
+                            headers: {
+                                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    cuteToast({
+                                        type: "success",
+                                        message: response.message,
+                                        timer: 5000
+                                    });
+                                    icon.classList.remove("text-danger"); 
+                                } else if (response.notAuth) {
+                                    Swal.fire('Thất bại', response.message, 'error');
+                                } else {
+                                    Swal.fire('Thất bại', response.message, 'error');
+                                }
+                            },
+                            error: function () {
+                                alert("Lỗi xảy ra khi xóa khỏi wishlist.");
+                            }
+                        });
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "/account/AddWish",
+                    type: "POST",
+                    data: { id: id },
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            cuteToast({
+                                type: "success",
+                                message: response.message,
+                                timer: 5000
+                            });
+                            icon.classList.add("text-danger");
+                        } else if (response.notAuth) {
+                            Swal.fire('Thất bại', response.message, 'error');
+                        }else{
+                            Swal.fire('Thất bại', response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi xảy ra khi thêm vào wishlist.");
+                    }
+                });
+            }
+        }
+
+
+
+    </script>
 
 

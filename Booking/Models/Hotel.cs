@@ -22,6 +22,7 @@ namespace Booking.Models
         public string Address { get; set; } // Địa chỉ chính
         public string Address1 { get; set; } // Địa chỉ phụ
         public string Description { get; set; } // Mô tả chi tiết
+        public string? linkLocation { get; set; } = "";
 
         // Navigation Properties
         public ICollection<Highlight> Highlights { get; set; }
@@ -32,6 +33,7 @@ namespace Booking.Models
         public ICollection<FAQ> FAQs { get; set; }
         public ICollection<Gallery> Galleries { get; set; }
         public ICollection<Room> Rooms { get; set; }
+        public ICollection<ReviewHotels> ReviewHotels { get; set; }
         public AppUser AppUser { get; set; }
     }
 }
