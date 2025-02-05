@@ -12,6 +12,7 @@
         public string? trangthai { get; set; }
         public long ordercode { get; set; } = 0;
         public string UserID { get; set; }
+        public bool IsComplete { get; set; } = false;
         public AppUser AppUser { get; set; }
 
     }

@@ -170,7 +170,7 @@
                                     <span class="fs-14 text-gray-3 fw-medium mb-2">Main</span>
                                 </li>
                                 <li>
-                                    <a href="dashboard.html" class="d-flex align-items-center">
+                                    <a href="/account" class="d-flex align-items-center">
                                         <i class="isax isax-grid-55"></i> Dashboard
                                     </a>
                                 </li>
@@ -208,7 +208,7 @@
                                 </div>
                                 </li> *@
                                 <li class="mb-2">
-                                    <a href="wishlist.html" class="d-flex align-items-center">
+                                    <a href="/account/Wishlist" class="d-flex align-items-center">
                                         <i class="isax isax-heart5"></i> Wishlist
                                     </a>
                                 </li>
@@ -428,7 +428,7 @@
                                                     <td>@item.type</td>
                                                     <td>@item.time</td>
                                                     <td>
-                                                        @if (item.amount > 0)
+                                                        @if (item.amount >= 0)
                                                         {
                                                             <span class="text-success">+$@item.amount</span>
                                                         }
@@ -437,18 +437,28 @@
                                                             <span class="text-danger">-$@item.amount</span>
                                                         }
                                                     </td>
-                                                    <td>$@item.amount</td>
+                                                    <td>$@item.Balance</td>
                                                     <td>
-                                                        <span class="badge badge-success rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Completed</span>
+                                                        @if (item.trangthai.ToLower() == "Doi".ToLower())
+                                                        {
+                                                            <span class="badge badge-secondary rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Pending</span>
+                                                        }
+                                                        else if (item.trangthai.ToLower() == "done".ToLower())
+                                                        {
+                                                            <span class="badge badge-success rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Completed</span>
+
+                                                        }
+                                                        else if (item.trangthai.ToLower() == "huy".ToLower())
+                                                        {
+                                                            <span class="badge badge-danger rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Cancelled</span>
+                                                        }
+                                                        else if (item.trangthai.ToLower() == "thanhtoanthieu".ToLower()){
+ 
+                                                        }
                                                     </td>
-                                                    <td><a href="@item.detail"> View Detail</a></td>
+                                                    <td><a href="@item.detail" target="_blank"> View Detail</a></td>
                                                 </tr>
                                             }
-
-
-                                          
-                                            
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -815,7 +825,7 @@
                         confirmButtonText: 'OK'
                     }).then((result) => {
                         if (result.isConfirmed || result.isDismissed) {
-                            window.location.href = '/home';
+                            window.location.href = response.url;
                         }
                     });
 

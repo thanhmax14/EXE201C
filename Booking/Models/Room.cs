@@ -21,5 +21,6 @@ namespace Booking.Models
         public ICollection<AmenityRoom> AmenityRooms { get; set; }
         public ICollection<AccessibilityRoom> AccessibilityRooms { get; set; }
         public ICollection<GalleryRoom> GalleryRooms { get; set; }
+        public ICollection<datphong> Datphongs { get; set; }
     }
 }

@@ -1,10 +1,12 @@
-﻿using Booking.Data;
+﻿using Booking.BaseRepo;
+using Booking.Data;
 using Booking.Models;
 using Booking.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Net.payOS;
 using static Booking.Services.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +28,12 @@ var mailsettings = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(mailsettings);
 builder.Services.AddTransient<IEmailSender, SendMailService>();
 
+PayOS payOS = new PayOS("fa2021f3-d725-4587-a48f-8b55bccf7744" ?? throw new Exception("Cannot find environment"),
+                  "143f45b5-d1d7-40e4-82e9-00ea8217ab33" ?? throw new Exception("Cannot find environment"),
+                 "7861335ef9257ac91143d4de7b9f6ce64c864608defe1e31906510e95b345ee5" ?? throw new Exception("Cannot find environment"));
+builder.Services.AddSingleton(payOS);
+
+builder.Services.AddScoped<ManagerTransastions>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -127,6 +135,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 
+builder.Services.AddSwaggerGen(c =>
+{
+ 
+    c.EnableAnnotations();
+
+});
 
 
 
@@ -149,6 +163,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
 }
 else
 {
@@ -161,7 +176,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.MapRazorPages();
 app.UseRouting();
-
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.RoutePrefix = "swagger"; // Swagger UI sẽ hiển thị khi truy cập /swagger
+    c.DefaultModelExpandDepth(-1);
+});
 
 await SeedDataAsync(app);
 app.UseAuthentication();

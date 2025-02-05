@@ -1,5 +1,4 @@
-﻿@model List<Booking.ViewModels.WishList>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,7 +12,44 @@
     <meta name="author" content="Dreams Technologies">
     <meta name="robots" content="index, follow">
 
-   
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/img/apple-touch-icon.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/assets/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/assets/img/favicon.png" type="image/x-icon">
+
+    <!-- Theme Settings Js -->
+	<script src="~/assets/js/theme-script.js" type="4c6804a8d85ec2172a0ee0e3-text/javascript"></script>
+
+    <link rel="stylesheet" href="~/assets/css/animate.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+    <!-- Main.css -->
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+
+    <!-- Tabler Icon CSS -->
+    <link rel="stylesheet" href="~/assets/plugins/tabler-icons/tabler-icons.css">
+
+    <!-- Fontawesome Icon CSS -->
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+    <!-- Owlcarousel CSS -->
+    <link rel="stylesheet" href="~/assets/plugins/owlcarousel/owl.carousel.min.css">
+
+    <!-- Rangeslider CSS -->
+    <link rel="stylesheet" href="~/assets/plugins/ion-rangeslider/css/ion.rangeSlider.css">
+    <link rel="stylesheet" href="~/assets/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+
+    <!-- Iconsax CSS -->
+    <link rel="stylesheet" href="~/assets/css/iconsax.css">
+
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap-datetimepicker.min.css">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
 
 </head>
 
@@ -26,7 +62,7 @@
                 <div class="d-flex align-items-center justify-content-between flex-wrap">
                     <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Toll Free : +1 56565 56594</p>
                     <div class="d-flex align-items-center">
-                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14"><i class="isax isax-message-text-15 me-2"></i>Email : <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="abc2c5cdc4ebced3cac6dbc7ce85c8c4c6">[email&#160;protected]</a></p>
+                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14"><i class="isax isax-message-text-15 me-2"></i>Email : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ce5e2eae3cce9f4ede1fce0e9a2efe3e1">[email&#160;protected]</a></p>
                         <div class="dropdown flag-dropdown mb-2 me-3">
                             <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
@@ -51,8 +87,8 @@
                         </div>
                         <div class="dropdown mb-2 me-3">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                USD
-                            </a>
+								USD
+							</a>
                             <ul class="dropdown-menu p-2 mt-2">
                                 <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
                                 <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
@@ -69,6 +105,7 @@
             </div>
         </div>
         <!-- /Header Topbar-->
+
         <!-- Header -->
         <header>
             <div class="container">
@@ -329,7 +366,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="has-submenu mega-innermenu">
+                                <li class="has-submenu mega-innermenu active">
                                     <a href="javascript:void(0);">Pages<i class="fa-solid fa-angle-down"></i></a>
                                     <ul class="submenu mega-submenu">
                                         <li>
@@ -344,7 +381,7 @@
                                                             <li><a href="faq.html">Faq</a></li>
                                                             <li><a href="pricing-plan.html">Pricing Plan</a></li>
                                                             <li><a href="team.html">Teams</a></li>
-                                                            <li><a href="invoices.html">Invoice</a></li>
+                                                            <li class="active"><a href="invoices.html">Invoice</a></li>
                                                             <li><a href="blog-grid.html">Blogs Grid</a></li>
                                                             <li><a href="blog-list.html">Blogs List</a></li>
                                                             <li><a href="blog-details.html">Blogs Details</a></li>
@@ -373,8 +410,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="has-submenu mega-innermenu active">
-                                    <a href="javascript:void(0);">Dashboard<i class="fa-solid fa-angle-down"></i></a>
+                                <li class="has-submenu mega-innermenu">
+                                    <a href="javascript:void(0);">Dashboard<i class="fa-solid fa-plus"></i></a>
                                     <ul class="submenu mega-submenu">
                                         <li>
                                             <div class="megamenu-wrapper">
@@ -386,7 +423,7 @@
                                                             <li><a href="customer-flight-booking.html">My Bookings</a></li>
                                                             <li><a href="review.html">Reviews</a></li>
                                                             <li><a href="chat.html">Message</a></li>
-                                                            <li class="active"><a href="wishlist.html">Wishlist</a></li>
+                                                            <li><a href="wishlist.html">Wishlist</a></li>
                                                             <li><a href="wallet.html">Wallet</a></li>
                                                             <li><a href="payment.html">Payments</a></li>
                                                             <li><a href="profile-settings.html">Profile Settings</a></li>
@@ -426,8 +463,8 @@
                             <div class="dropdown profile-dropdown">
                                 <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
                                     <span class="avatar avatar-md">
-                                        <img src="~/assets/img/users/user-05.jpg" alt="Img" class="img-fluid rounded-circle border border-white border-4">
-                                    </span>
+										<img src="~/assets/img/users/user-05.jpg" alt="Img" class="img-fluid rounded-circle border border-white border-4">
+									</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end p-3">
                                     <li>
@@ -465,15 +502,16 @@
     </div>
 
     <!-- Breadcrumb -->
-    <div class="breadcrumb-bar breadcrumb-bg-01 text-center">
+    <div class="breadcrumb-bar breadcrumb-bg-02 text-center">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Wishlist</h2>
+                    <h2 class="breadcrumb-title mb-2">Invoice</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
+                            <li class="breadcrumb-item">Pages</li>
+                            <li class="breadcrumb-item active" aria-current="page">Invoice</li>
                         </ol>
                     </nav>
                 </div>
@@ -481,278 +519,165 @@
         </div>
     </div>
     <!-- /Breadcrumb -->
+
     <!-- Page Wrapper -->
     <div class="content">
         <div class="container">
 
-            <div class="row">
-
-                <!-- Sidebar -->
-                <div class="col-xl-3 col-lg-4 theiaStickySidebar">
-                    <div class="card user-sidebar mb-4 mb-lg-0">
-                        <div class="card-header user-sidebar-header">
-                            <div class="profile-content rounded-pill">
-                                <div class="d-flex align-items-center justify-content-between ">
-                                    <div class=" d-flex align-items-center justify-content-center ">
-                                        <img src="~/assets/img/users/user-lg-26.jpg" alt="image" class="img-fluid avatar avatar-lg rounded-circle flex-shrink-0 me-1">
-                                        <div>
-                                            <h6 class="fs-16">Chris Foxy</h6>
-                                            <span class="fs-14 text-gray-6">Since 10 May 2025</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <a href="profile-settings.html" class="p-1 rounded-circle btn btn-light d-flex align-items-center justify-content-center"><i class="isax isax-edit-2 fs-14"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body user-sidebar-body">
-                            <ul>
-                                <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Main</span>
-                                </li>
-                                <li>
-                                    <a href="/account" class="d-flex align-items-center">
-                                        <i class="isax isax-grid-55"></i> Dashboard
-                                    </a>
-                                </li>
-                                <li class="submenu">
-                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5"></i><span>My Bookings</span><span class="menu-arrow"></span></a>
-                                    <ul>
-                                        @* <li>
-                                        <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
-                                        </li> *@
-                                        <li>
-                                            <a href="/account/hotelBooking" class="fs-14 d-inline-flex align-items-center">Hotels</a>
-                                        </li>
-                                        @*  <li>
-                                        <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
-                                        </li>
-                                        <li>
-                                        <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
-                                        </li> *@
-                                        <li>
-                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="/account/review" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5"></i> My Reviews
-                                    </a>
-                                </li>
-                                @* <li>
-                                <div class="message-content">
-                                <a href="chat.html" class="d-flex align-items-center">
-                                <i class="isax isax-message-square5"></i> Messages
-                                </a>
-                                <span class="msg-count rounded-circle">02</span>
-                                </div>
-                                </li> *@
-                                <li class="mb-2">
-                                    <a href="/account/Wishlist" class="d-flex align-items-center active">
-                                        <i class="isax isax-heart5"></i> Wishlist
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Finance</span>
-                                </li>
-                                <li>
-                                    <a href="/account/wallet" class="d-flex align-items-center ">
-                                        <i class="isax isax-wallet-add-15"></i> Wallet
-                                    </a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="/account/payment" class="d-flex align-items-center">
-                                        <i class="isax isax-money-recive5"></i> Payments
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Account</span>
-                                </li>
-                                <li>
-                                    <a href="/account/profile" class="d-flex align-items-center">
-                                        <i class="isax isax-profile-tick5"></i> My Profile
-                                    </a>
-                                </li>
-                                @*    <li>
-                                <div class="message-content">
-                                <a href="notification.html" class="d-flex align-items-center">
-                                <i class="isax isax-notification-bing5"></i> Notifications
-                                </a>
-                                <span class="msg-count bg-purple rounded-circle">05</span>
-                                </div>
-                                </li> *@
-                                <li>
-                                    <a href="/account/settings" class="d-flex align-items-center">
-                                        <i class="isax isax-setting-25"></i> Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Home/Logout" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Logout
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Sidebar -->
-
-                <div class="col-xl-9 col-lg-8">
-                    <div class="card">
+            <!-- Invoices -->
+            <div class="row justify-content-center">
+                <div class="col-md-9">
+                    <div class="card mb-0">
                         <div class="card-body">
-                            <h6>My Wishlist</h6>
-                            <p class="fs-14">Items in Wishlist : 60</p>
-                        </div>
-                    </div>
-
-                    <!-- Hotel Grid -->
-                    @foreach (var item in Model)
-                    {
-                        if (item.wishHotel?.Any() == true)
-                        {
-                            foreach (var itemhotel in item.wishHotel)
-                            {
-                                <div class="hotel-list">
-                                    <div class="place-item mb-4">
-                                        <div class="place-img">
-                                            <div class="img-slider image-slide owl-carousel nav-center">
-                                                @foreach(var img in itemhotel.img)
-                                                {
-
-                                                    <div class="slide-images">
-                                                        <a asp-controller="Home" asp-action="HotelDetail" asp-route-id="@itemhotel.ID">
-                                                            <img src="@img" class="img-fluid" alt="img">
-                                                        </a>
-                                                    </div>
-                                                }
-
-                                             
-                                            </div>
-                                            <div class="fav-item">
-                                                <a href="javascript:void(0);" class="fav-icon selected">
-                                                    <i class="isax isax-heart5"></i>
-                                                </a>
-                                                <span class="badge bg-info d-inline-flex align-items-center"><i class="isax isax-ranking me-1"></i>Trending</span>
-                                            </div>
+                            <div class="border-bottom mb-4">
+                                <div class="row justify-content-between align-items-center flex-wrap row-gap-4">
+                                    <div class="col-md-6">
+                                        <div class="mb-2 invoice-logo-dark">
+                                            <img src="~/assets/img/logo-dark.svg" class="img-fluid" alt="logo">
                                         </div>
-                                        <div class="place-content pb-1">
+                                        <div class="mb-2 invoice-logo-white">
+                                            <img src="~/assets/img/logo.svg" class="img-fluid" alt="logo">
+                                        </div>
+                                        <p class="fs-12">3099 Kennedy Court Framingham, MA 01702</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class=" text-end mb-3">
+                                            <h6 class="text-default mb-1">Invoice No <span id="orderCode" class="text-primary fw-medium"></span></h6>
 
-                                            <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                                <div>
-                                                    <h5 class="mb-1 text-truncate"><a asp-controller="Home" asp-action="HotelDetail" asp-route-id="@itemhotel.ID">@itemhotel.HotelName</a></h5>
-                                                    <p class="d-flex align-items-center mb-2"><i class="isax isax-location5 me-2"></i>@itemhotel.Location</p>
-                                                </div>
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <a href="javascript:void(0);" class="d-flex align-items-center overflow-hidden border-end pe-2 me-2">
-                                                        <span class="avatar avatar-md flex-shrink-0 me-2">
-                                                            <img src="~/assets/img/users/user-01.jpg" class="rounded-circle" alt="img">
-                                                        </span>
-                                                        <p class="fs-14 text-truncate">@itemhotel.NameSeller</p>
-                                                    </a>
-                                                    <div class="d-flex align-items-center text-nowrap">
-                                                        <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">@itemhotel.rating</span>
-                                                        <p class="fs-14">(@itemhotel.NumberReview Reviews)</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @Html.Raw(itemhotel.Descriptions)
-                                            <div class="d-flex align-items-center justify-content-between flex-wrap border-top pt-3">
-                                                <h6 class="d-flex align-items-center mb-3">Facillities :<i class="isax isax-home-wifi ms-2 me-2 text-primary"></i><i class="isax isax-scissor me-2 text-primary"></i><i class="isax isax-profile-2user me-2 text-primary"></i><i class="isax isax-wind-2 me-2 text-primary"></i><a href="javascript:void(0);" class="fs-14 fw-normal text-default d-inline-block">+2</a></h6>
-                                                <h5 class="text-primary text-nowrap me-2 mb-3">$@itemhotel.price <span class="fs-14 fw-normal text-default">/ Night</span></h5>
-                                            </div>
+                                            <p class="fs-14 mb-1 fw-medium">Created Date : <span class="text-gray-9" id="create"></span> </p>
+                                          @*   <p class="fs-14 fw-medium">Due Date : <span class="text-gray-9">Sep 30, 2023</span> </p> *@
                                         </div>
                                     </div>
                                 </div>
-                            }
-                        }
-                    }
-
-                   
-                    <!-- /Hotel Grid -->
-                    <!-- Tours List -->
-                    <div class="hotel-list">
-                        <div class="place-item mb-4">
-                            <div class="place-img">
-                                <div class="img-slider image-slide owl-carousel nav-center">
-                                    <div class="slide-images">
-                                        <a href="tour-details.html">
-                                            <img src="~/assets/img/tours/tours-07.jpg" class="img-fluid" alt="img">
-                                        </a>
+                            </div>
+                            <div class="border-bottom mb-4">
+                                <div class="row align-items-center g-4">
+                                    <div class="col-md-5">
+                                        <h6 class="mb-3 fw-semibold fs-14">From</h6>
+                                        <div>
+                                            <h6 class="mb-1" id="user"></h6>
+                                            <p class="fs-14 mb-1" id="address"></p>
+                                            <p class="fs-14 mb-1">Email : <span class="text-gray-9"><a href="mailto:example@email.com?subject=Tiêu đề&body=Nội dung email" class="__cf_email__" id="email"></a></span></p>
+                                            <p class="fs-14">Phone : <span class="text-gray-9">+84 <span id="phone"></span></p>
+                                        </div>
                                     </div>
-                                    <div class="slide-images">
-                                        <a href="tour-details.html">
-                                            <img src="~/assets/img/tours/tours-08.jpg" class="img-fluid " alt="img">
-                                        </a>
+                                    <div class="col-md-4">
+                                        <h6 class="mb-3 fw-semibold fs-14">To</h6>
+                                        <div>
+                                            <h6 class="mb-1">Golocal,.</h6>
+                                            <p class="fs-14 mb-1">An Khánh, Ninh Kiều, Cần Thơ</p>
+                                            <p class="fs-14 mb-1">Email : <span class="text-gray-9"><a href="mailto:golocal.vn@gmail.com?subject=Tiêu đề&body=Nội dung email" class="__cf_email__">golocal.vn@gmail.com</a></span></p>
+                                            <p class="fs-14">Phone : <span class="text-gray-9">+84 939 371 017</span></p>
+                                        </div>
                                     </div>
-                                    <div class="slide-images">
-                                        <a href="tour-details.html">
-                                            <img src="~/assets/img/tours/tours-09.jpg" class="img-fluid " alt="img">
-                                        </a>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <h6 class="mb-1 fs-14 fw-medium">Payment Status </h6>
+                                            <span id="paymentStatus" class="badge badge-danger align-items-center fs-10 mb-4"><i class="ti ti-point-filled "></i>Due in 10 Days</span>
+                                           @*  <div>
+                                                <img src="/assets/img/zalo-0939371017.jpg" class="img-fluid" alt="QR">
+                                            </div> *@
+                                        </div>
                                     </div>
-                                    <div class="slide-images">
-                                        <a href="tour-details.html">
-                                            <img src="~/assets/img/tours/tours-10.jpg" class="img-fluid" alt="img">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="fav-item">
-                                    <a href="javascript:void(0);" class="fav-icon selected">
-                                        <i class="isax isax-heart5"></i>
-                                    </a>
-                                    <span class="badge bg-info d-inline-flex align-items-center"><i class="isax isax-ranking me-1"></i>Trending</span>
                                 </div>
                             </div>
-                            <div class="place-content">
-                                <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-2 mb-3">
-                                    <div>
-                                        <h5 class="mb-1 text-truncate"><a href="tour-details.html">Rainbow Mountain Valley</a></h5>
-                                        <p class="fs-14 d-flex align-items-center"><i class="isax isax-location5 me-2"></i>Ciutat Vella, Barcelona</p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <p class="fs-14 text-gray-9  border-end pe-2 me-2 mb-0">
-                                            <span class="me-1"><i class="ti ti-receipt text-primary"></i></span> Ecotourism
-                                        </p>
-                                        <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-1">5.0</span>
-                                        <p class="fs-14">(105 Reviews)</p>
+                            <div>
+                                <p class="fw-medium mb-3">Invoice For : <span class="text-dark fw-medium">Nạp tiền</span></p>
+                                <div class="table-responsive">
+                                    <table class="table invoice-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th class="w-50 bg-light-400">Description</th>                                              
+                                                <th class="text-end bg-light-400">Cost</th>
+                                                <th class="text-end bg-light-400">Discount</th>
+                                                <th class="text-end bg-light-400">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h6 class="fs-14">Yêu cầu nạp tiền vào tài khoản </h6>
+                                                </td>
+                                                <td class="text-gray fs-14 fw-medium text-end"> <span class="amount"></span></td>
+                                                <td class="text-gray fs-14 fw-medium text-end">$0</td>
+                                                <td class="text-gray fs-14 fw-medium text-end"><span class="amount"></span></td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border-bottom mb-3">
+                                <div class="col-md-7">
+                                    <div class="py-4">
+                                        <div class="mb-3">
+                                            <h6 class="fs-14 mb-1">Terms and Conditions</h6>
+                                            <p class="fs-12">Please pay within 15 days from the date of invoice, overdue interest  14% will be charged on delayed payments.</p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <h6 class="fs-14 mb-1">Notes</h6>
+                                            <p class="fs-12">Please quote invoice number when remitting funds.</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="fs-14 border-bottom pb-3 mb-3">Journey through majestic peaks and serene valleys, where nature’s beauty surrounds you at every turn.</p>
-                                <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-2">
-                                    <div class="d-flex align-items-center">
-                                        <span class="me-2"><i class="isax isax-calendar-tick text-gray-6"></i></span>
-                                        <p class="fs-14 text-gray-9  border-end pe-2 me-2 mb-0">4 Day, 3 Night</p>
-                                        <p class="fs-14 text-gray-9 mb-0 text-truncate d-flex align-items-center">
-                                            <i class="isax isax-profile-2user me-1"></i>14 Guests
-                                        </p>
+                                <div class="col-md-5">
+                                    <div class="d-flex justify-content-between align-items-center border-bottom my-2 pe-3">
+                                        <p class="fs-14 fw-medium text-gray mb-0">Sub Total</p>
+                                        <p class="text-gray-9 fs-14 fw-medium mb-2" id="amount"></p>
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                        <h6 class="d-flex align-items-center text-gray-6 fs-14 fw-normal border-end pe-2 me-2">
-                                            Starts From
-                                            <span class="ms-1 fs-18 fw-semibold text-primary">$500</span>
-                                            <span class="ms-1 fs-18 fw-semibold text-gray-3 text-decoration-line-through">$789</span>
-                                        </h6>
-                                        <a href="javascript:void(0);" class="avatar avatar-sm flex-shrink-0">
-                                            <img src="~/assets/img/users/user-08.jpg" class="rounded-circle" alt="img">
-                                        </a>
+                                    <div class="d-flex justify-content-between align-items-center border-bottom my-2 pe-3">
+                                        <p class="fs-14 fw-medium text-gray mb-0">Discount (0%)</p>
+                                        <p class="text-gray-9 fs-14 fw-medium mb-2">$0</p>
                                     </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
+                                        <p class="fs-14 fw-medium text-gray mb-0">VAT (0%)</p>
+                                        <p class="text-gray-9 fs-14 fw-medium mb-2">$0</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
+                                        <h6>Total Amount</h6>
+                                        <h6><span class="amount"></span></h6>
+                                    </div>
+                                   @*  <p class="fs-12">
+                                        Amount in Words : Dollar Thousand Nine Fifty Five
+                                    </p> *@
+                                </div>
+                            </div>
+                            <div class="row justify-content-end align-items-end text-end border-bottom mb-3 me-2">
+                                <div class="col-md-3">
+                                    <div class="text-end">
+                                        <img src="~/assets/img//invoice/sign.svg" class="img-fluid" alt="sign">
+                                    </div>
+                                    <div class="text-end mb-3">
+                                        <h6 class="fs-14 fw-medium pe-3">P.Q.Thanh</h6>
+                                        <p>Assistant Manager</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="mb-3 invoice-logo-dark">
+                                    <img src="~/assets/img/logo-dark.svg" class="img-fluid" alt="logo">
+                                </div>
+                                <div class="mb-3 invoice-logo-white">
+                                    <img src="~/assets/img/logo.svg" class="img-fluid" alt="logo">
+                                </div>
+                                <p class="text-gray-9 fs-12 mb-1">Payment Made Via bank transfer / Cheque in the name of Thomas Lawler</p>
+                                <div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
+                                    <p class="fs-12 mb-0">Bank Name : <span class="text-gray-9">ViettinBank</span></p>
+                                    <p class="fs-12 mb-0">Account Number : <span class="text-gray-9">45366287987</span></p>
+                                    <p class="fs-12">IFSC : <span class="text-gray-9">HDFC0018159</span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /Tours List -->
-                    <!-- Car List -->
-         
                 </div>
-
-
             </div>
+
+            <!-- /Invoices -->
+
         </div>
     </div>
     <!-- /Page Wrapper -->
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -775,7 +700,7 @@
                                     <a href="profile-settings.html">Settings</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Profile</a>
+                                    <a href="my-profile.html">Profile</a>
                                 </li>
                                 <li>
                                     <a href="agent-listings.html">Listings</a>
@@ -911,8 +836,8 @@
                             <div class="d-sm-flex align-items-center justify-content-center justify-content-xl-end">
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start me-0 pe-0 me-sm-3 pe-sm-3 border-end mb-3">
                                     <span class="avatar avatar-lg bg-primary rounded-circle flex-shrink-0">
-                                        <i class="ti ti-headphones-filled fs-24"></i>
-                                    </span>
+										<i class="ti ti-headphones-filled fs-24"></i>
+									</span>
                                     <div class="ms-2">
                                         <p class="mb-1">Customer Support</p>
                                         <p class="fw-medium text-dark">+1 56589 54598</p>
@@ -920,14 +845,15 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
                                     <span class="avatar avatar-lg bg-secondary rounded-circle flex-shrink-0">
-                                        <i class="ti ti-message fs-24 text-gray-9"></i>
-                                    </span>
+										<i class="ti ti-message fs-24 text-gray-9"></i>
+									</span>
                                     <div class="ms-2">
                                         <p class="mb-1">Drop Us an Email</p>
-                                        <p class="fw-medium text-dark"><a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e68f888089a6839e878b968a83c885898b">[email&#160;protected]</a></p>
+                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a13141c153a1f021b170a161f54191517">[email&#160;protected]</a></p>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -1003,6 +929,7 @@
 
     </footer>
     <!-- /Footer -->
+
     <!-- Cursor -->
     <div class="xb-cursor tx-js-cursor">
         <div class="xb-cursor-wrapper">
@@ -1012,10 +939,68 @@
     <!-- /Cursor -->
 
     <div class="back-to-top">
-        <a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top"><i class="fa-solid fa-arrow-up"></i></a>
-    </div>
+		<a class="back-to-top-icon align-items-center justify-content-center d-flex"  href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+	</div>
 
-   
+
 </body>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
 
 </html>
+<script>
+
+
+    $(document).ready(function () {
+        // Lấy tất cả tham số từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Lấy giá trị các tham số
+        const status = urlParams.get('status');
+        const orderCode = urlParams.get('orderCode') || "N/A";
+        const transactionID = urlParams.get('id') || "N/A";
+        const amount = urlParams.get('amount') || "0";
+
+        const user = urlParams.get('user') || "N/A";
+        const address = urlParams.get('address') || "N/A";
+        const email = urlParams.get('email') || "N/A";
+        const phone = urlParams.get('phone') || "N/A";
+        const create = urlParams.get('create') || "N/A";
+
+        
+
+
+        console.log(orderCode);
+        // Cập nhật thông tin vào HTML
+        $(".amount").text("$" + amount);
+
+        $("#orderCode").text("#" + orderCode);
+        $("#user").text(user);
+        $("#address").text(address);
+        $("#email").text(email);
+        $("#phone").text(phone);
+        $("#create").text(create);
+
+
+
+
+     
+    
+
+        const paymentStatus = $("#paymentStatus"); 
+
+        console.log(status);
+        console.log(amount);
+        if (status.toLowerCase() === "PAID".toLowerCase()) {
+            paymentStatus.text("PAID").removeClass("badge-danger badge-warning badge-secondary").addClass("badge-success");
+        } else if (status === "CANCELLED") {
+            paymentStatus.text("Cancelled").removeClass("badge-success badge-warning badge-secondary").addClass("badge-danger");
+        } else if (status === "PENDING") {
+            paymentStatus.text("Pending").removeClass("badge-success badge-danger badge-secondary").addClass("badge-warning");
+        } else if (status === "FAILED") {
+            paymentStatus.text("Failed").removeClass("badge-success badge-warning badge-danger").addClass("badge-secondary");
+        } else {
+            paymentStatus.text("Unknown").removeClass("badge-success badge-danger badge-warning").addClass("badge-secondary");
+        }
+    });
+
+</script>

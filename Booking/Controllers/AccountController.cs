@@ -5,6 +5,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Net.payOS.Types;
+using Net.payOS;
+using System.Transactions;
+using Booking.Services;
+using Booking.BaseRepo;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Booking.Controllers
 {
@@ -13,10 +21,17 @@ namespace Booking.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
-        public AccountController(ApplicationDbContext context, UserManager<AppUser> userManager)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly PayOS _Payos;
+        private readonly ManagerTransastions _transactionManager;
+
+        public AccountController(ApplicationDbContext context, UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor, PayOS payos, ManagerTransastions transactionManager)
         {
             _context = context;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
+            _Payos = payos;
+            _transactionManager = transactionManager;
         }
 
         public IActionResult Index()
@@ -25,9 +40,126 @@ namespace Booking.Controllers
         }
         public async Task<IActionResult> Settings()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var tem = new settingViewModels { 
+                 id = user.Id,
+                   address= user.address,
+                   birthday = user.sinhNhat,
+                   District = user.District,
+                   email = user.Email,
+                   firstName = user.firstName,
+                   img = user.img,
+                lastName = user.lastName,
+                   phone = user.PhoneNumber,
+                   Province = user.Province,
+                   Ward = user.Ward,
+                   zipcode = user.ZipCode
+            };
+
+            return View(tem);
         }
-       
+
+        [HttpPost]
+        public async Task<IActionResult> Settings(settingViewModels model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                // Kiểm tra nếu email đã tồn tại trong hệ thống
+                /*var existingEmailUser = await _userManager.FindByEmailAsync(model.id);
+                if (existingEmailUser != null && existingEmailUser.Id != user.Id)  // Kiểm tra xem có user khác trùng email không
+                {
+                    ModelState.AddModelError("email", "Email already exists!");
+                    return View(model);
+                }*/
+
+                // Kiểm tra nếu phone đã tồn tại trong hệ thống
+                var existingPhoneUser = await _userManager.Users
+                    .FirstOrDefaultAsync(u => u.PhoneNumber == model.phone);
+
+                if (existingPhoneUser != null && existingPhoneUser.Id != user.Id)  // Kiểm tra xem có user khác trùng số điện thoại không
+                {
+                    ModelState.AddModelError("phone", "Phone number already exists!");
+                    model.email = user.Email;
+                    return View(model);
+                }
+
+                user.firstName = model.firstName;
+                user.lastName = model.lastName;
+                user.PhoneNumber = model.phone;
+                user.address = model.address;
+                user.sinhNhat = model.birthday;
+                user.ZipCode = model.zipcode;
+                user.Province = model.Province;
+                user.District = model.District;
+                user.Ward = model.Ward;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    TempData["Messse"] = "Your profile update was successful!";
+                    return View(model);
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        if (error.Code.Contains("Email"))
+                        {
+                            ModelState.AddModelError("email", error.Description);
+                        }
+                        else if (error.Code.Contains("PhoneNumber"))
+                        {
+                            ModelState.AddModelError("phone", error.Description);
+                        }
+                        else if (error.Code.Contains("FirstName"))
+                        {
+                            ModelState.AddModelError("firstName", error.Description);
+                        }
+                        else if (error.Code.Contains("LastName"))
+                        {
+                            ModelState.AddModelError("lastName", error.Description);
+                        }
+                        else if (error.Code.Contains("ZipCode"))
+                        {
+                            ModelState.AddModelError("zipcode", error.Description);
+                        }
+                        else if (error.Code.Contains("Province"))
+                        {
+                            ModelState.AddModelError("Province", error.Description);
+                        }
+                        else if (error.Code.Contains("District"))
+                        {
+                            ModelState.AddModelError("District", error.Description);
+                        }
+                        else if (error.Code.Contains("Ward"))
+                        {
+                            ModelState.AddModelError("Ward", error.Description);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                model.email = user.Email;
+            }
+
+          
+            return View(model);
+        }
+
+
+
         public async Task<IActionResult> Wishlist()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -148,17 +280,86 @@ namespace Booking.Controllers
         }
         public async Task<IActionResult> Wallet()
         {
-
+        
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToAction("Erro404", "Home");
             }
-            var tem = new walletViewModels();
-          var getBalace = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.trangthai=="done")
-          .OrderByDescending(h => h.thoigian)
-          .ToListAsync();
+           
 
+            var getInvoide  = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.method == "nap").OrderByDescending(h => h.thoigian)
+              .ToListAsync(); ;
+            if (getInvoide.Any())
+            {
+                foreach (var itemDogntien in getInvoide)
+                {
+                    var getBalace1 = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.trangthai == "done")
+           .OrderByDescending(h => h.thoigian)
+           .FirstOrDefaultAsync();
+
+                    if (!itemDogntien.IsComplete)
+                    {
+                        var checkORder = await this._Payos.getPaymentLinkInformation(itemDogntien.ordercode);
+                        var status = checkORder.status.ToUpper();
+                        var url = $"https://pay.payos.vn/web/{checkORder.id}/";
+                        switch (status)
+                        {
+                            case "CANCELLED":
+
+                                itemDogntien.trangthai = "huy";
+                                itemDogntien.IsComplete = true;
+                                break;
+                            case "PENDING":
+                                break;
+                            case "EXPIRED":
+                                itemDogntien.trangthai = "huy";
+                                itemDogntien.IsComplete = true;
+                                this._context.Update(itemDogntien);
+                                await this._context.SaveChangesAsync();
+                                break;
+                            case "UNDERPAID":
+                                itemDogntien.trangthai = "huy";
+                                itemDogntien.IsComplete = true;
+                                break;
+                            case "PROCESSING":
+
+                                break;
+                            case "FAILED":
+                                itemDogntien.trangthai = "huy";
+                                itemDogntien.IsComplete = true;
+                                this._context.Update(itemDogntien);
+                                await this._context.SaveChangesAsync();
+                                break;
+                            case "PAID":
+                                itemDogntien.trangthai = "done";
+                                itemDogntien.IsComplete = true;
+                                // Cập nhật số tiền sau
+                                itemDogntien.sotiensau = getBalace1 != null ? itemDogntien.sotienthaydoi + (getBalace1.sotiensau ) : itemDogntien.sotienthaydoi;
+                                itemDogntien.thoigian = DateTime.Now;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        this._context.Update(itemDogntien);
+                    }
+                    await this._context.SaveChangesAsync();
+                }
+
+            }
+
+
+
+            var tem = new walletViewModels();
+
+            var getBalace = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.trangthai == "done")
+            .OrderByDescending(h => h.thoigian)
+            .ToListAsync();
+
+            var getList = await this._context.Dongtiens.Where(u => u.UserID == user.Id)
+      .OrderByDescending(h => h.thoigian)
+      .ToListAsync();
             if (!getBalace.Any())
             {
                 tem.tien = 0;
@@ -166,17 +367,22 @@ namespace Booking.Controllers
             else
             {
                 tem.tien = getBalace.FirstOrDefault().sotiensau;
-                tem.numberTrans = getBalace.Count();
-                foreach(var item in getBalace)
+               
+            }
+            if (getList.Any())
+            {
+                tem.numberTrans = getList.Count();
+                foreach (var item in getList)
                 {
                     tem.list.Add(new tranList
                     {
-                        amount = item.sotientruoc,
-                        Balance = item.sotiensau+"",
-                        detail= item.noidung,
-                        paymentType = item.ordercode!=1?"Wallet":"Online Banking",
+                        amount = item.sotienthaydoi,
+                        Balance = item.sotiensau + "",
+                        detail = item.noidung,
+                        paymentType = item.ordercode == 1 ? "Wallet" : "Online Banking",
                         time = item.thoigian,
-                        type= item.method
+                        type = item.method,
+                        trangthai = item.trangthai
                     });
                 }
             }
@@ -200,19 +406,198 @@ namespace Booking.Controllers
             }
             else
             {
+                var tien = 0m;
+                var getBalace = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.trangthai == "done")
+         .OrderByDescending(h => h.thoigian)
+         .ToListAsync();
 
+                if (getBalace.Any())
+                {
+                    tien = getBalace.FirstOrDefault().sotiensau;
+                }
+                    try
+                {
 
+                    int orderCode = RandomCode.GenerateOrderCode();
+                    var check = await this._context.Dongtiens.FirstOrDefaultAsync(u => u.ordercode == orderCode);
+                    while (check != null)
+                    {
+                        orderCode = RandomCode.GenerateOrderCode();
+                        check = await this._context.Dongtiens.FirstOrDefaultAsync(u => u.ordercode == orderCode);
+                    }
+                    long expirationTimestamp = DateTimeOffset.Now.AddDays(1).ToUnixTimeSeconds();
 
-                return Json(new { status = "success", msg = $"Tạo đơn nạp tiền thành công.!  {number}" });
+                    ItemData item = new ItemData($"Thực hiện nạp tiền vào tài khoản {user.UserName}:", 1, int.Parse(number+""));
+                    List<ItemData> items = new List<ItemData> { item };
+                    var request = _httpContextAccessor.HttpContext.Request;
+                    var baseUrl = $"{request.Scheme}://{request.Host}";
+                    PaymentData paymentData = new PaymentData(orderCode, int.Parse(number + ""), "", items, $"{baseUrl}/Account/depositBiling?user={user.UserName}&address={user.address}&email={user.Email}&phone={user.PhoneNumber}&create={DateTime.Now}&amount={number}",
+                        $"{baseUrl}/Account/depositBiling?user={user.UserName}&address={user.address}&email={user.Email}&phone={user.PhoneNumber}&create={DateTime.Now}&amount={number}"
+                    , null, null, null, null, null, expirationTimestamp
+                       );
+                    CreatePaymentResult createPayment = await _Payos.createPaymentLink(paymentData);
+                    var url = $"https://pay.payos.vn/web/{createPayment.paymentLinkId}/";
+                    await _transactionManager.ExecuteInTransactionAsync(async () =>
+                    {
+                        
+                        var temDongTien = new dongtien
+                        {
+                            sotientruoc = tien,
+                            sotienthaydoi = number,
+                            sotiensau =0m,
+                            noidung = $"{url}",
+                            trangthai ="Doi",
+                            method ="Nap",
+                            ordercode = orderCode,
+                            thoigian = DateTime.Now,
+                            UserID = user.Id
+                        };
+                       
+                        await this._context.Dongtiens.AddAsync(temDongTien);
+                      
+                    });
+                    await this._context.SaveChangesAsync();
+
+                    return Json(new { status = "success", msg = $"Tạo đơn nạp tiền thành công.!", url = $"{url}" }); ;
+                }
+                catch (System.Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    return Json(new { status = "error", msg = "Đã xảy ra lỗi vui lòng thử lại hoặc nhắn tin với Admin" });
+                }
             }
         
 
         }
 
 
-            public async Task<IActionResult> Review()
+        public async Task<IActionResult> BookingHotels(BilingHotelsViewModels models)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || models==null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var billingData = HttpContext.Session.GetString("BillingInfo");
+
+            if (string.IsNullOrEmpty(billingData))
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+
+            var model = JsonConvert.DeserializeObject<BilingHotelsViewModels>(billingData);
+            return View(model);
+            
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmBooking([FromBody] BookingRequest request)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { notAuth = true, msg = "Bạn phải đăng nhập để thực hiện hành động này!" });
+            }
+
+            if (request == null || request.rooms == null || !request.rooms.Any())
+            {
+                return Json(new { status = "error", msg = "Dữ liệu đặt phòng không hợp lệ." });
+            }
+            if (string.IsNullOrEmpty(request.CheckIn) || string.IsNullOrEmpty(request.CheckOut))
+            {
+                return Json(new { status = "error", msg = "Ngày nhận phòng và trả phòng không được để trống." });
+            }
+            if (!DateTime.TryParseExact(request.CheckIn, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime checkInDate) ||
+                !DateTime.TryParseExact(request.CheckOut, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime checkOutDate))
+            {
+                return Json(new { status = "error", msg = "Định dạng ngày không hợp lệ. Vui lòng nhập theo định dạng dd-MM-yyyy." });
+            }
+            if (checkInDate < DateTime.Today)
+            {
+                return Json(new { status = "error", msg = "Ngày nhận phòng không thể là ngày trong quá khứ." });
+            }
+            if (checkOutDate <= checkInDate)
+            {
+                return Json(new { status = "error", msg = "Ngày trả phòng phải sau ngày nhận phòng." });
+            }
+            
+            if (request.Guests == null)
+            {
+                return Json(new { status = "error", msg = "Bạn chưa chọn số lượng khách." });
+            }
+            var rooms = await _context.Rooms
+                .Where(u => request.rooms.Contains(u.RoomID))
+                .OrderByDescending(x => x.PricePerNight)
+                .ToListAsync();
+
+            if (!rooms.Any())
+            {
+                return Json(new { status = "error", msg = "Không tìm thấy phòng phù hợp." });
+            }
+
+            var galleryImages = await _context.GalleryRooms
+                .Where(u => request.rooms.Contains(u.RoomID) && u.IsFeatureImage)
+                .ToDictionaryAsync(x => x.RoomID, x => x.ImagePath);
+
+            var listOrder = rooms.Select(item => new OrderHotelDetail
+            {
+                HotelID = item.HotelID,
+                checkOut = DateTime.TryParse(request.CheckOut, out var checkOutDate) ? checkOutDate : DateTime.Now,
+                checkIn = DateTime.TryParse(request.CheckIn, out var checkInDate) ? checkInDate : DateTime.Now,
+                Infants = request.Guests?.Infants ?? 0,
+                Adults = request.Guests?.Adults ?? 1,
+                Children = request.Guests?.Children ?? 0,
+                Tax = 0,
+                Discount = 0,
+                img = galleryImages.ContainsKey(item.RoomID) ? galleryImages[item.RoomID] : string.Empty,
+                NameRoom = item.RoomName,
+                BookingFees = 0,
+                total = item.PricePerNight
+            }).ToList();
+
+            var billingInfo = new BilingHotelsViewModels
+            {
+                id = user.Id,
+                address = user.address,
+                birthday = user.sinhNhat,
+                District = user.District,
+                email = user.Email,
+                firstName = user.firstName,
+                img = user.img,
+                lastName = user.lastName,
+                phone = user.PhoneNumber,
+                Province = user.Province,
+                Ward = user.Ward,
+                zipcode = user.ZipCode,
+                list = listOrder
+            };
+            HttpContext.Session.SetString("BillingInfo", JsonConvert.SerializeObject(billingInfo));
+
+            return Json(new { status = "success", url = Url.Action("BookingHotels", "Account") });
+        }
+
+
+        public async Task<IActionResult> Review()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ComfirmPay()
+        {
+            try
+            {
+
+                return Json(new { success = true, message = "Thanh toán thành công!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi khi thanh toán: " + ex.Message });
+            }
         }
 
 
@@ -222,9 +607,35 @@ namespace Booking.Controllers
         } 
         public async Task<IActionResult> Profile()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var tem = new settingViewModels
+            {
+                id = user.Id,
+                address = user.address,
+                birthday = user.sinhNhat,
+                District = user.District,
+                email = user.Email,
+                firstName = user.firstName,
+                img = user.img,
+                lastName = user.lastName,
+                phone = user.PhoneNumber,
+                Province = user.Province,
+                Ward = user.Ward,
+                zipcode = user.ZipCode
+            };
+
+            return View(tem);
         }
         public async Task<IActionResult> invoices()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> DepositBiling()
         {
             return View();
         }
@@ -237,11 +648,7 @@ namespace Booking.Controllers
 
 
 
-
-
-
-
-        }
+    }
 
 
     }

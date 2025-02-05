@@ -26,6 +26,7 @@ namespace Booking.Data
         public DbSet<GalleryRoom> GalleryRooms { get; set; }
         public DbSet<WishlistHotel> WishlistHotels { get; set; }
         public DbSet<dongtien> Dongtiens { get; set; }
+        public DbSet<datphong>  Datphongs { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -153,7 +154,19 @@ namespace Booking.Data
 .OnDelete(DeleteBehavior.NoAction);
 
 
+            modelBuilder.Entity<datphong>().HasKey(a => a.ID);
 
+            modelBuilder.Entity<datphong>()
+        .HasOne(w => w.AppUser)
+        .WithMany(h => h.Datphongs)
+        .HasForeignKey(w => w.UserID)
+        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<datphong>()
+           .HasOne(w => w.Room)
+            .WithMany(h => h.Datphongs)
+           .HasForeignKey(w => w.RoomID)
+           .OnDelete(DeleteBehavior.NoAction);
 
 
 

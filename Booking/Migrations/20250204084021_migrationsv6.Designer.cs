@@ -4,6 +4,7 @@ using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250204084021_migrationsv6")]
+    partial class migrationsv6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,9 +97,6 @@ namespace Booking.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("District")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -127,12 +127,6 @@ namespace Booking.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Province")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RequestSeller")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -143,31 +137,13 @@ namespace Booking.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Ward")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("firstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("img")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("isUpdateProfile")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("joinin")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("lastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("sinhNhat")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -517,69 +493,6 @@ namespace Booking.Migrations
                     b.ToTable("WishlistHotels");
                 });
 
-            modelBuilder.Entity("Booking.Models.datphong", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("BookedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("BookingFees")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DatePayment")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Discount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Guests")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NoOfDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("RoomID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("checkIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("checkOut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("messess")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("paymentStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("tax")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("totalPaid")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RoomID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("Datphongs");
-                });
-
             modelBuilder.Entity("Booking.Models.dongtien", b =>
                 {
                     b.Property<Guid>("ID")
@@ -927,25 +840,6 @@ namespace Booking.Migrations
                     b.Navigation("Hotel");
                 });
 
-            modelBuilder.Entity("Booking.Models.datphong", b =>
-                {
-                    b.HasOne("Booking.Models.Room", "Room")
-                        .WithMany("Datphongs")
-                        .HasForeignKey("RoomID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Booking.Models.AppUser", "AppUser")
-                        .WithMany("Datphongs")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("Booking.Models.dongtien", b =>
                 {
                     b.HasOne("Booking.Models.AppUser", "AppUser")
@@ -1010,8 +904,6 @@ namespace Booking.Migrations
 
             modelBuilder.Entity("Booking.Models.AppUser", b =>
                 {
-                    b.Navigation("Datphongs");
-
                     b.Navigation("Dongtiens");
 
                     b.Navigation("Hotels");
@@ -1047,8 +939,6 @@ namespace Booking.Migrations
                     b.Navigation("AccessibilityRooms");
 
                     b.Navigation("AmenityRooms");
-
-                    b.Navigation("Datphongs");
 
                     b.Navigation("GalleryRooms");
 

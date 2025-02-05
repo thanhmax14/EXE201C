@@ -22,7 +22,8 @@
     <meta name="author" content="Dreams Technologies">
     <meta name="robots" content="index, follow">
 
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 
 </head>
 
@@ -1035,10 +1036,6 @@
                                                     </a>
                                                 </div>
                                             }
-
-                                            
-
-                                            
                                         </div>
                                         <div class="fav-item">
                                             <span class="badge bg-pink">Popular</span>
@@ -1113,8 +1110,8 @@
                                                 </a>
                                                 <div class="btn btn-primary btn-md mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0">
-                                                        <input class="form-check-input ms-0 mt-0 border border-white"
-                                                               name="book" type="checkbox" id="@id" >
+                                                        <input class="form-check-input ms-0 mt-0 border border-white room-checkbox"
+                                                               name="book" type="checkbox" id="@id" data-room-id="@itemRoom.RoomID">
                                                         <label class="form-check-label fs-13 text-white ms-2"
                                                                for="@id">Select Room</label>
                                                     </div>
@@ -1749,16 +1746,17 @@
                                 </h5>
                             </div>
                             <div class="banner-form">
-                                <form action="https://dreamstour.dreamstechnologies.com/html/hotel-booking.html">
+                                <form>
+                                    @Html.AntiForgeryToken()
                                     <div class="form-info border-0">
                                         <div class="form-item border rounded p-3 mb-3 w-100">
                                             <label class="form-label fs-14 text-default mb-0">Check In</label>
-                                            <input type="text" class="form-control datetimepicker" value="21-10-2025">
+                                            <input type="text" name="check-in" class="form-control datetimepicker" value="21-10-2025">
                                             <p class="fs-12">Monday</p>
                                         </div>
                                         <div class="form-item border rounded p-3 mb-3 w-100">
                                             <label class="form-label fs-14 text-default mb-0">Check Out</label>
-                                            <input type="text" class="form-control datetimepicker" value="21-10-2025">
+                                            <input type="text" name="check-out" class="form-control datetimepicker" value="21-10-2025">
                                             <p class="fs-12">Monday</p>
                                         </div>
                                         <div class="card shadow-none mb-3">
@@ -1772,18 +1770,15 @@
                                                         <div class="custom-increment">
                                                             <div class="input-group">
                                                                 <span class="input-group-btn float-start">
-                                                                    <button type="button"
-                                                                            class="quantity-left-minus btn btn-light btn-number"
-                                                                            data-type="minus" data-field="">
+                                                                    <button type="button" class="quantity-left-minus btn btn-light btn-number"
+                                                                            data-type="minus">
                                                                         <span><i class="isax isax-minus"></i></span>
                                                                     </button>
                                                                 </span>
-                                                                <input type="text" name="quantity" class=" input-number"
-                                                                       value="01">
+                                                                <input type="text" name="adults" class="input-number" value="1">
                                                                 <span class="input-group-btn float-end">
-                                                                    <button type="button"
-                                                                            class="quantity-right-plus btn btn-light btn-number"
-                                                                            data-type="plus" data-field="">
+                                                                    <button type="button" class="quantity-right-plus btn btn-light btn-number"
+                                                                            data-type="plus">
                                                                         <span><i class="isax isax-add"></i></span>
                                                                     </button>
                                                                 </span>
@@ -1792,26 +1787,20 @@
                                                     </div>
                                                     <div class="mb-3 d-flex align-items-center justify-content-between">
                                                         <label class="form-label text-gray-9">
-                                                            Infants <span class="text-default fw-normal mb-0">
-                                                                ( 0-12 Yrs
-                                                                )
-                                                            </span>
+                                                            Infants <span class="text-default fw-normal mb-0">(0-12 Yrs)</span>
                                                         </label>
                                                         <div class="custom-increment">
                                                             <div class="input-group">
                                                                 <span class="input-group-btn float-start">
-                                                                    <button type="button"
-                                                                            class="quantity-left-minus btn btn-light btn-number"
-                                                                            data-type="minus" data-field="">
+                                                                    <button type="button" class="quantity-left-minus btn btn-light btn-number"
+                                                                            data-type="minus">
                                                                         <span><i class="isax isax-minus"></i></span>
                                                                     </button>
                                                                 </span>
-                                                                <input type="text" name="quantity" class=" input-number"
-                                                                       value="01">
+                                                                <input type="text" name="infants" class="input-number" value="0">
                                                                 <span class="input-group-btn float-end">
-                                                                    <button type="button"
-                                                                            class="quantity-right-plus btn btn-light btn-number"
-                                                                            data-type="plus" data-field="">
+                                                                    <button type="button" class="quantity-right-plus btn btn-light btn-number"
+                                                                            data-type="plus">
                                                                         <span><i class="isax isax-add"></i></span>
                                                                     </button>
                                                                 </span>
@@ -1820,26 +1809,20 @@
                                                     </div>
                                                     <div class="mb-3 d-flex align-items-center justify-content-between">
                                                         <label class="form-label text-gray-9 mb-0">
-                                                            Children <span class="text-default fw-normal">
-                                                                ( 2-12 Yrs
-                                                                )
-                                                            </span>
+                                                            Children <span class="text-default fw-normal">(2-12 Yrs)</span>
                                                         </label>
                                                         <div class="custom-increment">
                                                             <div class="input-group">
                                                                 <span class="input-group-btn float-start">
-                                                                    <button type="button"
-                                                                            class="quantity-left-minus btn btn-light btn-number"
-                                                                            data-type="minus" data-field="">
+                                                                    <button type="button" class="quantity-left-minus btn btn-light btn-number"
+                                                                            data-type="minus">
                                                                         <span><i class="isax isax-minus"></i></span>
                                                                     </button>
                                                                 </span>
-                                                                <input type="text" name="quantity" class=" input-number"
-                                                                       value="01">
+                                                                <input type="text" name="children" class="input-number" value="0">
                                                                 <span class="input-group-btn float-end">
-                                                                    <button type="button"
-                                                                            class="quantity-right-plus btn btn-light btn-number"
-                                                                            data-type="plus" data-field="">
+                                                                    <button type="button" class="quantity-right-plus btn btn-light btn-number"
+                                                                            data-type="plus">
                                                                         <span><i class="isax isax-add"></i></span>
                                                                     </button>
                                                                 </span>
@@ -1850,12 +1833,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit"
-                                            class="btn btn-primary btn-lg search-btn ms-0 mb-3 w-100 fs-14">
-                                        Book
-                                        Now
-                                    </button>
+
+                                    <button id="book-now-btn" type="button" class="btn btn-primary btn-lg search-btn ms-0 mb-3 w-100 fs-14">Book Now</button>
                                 </form>
+
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-1">
                                 <p class="fs-14 text-dark d-inline-flex align-items-center mb-0">
@@ -2573,12 +2554,101 @@
 
 
     </script>
+    <script src="~/assets/js/jquery-3.7.1.min.js"></script>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/cute-alert/cute-alert.js"></script>
+    <link href="~/cute-alert/style.css" rel="stylesheet" />
 </body>
 
 
 
-
-<!-- Mirrored from dreamstour.dreamstechnologies.com/html/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Jan 2025 14:12:23 GMT -->
-
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let selectedRooms = [];
+
+        // Khi chọn checkbox phòng
+        $(".room-checkbox").on("change", function () {
+            let roomId = $(this).data("room-id");
+
+            if ($(this).is(":checked")) {
+                selectedRooms.push(roomId); // Thêm phòng vào danh sách
+            } else {
+                selectedRooms = selectedRooms.filter(id => id !== roomId); // Xóa nếu bỏ chọn
+            }
+        });
+
+        $("#book-now-btn").on("click", function () {
+            if (selectedRooms.length === 0) {
+                Swal.fire('Thất bại', 'Vui lòng chọn ít nhất 1 phòng', 'error');
+                return;
+            }
+
+            // Lấy dữ liệu từ form
+            let checkInDate = $("input[name='check-in']").val();
+            let checkOutDate = $("input[name='check-out']").val();
+            let adults = $("input[name='adults']").val();
+            let children = $("input[name='children']").val();
+            let infants = $("input[name='infants']").val();
+
+            // Tạo object chứa toàn bộ dữ liệu
+            let bookingData = {
+                rooms: selectedRooms,
+                checkIn: checkInDate,
+                checkOut: checkOutDate,
+                guests: {
+                    adults: adults,
+                    children: children,
+                    infants: infants
+                }
+            };
+
+            console.log(bookingData); // Kiểm tra dữ liệu trước khi gửi
+
+            $('#book-now-btn').html('<i class="fa fa-spinner fa-spin"></i> Đang xử lý...').prop('disabled', true);
+
+            $.ajax({
+                url: "/Account/ConfirmBooking",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(bookingData),
+                headers: {
+                    "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (response) {
+                    if (response.status == 'success') {
+                        Swal.fire({
+                            title: 'Thành công!',
+                            text: 'Bạn sẽ được chuyển hướng đến trang thanh toán...',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed || result.isDismissed) {
+                                window.location.href = response.url;
+                            }
+                        });
+
+
+
+                    } else if (response.notAuth) {
+                        Swal.fire('Thất bại', response.msg, 'error');
+                    } else {
+                        Swal.fire('Thất bại', response.msg, 'error');
+                    }
+                    $('#book-now-btn').html('Book Now').prop('disabled', false);
+                },
+                error: function (err) {
+                    alert("Có lỗi xảy ra, vui lòng thử lại!");
+                    $('#book-now-btn').html('Book Now').prop('disabled', false);
+                }
+            });
+        });
+    });
+
+</script>
+
+
