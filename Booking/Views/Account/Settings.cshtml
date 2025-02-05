@@ -1,0 +1,854 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model Booking.ViewModels.settingViewModels
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from dreamstour.dreamstechnologies.com/html/profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Jan 2025 14:14:50 GMT -->
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamsTour - Travel and Tour Booking Bootstrap 5 template</title>
+
+    <meta name="description"
+          content="DreamsTour - A premium Bootstrap 5 template crafted for travel and tour booking. Tailored for travel agencies and booking platforms, it features flight, hotel, and tour reservations, and holiday packages.">
+    <meta name="keywords"
+          content="travel booking template, tour booking, Bootstrap 5 travel template, DreamsTour, hotel booking, flights booking, holiday packages, tour agency website, travel agency template, travel HTML template, booking system, responsive travel template, Bootstrap travel website">
+    <meta name="author" content="Dreams Technologies">
+    <meta name="robots" content="index, follow">
+
+</head>
+
+<body>
+
+    <div class="main-header">
+        <!-- Header Topbar-->
+        <div class="header-topbar text-center bg-transparent">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <p class="d-flex align-items-center fw-medium fs-14 mb-2">
+                        <i class="isax isax-call5 me-2"></i>Toll
+                        Free : +1 56565 56594
+                    </p>
+                    <div class="d-flex align-items-center">
+                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14">
+                            <i class="isax isax-message-text-15 me-2"></i>Email : <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                                                                     class="__cf_email__"
+                                                                                     data-cfemail="e48d8a828ba4819c8589948881ca878b89">[email&#160;protected]</a>
+                        </p>
+                        <div class="dropdown flag-dropdown mb-2 me-3">
+                            <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
+                            </a>
+                            <ul class="dropdown-menu p-2 mt-2">
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center"
+                                       href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center"
+                                       href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/arab-flag.svg" class="me-2" alt="flag">ARA
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center"
+                                       href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/france-flag.svg" class="me-2" alt="flag">FRA
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="dropdown mb-2 me-3">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                USD
+                            </a>
+                            <ul class="dropdown-menu p-2 mt-2">
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
+                            </ul>
+                        </div>
+                        <div class="fav-dropdown mb-2">
+                            <a href="wishlist.html" class="position-relative">
+                                <i class="isax isax-heart"></i><span class="count-icon bg-secondary text-gray-9">0</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Header Topbar-->
+        <!-- Header -->
+        @await Html.PartialAsync("_patiarialHearder")
+        <!-- /Header -->
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar breadcrumb-bg-04 text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-12">
+                    <h2 class="breadcrumb-title mb-2">Settings</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center mb-0">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-grid-55"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Breadcrumb -->
+    <!-- Page Wrapper -->
+    <div class="content">
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Sidebar -->
+                <div class="col-xl-3 col-lg-4 theiaStickySidebar">
+                    <div class="card user-sidebar mb-4">
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            var tien = await UserManager.GetUserAsync(User);
+                            <div class="card-header user-sidebar-header">
+                                <div class="profile-content rounded-pill">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class=" d-flex align-items-center justify-content-center">
+                                            <img src="@tien.img" alt="image" class="img-fluid avatar avatar-lg rounded-circle me-1">
+                                            <div>
+                                                <h6 class="fs-16">@tien.UserName</h6>
+                                                <span class="fs-14 text-gray-6">@tien.joinin</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <a href="profile-settings.html" class="p-1 rounded-circle btn btn-light d-flex align-items-center justify-content-center"><i class="isax isax-edit-2 fs-14"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+
+
+                        <div class="card-body user-sidebar-body">
+                            <ul>
+                                <li>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Main</span>
+                                </li>
+                                <li>
+                                    <a href="/account" class="d-flex align-items-center active">
+                                        <i class="isax isax-grid-55"></i> Dashboard
+                                    </a>
+                                </li>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5"></i><span>My Bookings</span><span class="menu-arrow"></span></a>
+                                    <ul>
+                                        @* <li>
+                                        <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
+                                        </li> *@
+                                        <li>
+                                            <a href="/account/hotelBooking" class="fs-14 d-inline-flex align-items-center">Hotels</a>
+                                        </li>
+                                        @*  <li>
+                                        <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
+                                        </li>
+                                        <li>
+                                        <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
+                                        </li> *@
+                                        <li>
+                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="/account/review" class="d-flex align-items-center">
+                                        <i class="isax isax-magic-star5"></i> My Reviews
+                                    </a>
+                                </li>
+                                @* <li>
+                                <div class="message-content">
+                                <a href="chat.html" class="d-flex align-items-center">
+                                <i class="isax isax-message-square5"></i> Messages
+                                </a>
+                                <span class="msg-count rounded-circle">02</span>
+                                </div>
+                                </li> *@
+                                <li class="mb-2">
+                                    <a href="/account/Wishlist" class="d-flex align-items-center">
+                                        <i class="isax isax-heart5"></i> Wishlist
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Finance</span>
+                                </li>
+                                <li>
+                                    <a href="/account/wallet" class="d-flex align-items-center">
+                                        <i class="isax isax-wallet-add-15"></i> Wallet
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a href="/account/payment" class="d-flex align-items-center">
+                                        <i class="isax isax-money-recive5"></i> Payments
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Account</span>
+                                </li>
+                                <li>
+                                    <a href="/account/profile" class="d-flex align-items-center">
+                                        <i class="isax isax-profile-tick5"></i> My Profile
+                                    </a>
+                                </li>
+                                @*    <li>
+                                <div class="message-content">
+                                <a href="notification.html" class="d-flex align-items-center">
+                                <i class="isax isax-notification-bing5"></i> Notifications
+                                </a>
+                                <span class="msg-count bg-purple rounded-circle">05</span>
+                                </div>
+                                </li> *@
+                                <li>
+                                    <a href="/account/settings" class="d-flex align-items-center">
+                                        <i class="isax isax-setting-25"></i> Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Home/Logout" class="d-flex align-items-center pb-0">
+                                        <i class="isax isax-logout-15"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Sidebar -->
+                <!-- Profile Settings -->
+                <div class="col-xl-9 col-lg-8">
+                    <div class="card settings mb-0">
+                        <div class="card-header">
+                            <h6>Settings</h6>
+                        </div>
+
+                        <form asp-action="Settings" asp-controller="account" method="post">
+                            <div class="card-body pb-3">
+                                <div class="settings-link d-flex align-items-center flex-wrap">
+                                    <a href="/account/settings" class="active ps-3">
+                                        <i class="isax isax-user-octagon me-2"></i>Profile Settings
+                                    </a>
+                                   @*  <a href="security-settings.html"><i class="isax isax-shield-tick me-2"></i>Security</a>
+                                    <a href="notification-settings.html">
+                                        <i class="isax isax-notification me-2"></i>Notifications
+                                    </a>
+                                    <a href="integration-settings.html" class="pe-3">
+                                        <i class="isax isax-hierarchy me-2"></i>Integrations
+                                    </a> *@
+                                </div>
+
+
+
+                                <div class="settings-content mb-3">
+                                    <h6 class="fs-16 mb-3">Basic Information</h6>
+                                    <div class="row gy-2">
+                                       @*  <div class="col-lg-12">
+                                            <div class="d-flex align-items-center">
+                                                <img src="@Model.img" alt="image"
+                                                     class="img-fluid avatar avatar-xxl br-10 flex-shrink-0 me-3">
+                                                <div>
+                                                    <p class="fs-14 text-gray-6 fw-normal mb-2">
+                                                        Recommended dimensions are
+                                                        typically 400 x 400 pixels.
+                                                    </p>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="me-2">
+                                                            <label class="upload-btn" for="fileUpload">Upload</label>
+                                                            <input type="file" id="fileUpload" asp-for="img" style="display: none;">
+                                                        </div>
+                                                        <a href="javascript:void(0);"
+                                                           class="btn btn-light btn-md">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> *@
+                                        <input  type="hidden" asp-for="id"/>
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label class="form-label">First Name</label>
+                                                <input type="text" class="form-control" asp-for="firstName">
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="firstName"></span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" asp-for="lastName">
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="lastName"></span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label class="form-label">Email</label>
+                                                <input type="email" class="form-control" asp-for="email" readonly>
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="email"></span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label class="form-label">Phone</label>
+                                                <input type="number" class="form-control" asp-for="phone">
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="phone"></span>
+                                        </div>
+
+
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label class="form-label">BirthDate</label>
+                                                <input type="date" class="form-control" asp-for="birthday">
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="birthday"></span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label class="form-label">Zip Code</label>
+                                                <input type="text" class="form-control" asp-for="zipcode">
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="zipcode"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="settings-content">
+                                    <h6 class="fs-16 mb-3">Address Information</h6>
+                                    <div class="row gy-2">
+                                        <div class="col-lg-6">
+                                            <div>
+                                                
+                                                <label class="form-label">Province/City</label>
+                                                <select id="province" class="select form-control" asp-for="Province">
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="Province"></span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label class="form-label">District</label>
+                                                <select id="district" class="select form-control" asp-for="District">
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="District"></span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div>
+                                                <label class="form-label">Ward</label>
+                                                <select id="ward" class="select form-control" asp-for="Ward">
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="Ward"></span>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div>
+                                                <label class="form-label">Address</label>
+                                                <input type="text" class="form-control" asp-for="address">
+                                            </div>
+                                            <span class="text-danger" asp-validation-for="address"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- Settings Content -->
+
+
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const provinceSelect = document.getElementById("province");
+                                        const districtSelect = document.getElementById("district");
+                                        const wardSelect = document.getElementById("ward");
+
+                                        // Giả sử bạn đã có giá trị tỉnh, quận, phường từ model (backend)
+                                        const selectedProvince = '@Model.Province';  // Giá trị tỉnh đã lưu từ model
+                                        const selectedDistrict = '@Model.District';  // Giá trị quận đã lưu từ model
+                                        const selectedWard = '@Model.Ward';  // Giá trị phường đã lưu từ model
+
+                                        console.log('Selected Province: ', selectedProvince);
+                                        console.log('Selected District: ', selectedDistrict);
+                                        console.log('Selected Ward: ', selectedWard);
+
+                                        // Lấy danh sách tỉnh/thành phố
+                                        fetch("https://provinces.open-api.vn/api/?depth=1")
+                                            .then(response => response.json())
+                                            .then(provinces => {
+                                                provinces.forEach(province => {
+                                                    const option = document.createElement("option");
+                                                    option.value = province.code;
+                                                    option.textContent = province.name;
+
+                                                    // Nếu tỉnh trong cơ sở dữ liệu khớp với tỉnh trong API, chọn tỉnh đó
+                                                    if (province.code == selectedProvince) {
+                                                        option.selected = true;
+                                                    }
+
+                                                    provinceSelect.appendChild(option);
+                                                });
+
+                                                // Nếu đã có giá trị tỉnh được chọn, load danh sách quận
+                                                if (selectedProvince) {
+                                                    provinceSelect.value = selectedProvince;
+                                                    const event = new Event("change");
+                                                    provinceSelect.dispatchEvent(event);
+                                                }
+                                            })
+                                            .catch(error => console.error("Error fetching provinces:", error));
+
+                                        // Khi chọn tỉnh/thành phố, lấy danh sách quận/huyện
+                                        provinceSelect.addEventListener("change", function () {
+                                            const provinceCode = this.value;
+
+                                            // Reset danh sách quận/huyện và phường/xã
+                                            districtSelect.innerHTML = '<option value="">Select</option>';
+                                            wardSelect.innerHTML = '<option value="">Select</option>';
+
+                                            if (provinceCode) {
+                                                fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
+                                                    .then(response => response.json())
+                                                    .then(province => {
+                                                        if (province.districts) {
+                                                            province.districts.forEach(district => {
+                                                                const option = document.createElement("option");
+                                                                option.value = district.code;
+                                                                option.textContent = district.name;
+
+                                                                // Nếu quận trong cơ sở dữ liệu khớp với quận trong API, chọn quận đó
+                                                                if (district.code == selectedDistrict) {
+                                                                    option.selected = true;
+                                                                }
+
+                                                                districtSelect.appendChild(option);
+                                                            });
+
+                                                            // Nếu đã có giá trị quận được chọn, load danh sách phường
+                                                            if (selectedDistrict) {
+                                                                districtSelect.value = selectedDistrict;
+                                                                const event = new Event("change");
+                                                                districtSelect.dispatchEvent(event);  // Kích hoạt sự kiện change để load phường
+                                                            }
+                                                        } else {
+                                                            console.error("No districts found for this province.");
+                                                        }
+                                                    })
+                                                    .catch(error => console.error("Error fetching districts:", error));
+                                            }
+                                        });
+
+                                        // Khi chọn quận/huyện, lấy danh sách phường/xã
+                                        districtSelect.addEventListener("change", function () {
+                                            const districtCode = this.value;
+
+                                            // Reset danh sách phường/xã
+                                            wardSelect.innerHTML = '<option value="">Select</option>';
+
+                                            if (districtCode) {
+                                                fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
+                                                    .then(response => response.json())
+                                                    .then(district => {
+                                                        if (district.wards) {
+                                                            district.wards.forEach(ward => {
+                                                                const option = document.createElement("option");
+                                                                option.value = ward.code;
+                                                                option.textContent = ward.name;
+
+                                                                // Nếu phường trong cơ sở dữ liệu khớp với phường trong API, chọn phường đó
+                                                                if (ward.code == selectedWard) {
+                                                                    option.selected = true;
+                                                                }
+
+                                                                wardSelect.appendChild(option);
+                                                            });
+                                                        } else {
+                                                            console.error("No wards found for this district.");
+                                                        }
+                                                    })
+                                                    .catch(error => console.error("Error fetching wards:", error));
+                                            }
+                                        });
+
+                                        // Nếu đã có giá trị phường được chọn, gán vào wardSelect
+                                        if (selectedWard) {
+                                            wardSelect.value = selectedWard;
+                                        }
+                                    });
+                                </script>
+
+
+
+
+
+
+
+                                <!-- /Settings Content-->
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex align-items-center justify-content-end">
+                              
+                                    <input type="reset" class="btn btn-light me-2" value="Reset" />
+
+                                    <input type="submit" class="btn btn-primary" value="Save" />
+                                </div>
+                            </div>
+                        </form>
+                        
+                       
+
+
+                    </div>
+                </div>
+                <!-- /Profile Settings -->
+
+            </div>
+        </div>
+    </div>
+    <!-- /Page Wrapper -->
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1">
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Pages</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="team.html">Our Team</a>
+                                </li>
+                                <li>
+                                    <a href="pricing-plan.html">Pricing Plans</a>
+                                </li>
+                                <li>
+                                    <a href="gallery.html">Gallery</a>
+                                </li>
+                                <li>
+                                    <a href="profile-settings.html">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="my-profile.html">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="agent-listings.html">Listings</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Company</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="about-us.html">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Careers</a>
+                                </li>
+                                <li>
+                                    <a href="blog-grid.html">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Affiliate Program</a>
+                                </li>
+                                <li>
+                                    <a href="add-flight.html">Add Your Listing</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Our Partners</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Destinations</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="javascript:void(0);">Hawai</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Istanbul</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">San Diego</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Belgium</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Los Angeles</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Newyork</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Support</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="contact-us.html">Contact Us</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Legal Notice</a>
+                                </li>
+                                <li>
+                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                </li>
+                                <li>
+                                    <a href="terms-conditions.html">Terms and Conditions</a>
+                                </li>
+                                <li>
+                                    <a href="chat.html">Chat Support</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Refund Policy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Services</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="hotel-grid.html">Hotel</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Activity Finder</a>
+                                </li>
+                                <li>
+                                    <a href="flight-grid.html">Flight Finder</a>
+                                </li>
+                                <li>
+                                    <a href="tour-grid.html">Holiday Rental</a>
+                                </li>
+                                <li>
+                                    <a href="car-grid.html">Car Rental</a>
+                                </li>
+                                <li>
+                                    <a href="tour-details.html">Holiday Packages</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-wrap bg-white">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-xl-3 col-xxl-3">
+                            <div class="mb-3 text-center text-xl-start">
+                                <a href="index.html" class="d-block footer-logo-light">
+                                    <img src="~/assets/img/logo-dark.svg" alt="logo">
+                                </a>
+                                <a href="index.html" class="footer-logo-dark">
+                                    <img src="~/assets/img/logo.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 col-xxl-4">
+                            <div class="d-flex align-items-center justify-content-center flex-wrap">
+                                <h6 class="fs-14 fw-medium me-2 mb-2">Available on : </h6>
+                                <a href="javascript:void(0);" class="d-block mb-3 me-2">
+                                    <img src="~/assets/img/icons/googleplay.svg" alt="logo">
+                                </a>
+                                <a href="javascript:void(0);" class="d-block mb-3">
+                                    <img src="~/assets/img/icons/appstore.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-xl-5 col-xxl-5">
+                            <div class="d-sm-flex align-items-center justify-content-center justify-content-xl-end">
+                                <div class="d-flex align-items-center justify-content-center justify-content-sm-start me-0 pe-0 me-sm-3 pe-sm-3 border-end mb-3">
+                                    <span class="avatar avatar-lg bg-primary rounded-circle flex-shrink-0">
+                                        <i class="ti ti-headphones-filled fs-24"></i>
+                                    </span>
+                                    <div class="ms-2">
+                                        <p class="mb-1">Customer Support</p>
+                                        <p class="fw-medium text-dark">+1 56589 54598</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
+                                    <span class="avatar avatar-lg bg-secondary rounded-circle flex-shrink-0">
+                                        <i class="ti ti-message fs-24 text-gray-9"></i>
+                                    </span>
+                                    <div class="ms-2">
+                                        <p class="mb-1">Drop Us an Email</p>
+                                        <p class="fw-medium text-dark">
+                                            <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                               class="__cf_email__"
+                                               data-cfemail="9ef7f0f8f1defbe6fff3eef2fbb0fdf1f3">[email&#160;protected]</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-img">
+                    <img src="~/assets/img/bg/footer.svg" class="img-fluid" alt="img">
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <p class="fs-14">
+                                Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);"
+                                                                               class="text-primary fw-medium">DreamsTour</a>
+                            </p>
+                            <div class="d-flex align-items-center">
+                                <ul class="social-icon">
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-linkedin"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-pinterest"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <ul class="card-links">
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-01.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-02.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-03.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-04.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-05.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-06.svg" alt="img">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer Bottom -->
+
+    </footer>
+    <!-- /Footer -->
+    <!-- Cursor -->
+    <div class="xb-cursor tx-js-cursor">
+        <div class="xb-cursor-wrapper">
+            <div class="xb-cursor--follower xb-js-follower"></div>
+        </div>
+    </div>
+    <!-- /Cursor -->
+
+    <div class="back-to-top">
+        <a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+
+<!-- Mirrored from dreamstour.dreamstechnologies.com/html/profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Jan 2025 14:14:51 GMT -->
+
+</html>
+<script>
+    // Kiểm tra nếu có thông báo lỗi từ TempData
+    @if (TempData["Messse"] != null)
+    {
+        <text>
+            Swal.fire({
+                title: "Congatulation",
+                text: '@TempData["Messse"]',
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                }
+            });
+        </text>
+
+    }
+    @if (TempData["MessseErro"] != null)
+    {
+        <text>
+            Swal.fire({
+                title: "Failed!!",
+                text: '@TempData["MessseErro"]',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                }
+            });
+        </text>
+
+    }
+       
+</script>

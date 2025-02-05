@@ -71,9 +71,11 @@
                                     <p>Create your DreamsTour Account</p>
                                 </div>
                             </div>
+
                             <div class="card-body">
                                 <form>
                                     @Html.AntiForgeryToken()
+                                    <input type="hidden" id="ReturnUrl" value="@ViewData["ReturnUrl"]" />
                                     <div class="mb-3">
                                         <label class="form-label">Name</label>
                                         <div class="input-icon">

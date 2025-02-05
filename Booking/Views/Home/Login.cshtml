@@ -69,9 +69,13 @@
                                     <p>Sign in to Start Manage your DreamsTour Account</p>
                                 </div>
                             </div>
+                            @{
+                                string returnUrl = ViewData["ReturnUrl"]?.ToString() ?? "/";
+                            }
                             <div class="card-body">
                                 <form>
                                     @Html.AntiForgeryToken()
+                                    <input type="hidden" id="ReturnUrl" value="@returnUrl" />
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
                                         <div class="input-icon">
@@ -120,7 +124,7 @@
                                         </a>
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <p class="fs-14">Don't you have an account? <a href="register.html" class="link-primary fw-medium">Sign up</a></p>
+                                        <p class="fs-14">Don't you have an account? <a href="@Url.Action("Register", "Home", new { returnUrl = ViewData["ReturnUrl"] })" class="link-primary fw-medium">Sign up</a></p>
                                     </div>
                                 </form>
                             </div>
