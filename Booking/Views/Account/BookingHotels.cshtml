@@ -582,10 +582,11 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="mb-0">
-                                                <label class="form-label">Additional Info (Opptional)</label>
-                                                <textarea class="form-control" rows="4"></textarea>
+                                                <label class="form-label">Additional Info (Optional)</label>
+                                                <textarea class="form-control" name="optionalInfo" rows="4"></textarea>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -667,6 +668,10 @@
                                             <p class="fs-16">@item.Adults</p>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <h6 class="fs-16">Infants </h6>
+                                            <p class="fs-16">@item.Infants</p>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
                                             <h6 class="fs-16">Children</h6>
                                             <p class="fs-16">@item.Children</p>
                                         </div>
@@ -722,7 +727,7 @@
                             <p>Booking on <strong>“Queen Room”</strong> has been successful with Reference Number <span class="text-primary"> #12559845</span></p>
                         </div>
                         <div class="d-flex align-items-center justify-content-center ">
-                            <a href="booking-confirmation.html" class="btn btn-primary d-flex flex-shrink-0">View Booking Details</a>
+                            <a href="/Account/hotelsBooking" class="btn btn-primary d-flex flex-shrink-0">View Booking Details</a>
                         </div>
                     </div>
                 </div>
@@ -1008,23 +1013,37 @@
     $(document).ready(function () {
         $("#confirmPayBtn").click(function (e) {
             e.preventDefault(); // Ngăn trang load lại
+            var optionalInfo = $("textarea[name='optionalInfo']").val();
             $('#confirmPayBtn').html('<i class="fa fa-spinner fa-spin"></i> Đang xử lý...').prop('disabled', true);
             $.ajax({
                 url: "@Url.Action("ComfirmPay", "Account")", 
                 type: "POST",
+                data: { optional: optionalInfo },
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 success: function (response) {
-                 if(response.success){
+                    if (response.success) {
 
                         $("#booking-success p strong").text(response.roomName);
                         $("#booking-success .text-primary").text("#" + response.referenceNumber);
-                        $("#booking-success a").attr("href", response.redirectUrl);
-
-
+                       
 
                         $("#booking-success").modal("show");
+                        $("#booking-success").on("hidden.bs.modal", function () {
+                            window.location.href = "/";
+                        });
+                    } else if (response.Notfunds) {
+                        Swal.fire({
+                            title: 'Thất bại!',
+                            text: response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed || result.isDismissed) {
+                                window.location.href = "/account/wallet";
+                            }
+                        });
                     }else{
-                     alert(loi);
+                        Swal.fire('Thất bại', response.message, 'error');
                     }
                     $('#confirmPayBtn').html('Confirm & Pay $@Model.list.Sum(u => u.total) ').prop('disabled', false);
                 },

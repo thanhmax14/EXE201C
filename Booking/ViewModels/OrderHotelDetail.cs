@@ -3,7 +3,7 @@
     public class OrderHotelDetail
     {
 
-
+        public  Guid RomID { get; set; }
         public Guid HotelID { get; set; }
         public string? img { get; set; }
         public string? NameRoom { get; set; }
