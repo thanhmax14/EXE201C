@@ -18,6 +18,7 @@
         public decimal? totalPaid { get; set; } = 0;
         public string UserID { get; set; }
         public Guid RoomID { get; set; }
+        public string progress { get; set; }
 
         public Room Room { get; set; } 
 

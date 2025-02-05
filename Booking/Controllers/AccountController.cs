@@ -13,6 +13,7 @@ using Booking.BaseRepo;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Newtonsoft.Json;
 using System.Globalization;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Booking.Controllers
 {
@@ -34,16 +35,75 @@ namespace Booking.Controllers
             _transactionManager = transactionManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var tem = new DashBoardUser();
+            var temRecBoking = new List<RecentBookings>();
+            var getList = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.method == "buy")
+      .OrderByDescending(h => h.thoigian)
+      .ToListAsync();
+             tem.numberBoking= getList.Count();
+            tem.totalTrans = getList.Sum(u => Math.Abs(u.sotienthaydoi));
+
+            var list = await this._context.Datphongs
+      .Where(u => u.UserID == user.Id)
+      .OrderByDescending(query => query.BookedOn)
+      .Take(3) // Lấy tối đa 3 phần tử
+      .ToListAsync();
+
+            foreach(var item in list)
+            {
+                var getHotsl = await this._context.Rooms.Where(u => u.RoomID == item.RoomID).ToListAsync();
+                if (getHotsl.Any())
+                {
+
+                    var getInfoHotel = await this._context.Hotels.FindAsync(getHotsl.FirstOrDefault().HotelID);
+                    if (getInfoHotel != null)
+                    {
+                        var (date, time) = SplitDateTime(item.checkIn);
+                        var getImg = this._context.Galleries.FirstOrDefault(u => u.HotelID == getInfoHotel.ID && u.IsFeatureImage);
+                        temRecBoking.Add(new RecentBookings
+                        {
+                            ID = getInfoHotel.ID,
+                            Name =$"{getInfoHotel.HotelName}"+$"<span class=\"text-gray-5 fw-normal fs-14\">( {getHotsl.FirstOrDefault().RoomName} )</span>",
+                            status = item.progress,
+                            time = time,
+                            Type = "<span class=\"badge badge-soft-info badge-xs rounded-pill mb-1\"><i class=\"isax isax-buildings me-1\"></i>Hotel</span>",
+                            date = date,
+                            link = $"/home/HotelDetail/{getInfoHotel.ID}",
+                            img = getImg.ImagePath
+                            
+                        });
+                    }
+                }
+            }
+            tem.RecentBookings = temRecBoking;
+
+
+
+
+
+
+            return View(tem);
         }
+        public static (string Date, string Time) SplitDateTime(DateTime? dateTime)
+        {
+            string date = dateTime?.ToString("yyyy-MM-dd");
+            string time = dateTime?.ToString("HH:mm:ss");  
+            return (date, time);
+        }
+
         public async Task<IActionResult> Settings()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("Erro404", "Home");
             }
             var tem = new settingViewModels { 
                  id = user.Id,
@@ -71,7 +131,7 @@ namespace Booking.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("Erro404", "Home");
                 }
 
                 // Kiểm tra nếu email đã tồn tại trong hệ thống
@@ -102,7 +162,7 @@ namespace Booking.Controllers
                 user.Province = model.Province;
                 user.District = model.District;
                 user.Ward = model.Ward;
-
+                user.isUpdateProfile = true;
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
@@ -289,7 +349,7 @@ namespace Booking.Controllers
            
 
             var getInvoide  = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.method == "nap").OrderByDescending(h => h.thoigian)
-              .ToListAsync(); ;
+              .ToListAsync(); 
             if (getInvoide.Any())
             {
                 foreach (var itemDogntien in getInvoide)
@@ -500,7 +560,10 @@ namespace Booking.Controllers
             {
                 return Json(new { notAuth = true, msg = "Bạn phải đăng nhập để thực hiện hành động này!" });
             }
-
+            if (!user.isUpdateProfile)
+            {
+                return Json(new { notUpdate = true, msg = "Bạn phải cập nhật đầy đủ thông tin cá nhân!." });
+            }
             if (request == null || request.rooms == null || !request.rooms.Any())
             {
                 return Json(new { status = "error", msg = "Dữ liệu đặt phòng không hợp lệ." });
@@ -536,16 +599,33 @@ namespace Booking.Controllers
             {
                 return Json(new { status = "error", msg = "Không tìm thấy phòng phù hợp." });
             }
-
+            var checkExit = await this._context.Hotels.FindAsync(rooms.FirstOrDefault().HotelID);
+              if(checkExit != null && checkExit.UserID == user.Id)
+            {
+                return Json(new { status = "error", msg = "Bạn không thể đặt khách sạn của chính bạn." });
+            }
             var galleryImages = await _context.GalleryRooms
                 .Where(u => request.rooms.Contains(u.RoomID) && u.IsFeatureImage)
                 .ToDictionaryAsync(x => x.RoomID, x => x.ImagePath);
 
+
+            var checkOut = DateTime.ParseExact(request.CheckOut, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(12);
+            var checkIn = DateTime.ParseExact(request.CheckIn, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(12);
+
+            var tongtien = 0m;
+            foreach (var gettien in rooms)
+            {
+                tongtien += CalculateStayCost(checkIn, checkOut) * gettien.PricePerNight;
+            }
+
+                   
+
             var listOrder = rooms.Select(item => new OrderHotelDetail
             {
+                RomID = item.RoomID,
                 HotelID = item.HotelID,
-                checkOut = DateTime.TryParse(request.CheckOut, out var checkOutDate) ? checkOutDate : DateTime.Now,
-                checkIn = DateTime.TryParse(request.CheckIn, out var checkInDate) ? checkInDate : DateTime.Now,
+                checkOut = DateTime.ParseExact(request.CheckOut, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(12),
+                checkIn = DateTime.ParseExact(request.CheckIn, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(12),
                 Infants = request.Guests?.Infants ?? 0,
                 Adults = request.Guests?.Adults ?? 1,
                 Children = request.Guests?.Children ?? 0,
@@ -554,7 +634,7 @@ namespace Booking.Controllers
                 img = galleryImages.ContainsKey(item.RoomID) ? galleryImages[item.RoomID] : string.Empty,
                 NameRoom = item.RoomName,
                 BookingFees = 0,
-                total = item.PricePerNight
+                total = tongtien
             }).ToList();
 
             var billingInfo = new BilingHotelsViewModels
@@ -587,17 +667,113 @@ namespace Booking.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ComfirmPay()
+        public async Task<IActionResult> ComfirmPay(string optional)
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Bạn phải đăng nhập để thực hiện hành động này!" });
+            }
+            var money = 0m;
             try
             {
+                var getBalace = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.trangthai == "done")
+                 .OrderByDescending(h => h.thoigian)
+                 .FirstOrDefaultAsync();
+                if (getBalace != null)
+                {
+                    money = getBalace.sotiensau;
+                }
+                var romName = "Room";
+                var order = "123456";
+                var billingData = HttpContext.Session.GetString("BillingInfo");
 
-                return Json(new { success = true, message = "Thanh toán thành công!" });
+                var model = JsonConvert.DeserializeObject<BilingHotelsViewModels>(billingData);
+
+                var tongtien = 0m;
+                foreach (var gettien in model.list)
+                {
+                    tongtien+= CalculateStayCost(gettien.checkIn, gettien.checkOut) * gettien.total;
+                }
+                if (money < tongtien)
+                {
+                    return Json(new { Notfunds = true, message = "Bạn không đủ tiền thanh toán vui lòng nạp!." });
+                }
+
+                if (string.IsNullOrEmpty(billingData) || tongtien ==0m)
+                {
+                    return Json(new { success = false, message = "Lỗi khi thanh toán: " });
+                }
+                foreach (var itemModel in model.list)
+                {
+                    romName = itemModel.NameRoom;
+                    string guests =
+    (itemModel.Adults > 0 ? $"Adults {itemModel.Adults}" : "") +
+    (itemModel.Adults > 0 && itemModel.Children > 0 ? ", " : "") +
+    (itemModel.Children > 0 ? $"Children {itemModel.Children}" : "");
+
+                    var orderID = RandomCode.GenerateUniqueCode();
+                    order = orderID;
+                    var temp = new datphong
+                    {
+                        OrderID = orderID,
+                        ID = Guid.NewGuid(),
+                        UserID = user.Id,
+                        BookedOn = DateTime.Now,
+                        BookingFees = 0,
+                        checkIn = itemModel.checkIn,
+                        checkOut = itemModel.checkOut,
+                        DatePayment = DateTime.Now,
+                        Discount =0 ,
+                        Guests = string.IsNullOrEmpty(guests) ? "No guests" : guests,
+                        messess = optional,
+                        RoomID =  itemModel.RomID,
+                        NoOfDate = CalculateStayDuration(itemModel.checkIn,itemModel.checkOut),
+                        paymentStatus = "PAID",
+                        tax =0,
+                        totalPaid = tongtien,
+                        progress = "Upcoming"
+
+                    };
+
+                    var updateDongtien = this._context.Dongtiens.AddAsync(new dongtien
+                    {
+                        IsComplete = true,
+                        method="buy",
+                        UserID = user.Id,
+                        noidung = $"/account/bookingBill/{orderID}",
+                        sotientruoc = getBalace.sotiensau,
+                        sotienthaydoi = -tongtien,
+                        sotiensau = getBalace.sotiensau - tongtien,
+                        thoigian = DateTime.Now,
+                        trangthai = "done",
+                       
+                    });
+                    this._context.Datphongs.Add(temp);
+                    this._context.SaveChanges();
+                }
+              
+                return Json(new { success = true, message = "Thanh toán thành công!", roomName = $"{romName}", referenceNumber = $"{order}" }); ;
             }
             catch (Exception ex)
             {
                 return Json(new { success = false, message = "Lỗi khi thanh toán: " + ex.Message });
             }
+        }
+        public static string CalculateStayDuration(DateTime checkIn, DateTime checkOut)
+        {
+            var stayDuration = checkOut.Date - checkIn.Date;
+            int noOfDays = stayDuration.Days + 1;
+            int noOfNights = stayDuration.Days;
+            return $"{noOfDays} Days, {noOfNights} Nights";
+        }
+        public static int CalculateStayCost(DateTime checkIn, DateTime checkOut)
+        {
+            var stayDuration = checkOut.Date - checkIn.Date;
+            int noOfDays = stayDuration.Days + 1;
+            int noOfNights = stayDuration.Days;
+
+            return noOfDays;
         }
 
 
@@ -630,8 +806,15 @@ namespace Booking.Controllers
 
             return View(tem);
         }
-        public async Task<IActionResult> invoices()
+
+        [HttpGet]
+        public async Task<IActionResult> invoices(Guid id)
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
             return View();
         }
 
@@ -641,6 +824,48 @@ namespace Booking.Controllers
         }
 
 
+        public async Task<IActionResult> HotelsBooking()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var list = await this._context.Datphongs.Where(u => u.UserID == user.Id).OrderByDescending(query => query.BookedOn).ToListAsync();
+            var tem = new List<HotelBookingViewodels>();
+            if (list.Any())
+            {
+                foreach(var item in list)
+                {
+                    var getHotsl = await this._context.Rooms.Where(u => u.RoomID == item.RoomID).ToListAsync();
+                    if (getHotsl.Any())
+                    {
+
+                        var getInfoHotel = await this._context.Hotels.FindAsync(getHotsl.FirstOrDefault().HotelID);
+                        if (getInfoHotel != null)
+                        {
+                            var getImg = this._context.Galleries.FirstOrDefault(u => u.HotelID == getInfoHotel.ID && u.IsFeatureImage);
+                            tem.Add(new HotelBookingViewodels
+                            {
+                                Booked = item.BookedOn,
+                                date = item.NoOfDate,
+                                hotelID = getHotsl.FirstOrDefault().HotelID,
+                                Guest = item.Guests,
+                                HotelName = getInfoHotel.HotelName,
+                                img = getImg.ImagePath,
+                                location = $"{getInfoHotel.City},{getInfoHotel.Country}",
+                                OrderID = item.OrderID,
+                                price = item.totalPaid,
+                                RomeName = getHotsl.FirstOrDefault().RoomName,
+                                status = item.paymentStatus
+                            });
+                        }
+                    }
+                }
+            }
+
+            return View(tem);
+        }
 
 
 
@@ -651,5 +876,5 @@ namespace Booking.Controllers
     }
 
 
-    }
+}
 

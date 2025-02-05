@@ -740,12 +740,12 @@
                                         <div class="d-flex form-info">
                                             <div class="form-item">
                                                 <label class="form-label fs-14 text-default mb-1">Check 111In</label>
-                                                <input type="text" class="form-control datetimepicker"
+                                                <input type="datetime" class="form-control datetimepicker"
                                                        value="21-10-2025">
                                             </div>
                                             <div class="form-item">
                                                 <label class="form-label fs-14 text-default mb-1">Check Out</label>
-                                                <input type="text" class="form-control datetimepicker"
+                                                <input type="datetime" class="form-control datetimepicker"
                                                        value="21-10-2025">
                                             </div>
                                             <div class="form-item dropdown">
@@ -2636,7 +2636,19 @@
 
                     } else if (response.notAuth) {
                         Swal.fire('Thất bại', response.msg, 'error');
-                    } else {
+                    }else if(response.notUpdate){
+                         Swal.fire({
+                            title: 'Thất bại!',
+                            text: response.msg,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed || result.isDismissed) {
+                                window.location.href = "/account/Settings";
+                            }
+                        });
+                    }
+                    else {
                         Swal.fire('Thất bại', response.msg, 'error');
                     }
                     $('#book-now-btn').html('Book Now').prop('disabled', false);
