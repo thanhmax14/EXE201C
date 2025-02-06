@@ -881,17 +881,485 @@ namespace Booking.Controllers
         [HttpPost]
        public async Task<IActionResult> CreateRom(CreateRoomView model)
         {
+            var hotels = await _context.Hotels
+                                    .Select(h => new { h.ID, h.HotelName })
+                                    .ToListAsync();
+
+            ViewBag.Hotels = hotels.Any()
+         ? new SelectList(hotels, "ID", "HotelName")
+         : new SelectList(Enumerable.Empty<SelectListItem>());
+
+
             if (!ModelState.IsValid)
             {
                 TempData["MessseErro"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại các trường nhập.";
                 return View(model);
             }
-            return View(model);
+
+            try
+            {
+                var romID = Guid.NewGuid();
+                var tem = new Room
+                {
+                    RoomID = romID,
+                    RoomName = model.RoomName,
+                    BedType = model.BedType,
+                    Description = model.dess,
+                    HotelID = model.HotelID,
+                    RoomSize = model.RoomSize,
+                    View = model.View,
+                    PricePerNight = model.PricePerNight,
+                    Sleeps = model.Sleeps,
+                    MaximumOccupancy = model.MaximumOccupancy,
+                    RoomType = model.RoomType,
+                };
+                await this._context.Rooms.AddAsync(tem);
+                await this._context.SaveChangesAsync();
+
+
+                if (model.Services.Any())
+                {
+                    foreach (var service in model.Services.Select((value, index) => new { value, index }))
+                    {
+                        switch (service.index)
+                        {
+                            case 0:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dịch vụ phòng 24 giờ"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 1:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dịch vụ ăn uống trong phòng"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 2:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dịch vụ lễ tân"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 3:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dọn phòng hàng ngày"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 4:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Hỗ trợ nhận/trả phòng"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 5:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Gửi hành lý miễn phí"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 6:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dịch vụ giặt là và ủi đồ"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 7:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dịch vụ giặt khô"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 8:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dịch vụ đỗ xe"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 9:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dịch vụ trông trẻ"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 10:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = "Dịch vụ gọi đánh thức"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 11:
+                                if (service.value)
+                                {
+                                    await this._context.ServiceRooms.AddAsync(new ServiceRoom
+                                    {
+                                        RoomID = romID,
+                                        ServiceName = ""
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;                          
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+
+                if (model.Accessibility.Any())
+                {
+                    foreach (var service in model.Accessibility.Select((value, index) => new { value, index }))
+                    {
+                        switch (service.index)
+                        {
+                            case 0:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Khả năng tiếp cận cho người sử dụng xe lăn"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 1:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Cảnh báo hình ảnh trong hành lang"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 2:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Thang máy"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 3:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Biển báo chữ nổi/Braille"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 4:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Phòng gym có thể tiếp cận cho người sử dụng xe lăn"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 5:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Trung tâm kinh doanh có thể tiếp cận cho người sử dụng xe lăn"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 6:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Phòng chờ có thể tiếp cận cho người sử dụng xe lăn"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 7:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Quầy lễ tân có thể tiếp cận cho người sử dụng xe lăn"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 8:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Lối vào không có bậc hoặc có ramp"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 9:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Cửa tự động"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 10:
+                                if (service.value)
+                                {
+                                    await this._context.AccessibilityRooms.AddAsync(new AccessibilityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Thanh vịn trong phòng tắm"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;                       
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+
+
+                if (model.Amenities.Any())
+                {
+                    foreach (var service in model.Amenities.Select((value, index) => new { value, index }))
+                    {
+                        switch (service.index)
+                        {
+                            case 0:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Wi-Fi miễn phí"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 1:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Điều hòa không khí"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 2:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Máy sưởi"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 3:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Két sắt"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 4:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Bàn là/Ủi"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 5:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Máy sấy tóc"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 6:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Loa Bluetooth"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 7:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Sofa/Khu vực ngồi"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 8:
+                                if (service.value)
+                                {
+                                    await this._context.AmenityRooms.AddAsync(new AmenityRoom
+                                    {
+                                        RoomID = romID,
+                                        AmenityName = "Gối và chăn extra"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;                         
+                            default:
+                                break;
+                        }
+                    }
+                }
+                if (model.GalleryImages != null && model.GalleryImages.Any())
+                {
+
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "roomImage");
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+                    foreach (var file in model.GalleryImages)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var filePath = Path.Combine(uploadPath, fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        await this._context.GalleryRooms.AddAsync(new GalleryRoom
+                        {
+                            RoomID = romID,
+                            ImagePath = "/" + Path.Combine("uploads", "roomImage", fileName)
+                        });
+                    }
+                    await this._context.SaveChangesAsync();
+                }
+                TempData["Messse"] = "Khách sạn đã được tạo thành công, vui lòng tạo phòng!";
+                return View(model);
+
+
+            }
+            catch(Exception ex)
+            {
+                TempData["MessseErro"] = $"Có lỗi xảy ra: {ex.Message}";
+                return View(model);
+            }
         }
 
-        public async Task<IActionResult> HotelEdit()
+        public async Task<IActionResult> HotelEdit(Guid id)
         {
-            return View();
+            var infoHotel = await this._context.Hotels.FirstOrDefaultAsync(u => u.ID == id);
+            var tem = new CreateHotelViewModel();
+
+            if (infoHotel == null)
+            {
+                return RedirectToAction("Erro404");
+            }
+            else
+            {
+        
+
+
+
+                return View();
+            }
         }
      
 

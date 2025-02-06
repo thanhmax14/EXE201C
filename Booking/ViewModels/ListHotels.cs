@@ -10,6 +10,6 @@
         public string? Rating { get; set; } = "5.0";
         public int NumberReview { get; set; } = 0;
         public string farovite { get; set; } = "";
-        public List<GalleriesImg> img { get; set; }
+        public List<GalleriesImg> img { get; set; } = new List<GalleriesImg>();
     }
 }

@@ -343,8 +343,6 @@ namespace Booking.Controllers
         {
             var redirectUrl = Url.Action("ExternalLoginCallback", "Home");
             var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
-
-            // Xử lý chọn provider (Google hoặc Microsoft)
             if (provider == "Google")
             {
                 return Challenge(properties, GoogleDefaults.AuthenticationScheme);
@@ -353,8 +351,6 @@ namespace Booking.Controllers
             {
                 return Challenge(properties, MicrosoftAccountDefaults.AuthenticationScheme);
             }
-
-            // Nếu không xác định provider, trả về trang đăng nhập mặc định
             return RedirectToAction("Login");
         }
         [AllowAnonymous]
@@ -369,8 +365,6 @@ namespace Booking.Controllers
 
             var claims = result.Principal.Identities.FirstOrDefault()?.Claims;
             var email = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-
-            // Kiểm tra nếu user đã tồn tại trong hệ thống
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user == null)
