@@ -10,7 +10,7 @@
         public DateTime dateRelay { get; set; } = DateTime.Now;
         public bool status { get; set; } = false;
         public int rating { get; set; } = 5;
-
+        public string OrderID { get; set; }
 
         public string UserID { get; set; }
         public Guid HotelID { get; set; } // Liên kết với bảng Hotels

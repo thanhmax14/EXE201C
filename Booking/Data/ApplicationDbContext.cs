@@ -27,6 +27,7 @@ namespace Booking.Data
         public DbSet<WishlistHotel> WishlistHotels { get; set; }
         public DbSet<dongtien> Dongtiens { get; set; }
         public DbSet<datphong>  Datphongs { get; set; }
+        public DbSet<ReviewHotels>  ReviewHotels { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -44,6 +44,7 @@ namespace Booking.Controllers
             }
             var tem = new DashBoardUser();
             var temRecBoking = new List<RecentBookings>();
+            var reBoking = new List<(string, string, string, Guid, DateTime?, decimal?, string)>();
             var getList = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.method == "buy")
       .OrderByDescending(h => h.thoigian)
       .ToListAsync();
@@ -76,14 +77,18 @@ namespace Booking.Controllers
                             Type = "<span class=\"badge badge-soft-info badge-xs rounded-pill mb-1\"><i class=\"isax isax-buildings me-1\"></i>Hotel</span>",
                             date = date,
                             link = $"/home/HotelDetail/{getInfoHotel.ID}",
-                            img = getImg.ImagePath
+                            img = getImg.ImagePath,
+                            
                             
                         });
+                        reBoking.Add((getInfoHotel.HotelName, $"{getImg.ImagePath}", $"{item.OrderID}",
+                            getInfoHotel.ID, item.DatePayment, item.totalPaid, item.paymentStatus));
+
                     }
                 }
             }
             tem.RecentBookings = temRecBoking;
-
+            tem.RecentInvoices=reBoking;
 
 
 
@@ -661,7 +666,37 @@ namespace Booking.Controllers
 
         public async Task<IActionResult> Review()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+
+            var tem = new List<readcmt>();
+
+            var getInfo = await this._context.ReviewHotels.Where(u => u.UserID == user.Id).OrderByDescending(q =>q.datecmt).ToListAsync();
+
+            if (getInfo.Any())
+            {
+                foreach(var item in getInfo)
+                {
+                    var getInfoHotel = await this._context.Hotels.FindAsync(item.HotelID);
+                    tem.Add(new readcmt
+                    {
+                        UserName = $"{user.firstName} {user.lastName}",
+                        cmt = item.cmt,
+                        imgUser = user.img,
+                        datecmt = item.datecmt,
+                        relay = getInfoHotel.HotelName,
+                        rating = item.rating + ".0",
+                        imgSeller = item.HotelID.ToString()
+                    });
+                }
+                return View(tem);
+            }
+
+
+            return RedirectToAction("Erro404", "Home");
         }
 
         [HttpPost]
@@ -741,7 +776,7 @@ namespace Booking.Controllers
                         IsComplete = true,
                         method="buy",
                         UserID = user.Id,
-                        noidung = $"/account/bookingBill/{orderID}",
+                        noidung = $"/account/invoices/{orderID}",
                         sotientruoc = getBalace.sotiensau,
                         sotienthaydoi = -tongtien,
                         sotiensau = getBalace.sotiensau - tongtien,
@@ -808,14 +843,106 @@ namespace Booking.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> invoices(Guid id)
+        public async Task<IActionResult> invoices(string id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToAction("Erro404", "Home");
             }
-            return View();
+
+            var tem = new invoicesViewModels();
+            var getHotel = await this._context.Datphongs.Where(u => u.OrderID == id).ToListAsync();
+
+            if (getHotel.Any())
+            {
+
+                var totel = getHotel.Sum(u => u.totalPaid);
+                foreach (var item in getHotel)
+                {
+                    var getHotsl = await this._context.Rooms.Where(u => u.RoomID == item.RoomID).ToListAsync();
+                    if (getHotsl.Any())
+                    {
+
+                        var getInfoHotel = await this._context.Hotels.FindAsync(getHotsl.FirstOrDefault().HotelID);
+                        if (getInfoHotel != null)
+                        {
+                            tem.vat = 0;
+                            tem.UserName = $"{user.firstName} {user.lastName}";
+                            tem.address = user.address;
+                            tem.phone = user.PhoneNumber;
+                            tem.email = user.Email;
+                            tem.duedate = item.DatePayment;
+                            tem.creteDate = item.BookedOn;
+                            tem.discount = 0;
+                            tem.Total = totel;
+                            tem.list.Add((getInfoHotel.HotelName, item.totalPaid, 0m, item.totalPaid));
+                            tem.orderID = id;
+                            tem.status = item.progress;
+
+                        }
+                    }
+
+                }
+
+
+                return View(tem);
+
+            }
+            else
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> Sendcmt(string rating, string comment,Guid id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { status = "error", msg = "Bạn phải đăng nhập để thực hiện hành động này!" });
+            }
+            var a = id;
+            var infoHotel = await this._context.Hotels.FirstOrDefaultAsync(u => u.ID == id);
+            if(infoHotel==null)
+            {
+                return Json(new { status = "error", msg = "Khách sạn không tồn tại!" });
+            }
+            if (string.IsNullOrEmpty(rating) || string.IsNullOrEmpty(comment))
+            {
+                return Json(new { status = "error", msg = "Vui lòng nhập đầy đủ thông tin!" });
+            }
+            var getList = await this._context.Datphongs.Where(u => u.UserID == user.Id && u.paymentStatus == "PAID" && !u.isComment)
+                    .ToListAsync();
+            if (getList.Any())  {     
+                try
+                {
+                    await this._context.ReviewHotels.AddAsync(new ReviewHotels
+                    {
+                         cmt = comment,
+                         datecmt = DateTime.Now,
+                         UserID = user.Id,
+                         HotelID= infoHotel.ID, 
+                         OrderID= ""
+                    });
+
+                    var tem = getList.FirstOrDefault();
+                    tem.isComment = true;
+                    this._context.Datphongs.Update(tem);
+                    await this._context.SaveChangesAsync();
+                }
+                catch
+                {
+                    return Json(new { status = "error", msg = "Đã xảy ra lỗi không mong muốn!" });
+                }
+                return Json(new { status = "success", msg = "Cảm ơn bạn đã đánh giá!" });
+            }
+            else
+            {
+                return Json(new { status = "error", msg = "Bạn phải sử dụng dịch vụ mới được đánh giá!" });
+            }
+          
         }
 
         public async Task<IActionResult> DepositBiling()

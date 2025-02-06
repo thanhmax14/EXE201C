@@ -10,7 +10,7 @@ namespace Booking.Models
         public string RoomName { get; set; }
         public string RoomType { get; set; } // Loại phòng
         public string Description { get; set; }
-        public int MaximumOccupancy { get; set; }
+        public string MaximumOccupancy { get; set; }
         public float RoomSize { get; set; }
         public int Sleeps { get; set; }
         public string BedType { get; set; }

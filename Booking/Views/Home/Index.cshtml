@@ -2273,7 +2273,7 @@
                    class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">@itemHotel.Rating</span>
                <p class="fs-14">(@itemHotel.NumberReview Reviews)</p>
            </div>
-           <h5 class="mb-1"><a href="hotel-details.html">@itemHotel.HotelName</a></h5>
+           <h5 class="mb-1"><a  asp-controller="Home" asp-action="HotelDetail" asp-route-id="@itemHotel.HotelID">@itemHotel.HotelName</a></h5>
            <p class="d-flex align-items-center mb-2"><i class="isax isax-location5 me-2"></i>@itemHotel.Location</p>
            <div class="border-top pt-2 mb-2">
                <h6 class="d-flex align-items-center">Facillities :<i
