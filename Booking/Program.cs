@@ -39,10 +39,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.LoginPath = "/Home/Login"; // Đường dẫn trang đăng nhập
-        options.AccessDeniedPath = "/Home/AccessDenied"; // Đường dẫn khi bị từ chối truy cập
+        options.AccessDeniedPath = "/Home/Erro404"; // Đường dẫn khi bị từ chối truy cập
         options.LoginPath = "/Home/Login"; // Đường dẫn đến trang đăng nhập
         options.LogoutPath = "/Home/Logout"; // Đường dẫn đến trang đăng xuất
-        options.AccessDeniedPath = "/Account/AccessDenied"; // Đường dẫn khi truy cập bị từ chối
+        options.AccessDeniedPath = "/Home/Erro404"; // Đường dẫn khi truy cập bị từ chối
         options.ReturnUrlParameter = "ReturnUrl"; // Xác định tham số query string
         options.ExpireTimeSpan = TimeSpan.FromDays(14); // Thời gian lưu cookie
         options.SlidingExpiration = true; // Làm mới thời gian hết hạn cookie
@@ -130,7 +130,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Home/Login"; // Đường dẫn đến trang đăng nhập
     options.LogoutPath = "/Home/Logout"; // Đường dẫn đến trang đăng xuất
-    options.AccessDeniedPath = "/Account/AccessDenied"; // Đường dẫn khi truy cập bị từ chối
+    options.AccessDeniedPath = "/Home/Erro404"; // Đường dẫn khi truy cập bị từ chối
     options.ReturnUrlParameter = "ReturnUrl"; // Xác định tham số query string
 });
 

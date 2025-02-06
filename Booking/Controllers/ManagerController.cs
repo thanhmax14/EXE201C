@@ -1,0 +1,899 @@
+﻿using Booking.Data;
+using Booking.Models;
+using Booking.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+
+namespace Booking.Controllers
+{
+    [Authorize(Roles = "Seller")]
+    public class ManagerController : Controller
+    {
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
+
+        public ManagerController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IEmailSender emailSender, ApplicationDbContext context)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _emailSender = emailSender;
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+         public async Task<IActionResult> Listing()
+        {
+            var user1 = await _userManager.GetUserAsync(User);
+            if (user1 == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var list = new List<ListProduct>();
+            var infoHotel = new List<ListHotels>();
+            var getHotel = await this._context.Hotels
+            .Where(h =>h.UserID ==user1.Id)
+            .OrderBy(h => h.Established)
+            .ToListAsync();
+            var farevo = "";
+            foreach (var item in getHotel)
+            {
+                var user = await this._userManager.FindByIdAsync(item.UserID);
+                var temImg = new List<GalleriesImg>();
+                var getImg = await this._context.Galleries.Where(u => u.HotelID == item.ID)
+             .OrderByDescending(h => h.IsFeatureImage)
+             .ToListAsync();
+                if (getImg.Any())
+                {
+                    foreach (var itemImg in getImg)
+                    {
+                        if (!string.IsNullOrWhiteSpace(itemImg.ImagePath))
+                        {
+                            temImg.Add(new GalleriesImg { img = itemImg.ImagePath });
+                        }
+                    }
+                }
+                var flagUser = await _userManager.GetUserAsync(User);
+                if (flagUser != null && await this._context.WishlistHotels.AnyAsync(u => u.UserID == flagUser.Id && u.HotelID == item.ID))
+                {
+                    farevo = "text-danger";
+                }
+                else
+                {
+                    farevo = "";
+                }
+                infoHotel.Add(new ListHotels
+                {
+                    HotelID = item.ID,
+                    HotelName = item.HotelName,
+                    img = temImg,
+                    Location = $"{item.City},{item.Country}",
+                    NameSeller = user.UserName,
+                    NumberReview = 200,
+                    price = 502,
+                    farovite = farevo
+
+                });
+            }
+            list.Add(new ListProduct
+            {
+                Hotels = infoHotel
+            });
+            return View(list);
+        }
+
+        public async Task<IActionResult> CreateHotel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        
+        public async Task<IActionResult> CreateHotel(CreateHotelViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["MessseErro"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại các trường nhập.";
+                return View(model);
+            }
+
+            try
+            {
+                var user1 = await _userManager.GetUserAsync(User);
+                if (user1 == null)
+                {
+                    TempData["MessseErro"] = "Không tìm thấy người dùng. Vui lòng đăng nhập lại.";
+                    return RedirectToAction("Erro404", "Home");
+                }
+
+                var HotelID = Guid.NewGuid();
+                var hotel = new Hotel
+                {
+                    ID = HotelID,
+                    HotelName = model.Name,
+                    Category = model.Category,
+                    StarRatings = model.StarRating,
+                    TotalRooms = model.TotalRooms,
+                    MaxCapacity = model.MaxCapacity,
+                    Country = model.Country,
+                    City = model.City,
+                    linkLocation = ExtractUrlFromIframe(model.linkLocation),
+                    State = model.State,
+                    ZipCode = model.ZipCode,
+                    Address = model.Address,
+                    Description = model.dess,
+                    Address1 = model.Address,
+                    UserID = user1.Id
+
+                };
+                await this._context.Hotels.AddAsync(hotel);
+                await this._context.SaveChangesAsync();
+                var TienNghi = new List<string>();
+                if (model.Accessibility.Any())
+                {
+                    foreach (var accessibility in model.Accessibility.Select((value, index) => new { value, index }))
+                    {
+                        switch (accessibility.index)
+                        {
+                            case 0:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-wind-2 fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Hồ bơi</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 1:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-coffee fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Cà phê</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 2:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-shopping-bag fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Tiện ích giặt là</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 3:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-finger-scan fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Két an toàn trong phòng</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 4:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-airplane fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Chuyển sân bay</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 5:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-diamonds fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Quầy bar</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 6:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-health fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Phòng tập thể dục</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 7:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-weight fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Phòng gym</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 8:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-headphone fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Lễ tân 24/7</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 9:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-reserve fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Bữa sáng miễn phí</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 10:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-buildings-2 fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Phòng kết nối</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 11:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-car fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Đỗ xe miễn phí</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 12:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-mirroring-screen fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Ti vi</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 13:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-airpod fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>Điều hòa</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            case 14:
+                                if (accessibility.value)
+                                {
+                                    await this._context.Amenities.AddAsync(new Amenity
+                                    {
+                                        AmenityName = " <div class=\"d-flex align-items-center mb-3\">\r\n" +
+                                                      "   <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n" +
+                                                      "       <i class=\"isax isax-lovely fs-16\"></i>\r\n" +
+                                                      "   </span>\r\n" +
+                                                      "   <p>SPA</p>\r\n" +
+                                                      "</div>",
+                                        HotelID = HotelID,
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+
+                if (model.IsRoomService24h.Any())
+                {
+                    foreach (var service in model.IsRoomService24h.Select((value, index) => new { value, index }))
+                    {
+                        switch (service.index)
+                        {
+                            case 0:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ phòng 24h</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 1:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ ăn uống trong phòng</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 2:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ concierge</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 3:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dọn phòng hàng ngày</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 4:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ quầy lễ tân</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 5:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Nhà hàng tại chỗ</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 6:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Hỗ trợ nhận/trả phòng</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 7:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Gửi hành lý miễn phí</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 8:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ giặt là và là ủi</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 9:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ giặt khô</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 10:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ làm tóc và làm đẹp</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 11:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Điều trị spa trong phòng</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 12:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Valet parking</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 13:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ giữ trẻ</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 14:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ gọi đánh thức</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 15:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ thông dịch</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 16:
+                                if (service.value)
+                                {
+                                    await this._context.Services.AddAsync(new Service
+                                    {
+                                        HotelID = HotelID,
+                                        ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ đổi ngoại tệ</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+                if (model.RoomTypes.Any())
+                {
+                    foreach (var room in model.RoomTypes.Select((value, index) => new { value, index }))
+                    {
+                        switch (room.index)
+                        {
+                            case 0:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng đơn</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 1:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng đôi</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 2:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng giường đơn</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 3:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng Deluxe</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 4:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng Suite</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 5:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng Junior Suite</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 6:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng gia đình</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 7:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng kết nối</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 8:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng accessible</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 9:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng Studio</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 10:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng Penthouse</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 11:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Biệt thự</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 12:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng hạng kinh tế</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 13:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng có view thành phố</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            case 14:
+                                if (room.value)
+                                {
+                                    await this._context.RoomTypes.AddAsync(new RoomType
+                                    {
+                                        HotelID = HotelID,
+                                        RoomTypeName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-send-sqaure-2 fs-16\"></i>\r\n    </span>\r\n    <p>Phòng có view biển</p>\r\n</div>"
+                                    });
+                                    await this._context.SaveChangesAsync();
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                if (model.Highlights != null && model.Highlights.Any())
+                {
+                    var highlights = new List<Highlight>();
+
+                    foreach (var item in model.Highlights)
+                    {
+                        highlights.Add(new Highlight
+                        {
+                            HotelID = HotelID,
+                            HighlightText = item
+                        });
+                    }
+
+                    await this._context.Highlights.AddRangeAsync(highlights);
+                    await this._context.SaveChangesAsync();
+                }
+
+
+                {
+
+                }
+                if (model.Images != null && model.Images.Any())
+                {
+
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotel_images");
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+                    foreach (var file in model.Images)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var filePath = Path.Combine(uploadPath, fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        await this._context.Galleries.AddAsync(new Gallery
+                        {
+                            HotelID = HotelID,
+                            ImagePath = "/" + Path.Combine("uploads", "hotel_images", fileName)
+                        });
+                    }
+                    await this._context.SaveChangesAsync();
+                }
+
+                TempData["Messse"] = "Khách sạn đã được tạo thành công, vui lòng tạo phòng!";
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+              
+                TempData["MessseErro"] = $"Có lỗi xảy ra: {ex.Message}";
+                return View(model);
+            }
+        }
+
+       public static string ExtractUrlFromIframe(string input)
+        {
+            try
+            {
+              
+                string pattern = @"https:\/\/www\.google\.com\/maps\/embed\?pb=[^""]+";
+                Match match = Regex.Match(input, pattern);
+
+                // Kiểm tra nếu có kết quả
+                if (match.Success)
+                {
+                    return match.Value;
+                }
+                else
+                {
+                    Console.WriteLine("No URL matched the pattern.");
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+             
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return "";
+            }
+        }
+        public async Task<IActionResult> CreateRom()
+        {
+            var hotels = await _context.Hotels
+                               .Select(h => new { h.ID, h.HotelName })
+                               .ToListAsync();
+
+            ViewBag.Hotels = hotels.Any()
+         ? new SelectList(hotels, "ID", "HotelName")
+         : new SelectList(Enumerable.Empty<SelectListItem>());
+            return View();
+        }
+        [HttpPost]
+       public async Task<IActionResult> CreateRom(CreateRoomView model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["MessseErro"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại các trường nhập.";
+                return View(model);
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> HotelEdit()
+        {
+            return View();
+        }
+     
+
+    }
+}

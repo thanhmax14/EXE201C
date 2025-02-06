@@ -1,4 +1,4 @@
-/*
+﻿/*
 Author       : DreamsTechnologies
 Template Name: DreamsTour - Bootstrap Template
 */
@@ -835,30 +835,37 @@ Template Name: DreamsTour - Bootstrap Template
     });
   }
 
-  // Add Highlight
-  $(".add-highlight").on('click', function () {			
-  var addcontent =
-    '<div class="col-md-12 highlight-info">'+
-      '<div class="mb-3">'+
-        '<label class="form-label">Highlights</label>'+
-        '<div class="d-flex align-items-center">' +
-        '<input type="text" class="form-control">'+
-        '<a class="text-danger trash-icon d-flex align-items-center justify-content-center ms-3"><i class="isax isax-trash"></i></a>'
-        '</div>'
-      '</div>'+
-    '</div>';
-    $(".add-highlight-info").append(addcontent);
-    $('.select').select2({
-      minimumResultsForSearch: -1,
-      width: '100%'
-    });
-    return false;		  
-  });
+    let highlightIndex = 1;
 
-  $(".add-highlight-info").on('click','.trash-icon', function () {
-    $(this).closest('.highlight-info').remove();
-    return false;
-  });
+    $(".add-highlight").on('click', function () {
+        var addcontent =
+            '<div class="col-md-12 highlight-info">' +
+            '<div class="mb-3">' +
+            '<label class="form-label">Highlights</label>' +
+            '<div class="d-flex align-items-center">' +
+            '<input type="text" asp-for="Highlights[' + highlightIndex + ']" name="highlights[' + highlightIndex + ']" class="form-control">' + // Corrected closing quote
+            '<a class="text-danger trash-icon d-flex align-items-center justify-content-center ms-3"><i class="isax isax-trash"></i></a>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+
+        $(".add-highlight-info").append(addcontent);
+
+        // Initialize select2 if needed
+        $('.select').select2({
+            minimumResultsForSearch: -1,
+            width: '100%'
+        });
+
+        highlightIndex++; // Increment index after adding content
+        return false;
+    });
+
+    $(".add-highlight-info").on('click', '.trash-icon', function () {
+        $(this).closest('.highlight-info').remove();
+        return false;
+    });
+
 
   // Remove Gallery
   $(document).on("click", ".gallery-trash", function () {

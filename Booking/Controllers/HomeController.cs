@@ -107,8 +107,50 @@ namespace Booking.Controllers
                 {
                         tem.farovite = "text-danger";
                 }
-                
-               tem.HotelID = infoHotel.ID;
+                if (user != null)
+                {
+                    var getList = await this._context.Datphongs.Where(u => u.UserID == user.Id && u.paymentStatus == "PAID" && !u.isComment)
+                    .ToListAsync();
+                    if (getList.Any())
+                    {
+                        tem.isComment = true;
+                    }
+
+
+                }
+
+                var getcmt = await this._context.ReviewHotels.Where(u => u.HotelID == id && !u.status).OrderByDescending(q => q.datecmt).ToListAsync();
+
+                if (getcmt.Any())
+                {
+                    foreach(var item in getcmt)
+                    {
+                        var infoUser = await this._userManager.FindByIdAsync(item.UserID);
+                        var infoSeller = await this._userManager.FindByIdAsync(infoHotel.UserID);
+                         
+                        if(infoUser!=null && infoSeller != null)
+                        {
+                            tem.readcmt.Add(new readcmt
+                            {
+                                datecmt = item.datecmt,
+                                daterelay = item.dateRelay,
+                                imgSeller = infoSeller.img,
+                                imgUser = infoUser.img,
+                                rating = item.rating+".0",
+                                relay = item.relay??"",
+                                SellerName= $"{infoSeller.firstName} {infoSeller.lastName}",
+                                UserName = $"{infoUser.firstName} {infoUser.lastName}",
+                                cmt = item.cmt
+                                
+                            });
+                        }
+
+
+                      
+                    }
+                }
+
+                tem.HotelID = infoHotel.ID;
                 tem.HotelName = infoHotel.HotelName;
                 tem.HotelTye = infoHotel.Category;
                 tem.Locations = $"{infoHotel.City},{infoHotel.Country}";
