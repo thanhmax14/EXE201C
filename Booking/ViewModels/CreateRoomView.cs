@@ -16,10 +16,8 @@ namespace Booking.ViewModels
         public Guid HotelID { get; set; }
 
         public SelectList Hotels { get; set; } = new SelectList(new List<SelectListItem>());
-
-        public string Description { get; set; }
-
-        // Specifications
+        [Required]
+        public string dess { get; set; }
         public string MaximumOccupancy { get; set; }
         public float RoomSize { get; set; }
         public int Sleeps { get; set; }

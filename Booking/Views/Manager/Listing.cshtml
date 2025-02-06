@@ -673,7 +673,9 @@
                                                 <div class="place-item mb-4 flex-fill">
                                                     <div class="place-img">
                                                         <a href="/home/HotelDetail/@itemHotel.HotelID">
-                                                            <img src="@itemHotel.img.FirstOrDefault().img" class="img-fluid" alt="img">
+                                                            <img src="@(!string.IsNullOrEmpty(itemHotel.img?.FirstOrDefault()?.img) ? itemHotel.img.FirstOrDefault().img : "/assets/img/hotels/hotel-01.jpg")" class="img-fluid" alt="img">
+
+
                                                         </a>
                                                         <div class="edit-delete-item d-flex align-items-center">
                                                             <a href="/manager/HotelEdit/@itemHotel.HotelID" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
