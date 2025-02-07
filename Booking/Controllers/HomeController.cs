@@ -655,7 +655,7 @@ namespace Booking.Controllers
                 // Gửi email xác minh
                 await _emailSender.SendEmailAsync(user.Email, "Xác nhận email",
                     $"Vui lòng nhấp vào liên kết để xác nhận email: {confirmationLink}");
-                await _signInManager.SignInAsync(user, isPersistent: true);
+            //    await _signInManager.SignInAsync(user, isPersistent: true);
 
 
                 return Json(new { status = "success", msg = "Đăng ký thành công.", redirectUrl = ViewData["ReturnUrl"].ToString() });

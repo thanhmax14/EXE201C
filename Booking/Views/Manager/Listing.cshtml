@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     Layout = null;
 }
 
@@ -10,10 +10,10 @@
     <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Golocal - Travel and Tour Booking Bootstrap 5 template</title>
+    <title>DreamsTour - Travel and Tour Booking Bootstrap 5 template</title>
 
-    <meta name="description" content="Golocal - A premium Bootstrap 5 template crafted for travel and tour booking. Tailored for travel agencies and booking platforms, it features flight, hotel, and tour reservations, and holiday packages.">
-    <meta name="keywords" content="travel booking template, tour booking, Bootstrap 5 travel template, Golocal, hotel booking, flights booking, holiday packages, tour agency website, travel agency template, travel HTML template, booking system, responsive travel template, Bootstrap travel website">
+    <meta name="description" content="DreamsTour - A premium Bootstrap 5 template crafted for travel and tour booking. Tailored for travel agencies and booking platforms, it features flight, hotel, and tour reservations, and holiday packages.">
+    <meta name="keywords" content="travel booking template, tour booking, Bootstrap 5 travel template, DreamsTour, hotel booking, flights booking, holiday packages, tour agency website, travel agency template, travel HTML template, booking system, responsive travel template, Bootstrap travel website">
     <meta name="author" content="Dreams Technologies">
     <meta name="robots" content="index, follow">
 
@@ -64,14 +64,41 @@
         <div class="header-topbar text-center bg-transparent">
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between flex-wrap">
-                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Hotline: +84 123456789</p>
+                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Toll Free : +1 56565 56594</p>
                     <div class="d-flex align-items-center">
-                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14">
-                            <i class="isax isax-message-text-15 me-2"></i>Email : <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                                                     class="__cf_email__"
-                                                                                     data-cfemail="0f666169604f6a776e627f636a216c6062">[email&#160;protected]</a>
-                        </p>
-
+                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14"><i class="isax isax-message-text-15 me-2"></i>Email : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b72757d745b7e637a766b777e35787476">[email&#160;protected]</a></p>
+                        <div class="dropdown flag-dropdown mb-2 me-3">
+                            <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
+                            </a>
+                            <ul class="dropdown-menu p-2 mt-2">
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/arab-flag.svg" class="me-2" alt="flag">ARA
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/france-flag.svg" class="me-2" alt="flag">FRA
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="dropdown mb-2 me-3">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+								USD
+							</a>
+                            <ul class="dropdown-menu p-2 mt-2">
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
+                            </ul>
+                        </div>
                         <div class="fav-dropdown mb-2">
                             <a href="wishlist.html" class="position-relative">
                                 <i class="isax isax-heart"></i><span class="count-icon bg-secondary text-gray-9">0</span>
@@ -82,6 +109,7 @@
             </div>
         </div>
         <!-- /Header Topbar-->
+
         <!-- Header -->
         @await Html.PartialAsync("_patiarialHearder")
         <!-- /Header -->
@@ -92,11 +120,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Danh sách</h2>
+                    <h2 class="breadcrumb-title mb-2">Listings</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Danh sách</li>
+                            <li class="breadcrumb-item active" aria-current="page">Listings</li>
                         </ol>
                     </nav>
                 </div>
@@ -119,8 +147,8 @@
                                 <img src="~/assets/img/users/user-43.jpg" alt="image" class="img-fluid rounded-circle">
                                 <a href="agent-settings.html" class="avatar avatar-sm rounded-circle btn btn-primary d-flex align-items-center justify-content-center p-0"><i class="isax isax-edit-2 fs-14"></i></a>
                             </div>
-                            <h6 class="fs-16">Thành Long</h6>
-                            <p class="fs-14 mb-2">Thành viên từ 10 tháng Năm 2025</p>
+                            <h6 class="fs-16">Chris Foxy</h6>
+                            <p class="fs-14 mb-2">Member Since 10 May 2025</p>
                             <div class="d-flex align-items-center justify-content-center notify-item">
                                 <a href="agent-notifications.html" class="rounded-circle btn btn-white d-flex align-items-center justify-content-center p-0 me-2 position-relative">
                                     <i class="isax isax-notification-bing5 fs-20"></i>
@@ -135,49 +163,52 @@
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
-                                    <a href="agent-dashboard.html" class="d-flex align-items-center">
-                                        <i class="isax isax-grid-55 me-2"></i>Bảng điều khiển
+                                    <a href="/manager" class="d-flex align-items-center">
+                                        <i class="isax isax-grid-55 me-2"></i>Dashboard
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="agent-listings.html" class="d-flex align-items-center active">
-                                        <i class="isax isax-menu-14 me-2"></i>Danh sách
+                                    <a href="/manager/listing" class="d-flex align-items-center active">
+                                        <i class="isax isax-menu-14 me-2"></i>Listings
                                     </a>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5 me-2"></i><span>Đặt chỗ</span><span class="menu-arrow"></span></a>
+                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
                                         <li>
-                                            <a href="agent-hotel-booking.html" class="fs-14 d-inline-flex align-items-center">Khách sạn</a>
+                                            <a href="/manager/hotelsBooking" class="fs-14 d-inline-flex align-items-center">Hotels</a>
                                         </li>
+
+
                                         <li>
-                                            <a href="agent-tour-booking.html" class="fs-14 d-inline-flex align-items-center">Tour du lịch</a>
+                                            <a href="/manager/toursBooking" class="fs-14 d-inline-flex align-items-center">Tour</a>
                                         </li>
+
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="agent-enquirers.html" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5 me-2"></i>Thắc mắc
-                                    </a>
+                                @*  <li>
+                                <a href="agent-enquirers.html" class="d-flex align-items-center">
+                                <i class="isax isax-magic-star5 me-2"></i>Enquiries
+                                </a>
                                 </li>
                                 <li>
-                                    <a href="agent-earnings.html" class="d-flex align-items-center">
-                                        <i class="isax isax-wallet-add-15 me-2"></i>Thu nhập
-                                    </a>
-                                </li>
+                                <a href="agent-earnings.html" class="d-flex align-items-center">
+                                <i class="isax isax-wallet-add-15 me-2"></i>Earnings
+                                </a>
+                                </li> *@
                                 <li>
                                     <a href="agent-review.html" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5 me-2"></i>Đánh giá
+                                        <i class="isax isax-magic-star5 me-2"></i>Reviews
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="agent-settings.html" class="d-flex align-items-center">
-                                        <i class="isax isax-setting-25"></i> Cài đặt
-                                    </a>
-                                </li>
+                                @*  <li>
+                                <a href="agent-settings.html" class="d-flex align-items-center">
+                                <i class="isax isax-setting-25"></i> Settings
+                                </a>
+                                </li> *@
                                 <li class="logout-link">
                                     <a href="index.html" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Đăng xuất
+                                        <i class="isax isax-logout-15"></i> Logout
                                     </a>
                                 </li>
                             </ul>
@@ -192,13 +223,13 @@
                             <ul class="nav mb-2">
                                 <li class="me-2">
                                     <a href="javascript:void(0);" class="nav-link active" data-bs-toggle="tab" data-bs-target="#Hotels-list">
-                                        Khách sạn
+                                        Hotels
                                     </a>
                                 </li>
                                
                                 <li class="me-2">
                                     <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab" data-bs-target="#Tour-list">
-                                        Tour du lịch
+                                        Tour
                                     </a>
                                 </li>
                                 
@@ -206,14 +237,14 @@
                         </div>
                         <div class="dropdown mb-4">
                             <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                Tất cả danh sách
+                                All Listing
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end p-3">
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Hoạt động</a>
+                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Active</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Không hoạt động</a>
+                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Inactive</a>
                                 </li>
                             </ul>
                         </div>
@@ -225,11 +256,11 @@
                             <div class="card border-0">
                                 <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
                                     <div>
-                                        <h5 class="mb-1">Danh sách</h5>
-                                        <p>Số lượng niêm yết : 200</p>
+                                        <h5 class="mb-1">Listings</h5>
+                                        <p>No of  Listings : 200</p>
                                     </div>
                                    <div>
-                                        <a href="add-hotel.html" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Thêm danh sách</a>
+                                        <a href="/manager/createHotel" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
                                    </div>
                                 </div>
                             </div>
@@ -259,9 +290,9 @@
                                                         <h5 class="mb-1 text-truncate"><a href="hotel-details.html">@itemHotel.HotelName</a></h5>
                                                         <p class="d-flex align-items-center mb-2"><i class="isax isax-location5 me-2"></i>@itemHotel.Location</p>
                                                         <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                            <h5 class="text-primary text-nowrap me-2">@itemHotel.price VND <span class="fs-14 fw-normal text-default">/ Đêm</span></h5>
+                                                            <h5 class="text-primary text-nowrap me-2">$@itemHotel.price <span class="fs-14 fw-normal text-default">/ Night</span></h5>
                                                             <div class="d-flex align-items-center lh-1">
-                                                                <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
+                                                                <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -314,16 +345,15 @@
                             <div class="card border-0">
                                 <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
                                     <div>
-                                        <h5 class="mb-1">Danh sách</h5>
-                                        <p>Số lượng niêm yết : 200</p>
+                                        <h5 class="mb-1">Listings</h5>
+                                        <p>No of  Listings : 200</p>
                                     </div>
                                    <div>
-                                    <a href="add-hotel.html" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Thêm danh sách</a>
+                                        <a href="/manager/createtour" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
                                    </div>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
-
                                  @if (Model.Any())
                                 {
                                     foreach(var item in Model)
@@ -331,235 +361,6 @@
                                         foreach(var itemHotel in item.Tour)
                                         {
                                              <div class="col-xxl-4 col-md-6 d-flex">
-
-
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-07.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Thung lũng cầu vồng</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Ciutat Vella, Barcelona</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">650.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Tours Grid -->
-        
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-08.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Thác Mystic</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Oxford Street, London</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">600.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Tours Grid -->
-        
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-09.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Hồ thuỷ tinh</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Princes Street, Edinburgh</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">300.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Tours Grid -->
-        
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-10.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Đồi Majestic</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Deansgate, Manchester</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">400.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Tours Grid -->
-        
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-11.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Rừng phù phép</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>King’s Road, Chelsea</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">500.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#active_list" data-bs-toggle="modal" class="d-flex align-items-center text-danger"><i class="isax isax-info-circle me-1"></i>Không hoạt động</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Tours Grid -->
-        
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-12.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Vịnh Serene</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Bold Street, Liverpool</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">450.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Tours Grid -->
-        
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-13.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Đền cổ</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Broad Street, Bristol</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">350.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Tours Grid -->
-        
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-14.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Động huyền bí</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Chapel Street, Salford</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">700.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#active_list" data-bs-toggle="modal" class="d-flex align-items-center text-danger"><i class="isax isax-info-circle me-1"></i>Không hoạt động</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Tours Grid -->
-        
-                                <!-- Tours Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-
                                     <div class="place-item mb-4 flex-fill">
                                         <div class="place-img">
                                             <a href="/Home/TourDetail/@itemHotel.TourID">
@@ -571,26 +372,13 @@
                                             </div>
                                         </div>
                                         <div class="place-content">
-
                                             <h5 class="mb-1 text-truncate"><a href="/Home/TourDetail/@itemHotel.TourID">@itemHotel.TourName</a></h5>
                                             <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>@itemHotel.Location</p>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
                                                     <h5 class="text-primary">@itemHotel.price VND<span class="fs-14 text-gray-6 fw-normal"></span></h5>
                                                 </div>
-                                                @* <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-
-                                            <h5 class="mb-1 text-truncate"><a href="tour-details.html">Đồi tuyết</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Castle Street, Cambridge</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">650.000 VND <span class="fs-14 text-gray-6 fw-normal">/ Ngày</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
-                                                </div>
-
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -602,7 +390,353 @@
                         </div>
                         <!-- /Tour List -->
 
-                 
+                        <!-- Flight List -->
+                        <div class="tab-pane fade" id="flight-list">
+                            <div class="card border-0">
+                                <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
+                                    <div>
+                                        <h5 class="mb-1">Listings</h5>
+                                        <p>No of  Listings : 200</p>
+                                    </div>
+                                   <div>
+                                    <a href="add-flight.html" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-09.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Antonov An-32</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Air India</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Texas</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$500 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+        
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-08.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">SkyBound 102</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Indigo</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Dubai</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$600 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+        
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-06.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Nimbus 345</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Indigo</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Dubai</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$300 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#active_list" data-bs-toggle="modal" class="d-flex align-items-center text-danger"><i class="isax isax-info-circle me-1"></i>Inactive</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+        
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-01.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">AstraFlight 215</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Indigo</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Frankfurt</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$300 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+        
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-02.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Cloudrider 789</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Air India</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Dallas</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$550 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+        
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-03.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Aether Express 901</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Indigo</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Seoul</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$450 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+        
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-07.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Voyager 658</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Air India</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Sydney</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$350 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+        
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-04.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Silverwing 505</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Air India</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at London</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$700 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+        
+                                <!-- Flight Grid -->
+                                <div class="col-xxl-4 col-md-6 d-flex">
+                                    <div class="place-item mb-4 flex-fill">
+                                        <div class="place-img">
+                                            <a href="flight-details.html">
+                                                <img src="~/assets/img/flight/flight-05.jpg" class="img-fluid" alt="img">
+                                            </a>
+                                            <div class="edit-delete-item d-flex align-items-center">
+                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="place-content">
+                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Altair 333</a></h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="avatar avatar-sm me-2">
+                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
+                                                </span>
+                                                <p class="fs-14 mb-0 me-2">Air India</p>
+                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Los Angeles</p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">$650 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                </div>
+                                                <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Flight Grid -->
+                                
+                                <div class="col-md-12">
+                                    <!-- Pagination -->
+                                    <nav class="pagination-nav">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="javascript:void(0);" aria-label="Previous">
+                                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">4</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:void(0);" aria-label="Next">
+                                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <!-- /Pagination -->
+                                </div>          
+                            </div>
+                        </div>
+                        <!-- /Flight List -->
         
                     </div>
                 </div>
@@ -621,54 +755,54 @@
                             <h5>Pages</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="team.html">Đội ngũ của chúng tôi</a>
+                                    <a href="team.html">Our Team</a>
                                 </li>
                                 <li>
-                                    <a href="pricing-plan.html">Gói giá</a>
+                                    <a href="pricing-plan.html">Pricing Plans</a>
                                 </li>
                                 <li>
-                                    <a href="gallery.html">Settings</a>
+                                    <a href="gallery.html">Gallery</a>
                                 </li>
                                 <li>
-                                    <a href="profile-settings.html">Cài đặt</a>
+                                    <a href="profile-settings.html">Settings</a>
                                 </li>
                                 <li>
-                                    <a href="my-profile.html">Hồ sơ</a>
+                                    <a href="my-profile.html">Profile</a>
                                 </li>
                                 <li>
-                                    <a href="agent-listings.html">Danh sách</a>
+                                    <a href="agent-listings.html">Listings</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Doanh nghiệp</h5>
+                            <h5>Company</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="about-us.html">Về chúng tôi</a>
+                                    <a href="about-us.html">About Us</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Cơ hội nghề nghiệp</a>
+                                    <a href="javascript:void(0);">Careers</a>
                                 </li>
                                 <li>
                                     <a href="blog-grid.html">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Chương trình liên kết</a>
+                                    <a href="javascript:void(0);">Affiliate Program</a>
                                 </li>
                                 <li>
-                                    <a href="add-flight.html">Thêm danh sách của bạn</a>
+                                    <a href="add-flight.html">Add Your Listing</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Đối tác của chúng tôi</a>
+                                    <a href="javascript:void(0);">Our Partners</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Điểm đến</h5>
+                            <h5>Destinations</h5>
                             <ul class="footer-menu">
                                 <li>
                                     <a href="javascript:void(0);">Hawai</a>
@@ -693,50 +827,50 @@
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Hỗ trợ</h5>
+                            <h5>Support</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="contact-us.html">Liên hệ</a>
+                                    <a href="contact-us.html">Contact Us</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Thông báo pháp lý</a>
+                                    <a href="javascript:void(0);">Legal Notice</a>
                                 </li>
                                 <li>
-                                    <a href="privacy-policy.html">Chính sách quyền riêng tư</a>
+                                    <a href="privacy-policy.html">Privacy Policy</a>
                                 </li>
                                 <li>
-                                    <a href="terms-conditions.html">Điều khoản và Điều kiện</a>
+                                    <a href="terms-conditions.html">Terms and Conditions</a>
                                 </li>
                                 <li>
-                                    <a href="chat.html">Hỗ trợ trò chuyện</a>
+                                    <a href="chat.html">Chat Support</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Chính sách hoàn trả</a>
+                                    <a href="javascript:void(0);">Refund Policy</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Dịch vụ</h5>
+                            <h5>Services</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="hotel-grid.html">Khách sạn</a>
+                                    <a href="hotel-grid.html">Hotel</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Trình tìm kiếm hoạt động</a>
+                                    <a href="javascript:void(0);">Activity Finder</a>
                                 </li>
                                 <li>
-                                    <a href="flight-grid.html">Tìm kiếm chuyến bay</a>
+                                    <a href="flight-grid.html">Flight Finder</a>
                                 </li>
                                 <li>
-                                    <a href="tour-grid.html">Thuê kỳ nghỉ</a>
+                                    <a href="tour-grid.html">Holiday Rental</a>
                                 </li>
                                 <li>
-                                    <a href="car-grid.html">Thuê xe</a>
+                                    <a href="car-grid.html">Car Rental</a>
                                 </li>
                                 <li>
-                                    <a href="tour-details.html">Gói kỳ nghỉ</a>
+                                    <a href="tour-details.html">Holiday Packages</a>
                                 </li>
                             </ul>
                         </div>
@@ -769,27 +903,24 @@
                             <div class="d-sm-flex align-items-center justify-content-center justify-content-xl-end">
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start me-0 pe-0 me-sm-3 pe-sm-3 border-end mb-3">
                                     <span class="avatar avatar-lg bg-primary rounded-circle flex-shrink-0">
-                                        <i class="ti ti-headphones-filled fs-24"></i>
-                                    </span>
+										<i class="ti ti-headphones-filled fs-24"></i>
+									</span>
                                     <div class="ms-2">
-                                        <p class="mb-1">Chăm sóc khách hàng</p>
-                                        <p class="fw-medium text-dark">+84 393771017</p>
+                                        <p class="mb-1">Customer Support</p>
+                                        <p class="fw-medium text-dark">+1 56589 54598</p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
                                     <span class="avatar avatar-lg bg-secondary rounded-circle flex-shrink-0">
-                                        <i class="ti ti-message fs-24 text-gray-9"></i>
-                                    </span>
+										<i class="ti ti-message fs-24 text-gray-9"></i>
+									</span>
                                     <div class="ms-2">
-                                        <p class="mb-1">Gửi email cho chúng tôi</p>
-                                        <p class="fw-medium text-dark">
-                                            <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                               class="__cf_email__"
-                                               data-cfemail="fc95929a93bc99849d918c9099d29f9391">[email&#160;protected]</a>
-                                        </p>
+                                        <p class="mb-1">Drop Us an Email</p>
+                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e28b8c848da2879a838f928e87cc818d8f">[email&#160;protected]</a></p>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -804,10 +935,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <p class="fs-14">
-                                Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);"
-                                                                               class="text-primary fw-medium">Golocal</a>
-                            </p>
+                            <p class="fs-14">Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);" class="text-primary fw-medium">DreamsTour</a></p>
                             <div class="d-flex align-items-center">
                                 <ul class="social-icon">
                                     <li>
