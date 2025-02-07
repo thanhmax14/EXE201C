@@ -1,6 +1,6 @@
 /*
 Author       : DreamsTechnologies
-Template Name: DreamsTour - Bootstrap Template
+Template Name: Golocal - Bootstrap Template
 */
 
 (function () {
