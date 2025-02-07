@@ -5,7 +5,7 @@ namespace Booking.Models
     public class AppUser: IdentityUser
     {
         public string? address { get; set; }
-        public string? img { get; set; } = "assets/img/users/user-01.jpg";
+        public string? img { get; set; } = "/assets/img/users/user-01.jpg";
         public DateTime? joinin { get; set; }= DateTime.Now;
         public DateTime? sinhNhat { get; set; }
         public string? ZipCode { get; set; }

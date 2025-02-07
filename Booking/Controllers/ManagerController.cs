@@ -826,7 +826,8 @@ namespace Booking.Controllers
                         await this._context.Galleries.AddAsync(new Gallery
                         {
                             HotelID = HotelID,
-                            ImagePath = "/" + Path.Combine("uploads", "hotel_images", fileName)
+                            ImagePath = "/" + Path.Combine("uploads", "hotel_images", fileName),
+                            IsFeatureImage =true
                         });
                     }
                     await this._context.SaveChangesAsync();
@@ -2648,6 +2649,98 @@ namespace Booking.Controllers
 
 
         }
+
+
+
+        public async Task<IActionResult> CreateTour()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTour(CreateTourViewModeks model)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                if (!ModelState.IsValid)
+                {
+                    TempData["MessseErro"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại các trường nhập.";
+                    return View(model);
+                }
+
+            }
+
+            var user1 = await _userManager.GetUserAsync(User);
+            if (user1 == null)
+            {
+                TempData["MessseErro"] = "Không tìm thấy người dùng. Vui lòng đăng nhập lại.";
+                return RedirectToAction("Erro404", "Home");
+            }
+            try
+            {
+                var tourID = Guid.NewGuid();
+                var tem = new tour
+                {
+                    ID = tourID,
+                    Category = model.Category,
+                    City = model.City,
+                    Country = model.Country,
+                    Address = model.Address,
+                    ZipCode = model.ZipCode,
+                    Description = model.dess,
+                    Destination = model.Destination,
+                    EndDATE = model.endDate,
+                    startDate = model.startDate,
+                    DurationDay = "",
+                    totalPreoPle = model.totalProple,
+                    linkLocation = ExtractUrlFromIframe(model.linkLocation),
+                    UserID = user1.Id,
+                    DurationNight = "",
+                    price = model.Pricing,
+                    minAge = model.mindAge,
+                    State = model.State,
+                    TourName = model.Name
+                };
+                await this._context.Tours.AddAsync(tem);
+                await this._context.SaveChangesAsync();
+
+                if (model.Images != null && model.Images.Any())
+                {
+
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "tour_image");
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+                    foreach (var file in model.Images)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var filePath = Path.Combine(uploadPath, fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        await this._context.GalleryTours.AddAsync(new GalleryTour
+                        {
+                            TourID = tourID,
+                            ImagePath = "/" + Path.Combine("uploads", "tour_image", fileName),
+                            IsFeatureImage =true
+                        });
+                    }
+                    await this._context.SaveChangesAsync();
+                    
+                }
+                TempData["Messse"] = "Khách sạn đã được câp nhật thông tin thành công!!";
+                return View(model);
+            }
+            catch(Exception e)
+            {
+                TempData["MessseErro"] = $"Có lỗi xảy ra: {e.Message}";
+                return View(model);
+            }
+        }
+
 
     }
 }

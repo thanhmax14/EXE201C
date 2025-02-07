@@ -27,6 +27,7 @@
         public string ngaydi { get; set; }
         public string ngaive { get; set; }
         public decimal price { get; set; } = 0;
+        public List<readcmt> readcmt { get; set; } = new List<readcmt>();
 
 
     }
