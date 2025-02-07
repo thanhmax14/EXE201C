@@ -134,10 +134,10 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end p-3" data-popper-placement="bottom-end">
                                 <li><a class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2" href="/account">Dashboard</a></li>
-                                <li><a class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2" href="customer-hotel-booking.html">My Booking</a></li>
-                                <li><a class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2" href="my-profile.html">My Profile</a></li>
+                                <li><a class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2" href="/account/HotelsBooking">My Booking</a></li>
+                                <li><a class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2" href="/account/Wishlist">My Wishlist</a></li>
                                 <li><hr class="dropdown-divider my-2"></li>
-                                <li><a class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2" href="profile-settings.html">Settings</a></li>
+                                <li><a class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2" href="/account/settings">Settings</a></li>
                                 <li><a class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2" href="/Home/Logout">Logout</a></li>
                             </ul>
                         </div>
@@ -145,6 +145,15 @@
                         @if (tien != null && !await UserManager.IsInRoleAsync(tien, "Seller") && !await UserManager.IsInRoleAsync(tien, "Admin"))
                         {
                             <a href="@Url.Action("RedirectToBecomeAnExpert", "Home")" class="btn btn-primary me-0">Become Expert</a>
+                            <div class="header__hamburger d-xl-none my-auto">
+                                <div class="sidebar-menu">
+                                    <i class="isax isax-menu5"></i>
+                                </div>
+                            </div>
+                        }
+                        @if (tien != null && await UserManager.IsInRoleAsync(tien, "Seller") && !await UserManager.IsInRoleAsync(tien, "Admin"))
+                        {
+                            <a href="/manager" class="btn btn-primary me-0">Manager Page</a>
                             <div class="header__hamburger d-xl-none my-auto">
                                 <div class="sidebar-menu">
                                     <i class="isax isax-menu5"></i>
