@@ -467,6 +467,11 @@ namespace Booking.Controllers
             }
             if (result.Succeeded)
             {
+                if (await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    ViewData["ReturnUrl"] = "/Admin";
+                }
+
                 await _signInManager.SignInAsync(user, isPersistent: rememberMe ?? false); // Thêm dòng này
                 return Json(new
                     {
@@ -697,6 +702,60 @@ namespace Booking.Controllers
             await _signInManager.SignOutAsync();
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult RedirectToBecomeAnExpert()
+        {
+            return RedirectToAction("BecomeAnExpert");
+        }
+
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> BecomeAnExpert()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var model = new SellerRegisterViewModel();
+            model.FirstName = user.firstName;
+            model.LastName = user.lastName;
+            model.Phone = user.PhoneNumber;
+            model.Email = user.Email;
+            model.Birthday = user.sinhNhat ?? default(DateTime);
+            model.ZipCode = user.ZipCode;
+            model.Province = user.Province;
+            model.District = user.District;
+            model.Ward = user.Ward;
+            model.Address = user.address;
+            return View("become-an-expert", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BecomeAnExpert(SellerRegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("become-an-expert", model); // Nếu dữ liệu không hợp lệ, quay lại form với thông báo lỗi
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                user.firstName = model.FirstName;
+                user.lastName = model.LastName;
+                user.PhoneNumber = model.Phone;
+                user.sinhNhat = model.Birthday;
+                user.ZipCode = model.ZipCode;
+                user.Province = model.Province;
+                user.District = model.District;
+                user.Ward = model.Ward;
+                user.address = model.Address;
+                user.RequestSeller = "true";
+
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View("become-an-expert", model);
         }
     }
 }

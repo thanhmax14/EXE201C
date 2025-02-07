@@ -499,9 +499,9 @@
                             </ul>
                         </div>
 
-                        @if (tien != null && !await UserManager.IsInRoleAsync(tien, "Seller"))
+                        @if (tien != null && !await UserManager.IsInRoleAsync(tien, "Seller") && !await UserManager.IsInRoleAsync(tien, "Admin"))
                         {
-                            <a href="become-an-expert.html" class="btn btn-primary me-0">Become Expert</a>
+                            <a href="@Url.Action("RedirectToBecomeAnExpert", "Home")" class="btn btn-primary me-0">Become Expert</a>
                             <div class="header__hamburger d-xl-none my-auto">
                                 <div class="sidebar-menu">
                                     <i class="isax isax-menu5"></i>
