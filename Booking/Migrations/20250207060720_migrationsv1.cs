@@ -31,6 +31,18 @@ namespace Booking.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    img = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    joinin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    sinhNhat = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Province = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    District = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ward = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    firstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequestSeller = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    isUpdateProfile = table.Column<bool>(type: "bit", nullable: false),
+                    IsBanByadmin = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -73,6 +85,32 @@ namespace Booking.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Dongtiens",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    sotientruoc = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    sotienthaydoi = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    sotiensau = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    thoigian = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    noidung = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    method = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    trangthai = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ordercode = table.Column<long>(type: "bigint", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsComplete = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dongtiens", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Dongtiens_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Hotels",
                 columns: table => new
                 {
@@ -91,13 +129,49 @@ namespace Booking.Migrations
                     ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    linkLocation = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Hotels", x => x.ID);
                     table.ForeignKey(
                         name: "FK_Hotels_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tours",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TourName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    startDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EndDATE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Destination = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DurationDay = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DurationNight = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    totalPreoPle = table.Column<int>(type: "int", nullable: false),
+                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    minAge = table.Column<int>(type: "int", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    linkLocation = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tours", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Tours_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -268,6 +342,36 @@ namespace Booking.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ReviewHotels",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    cmt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    datecmt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    relay = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dateRelay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    status = table.Column<bool>(type: "bit", nullable: false),
+                    rating = table.Column<int>(type: "int", nullable: false),
+                    OrderID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    HotelID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReviewHotels", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ReviewHotels_Hotels_HotelID",
+                        column: x => x.HotelID,
+                        principalTable: "Hotels",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_ReviewHotels_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rooms",
                 columns: table => new
                 {
@@ -276,7 +380,7 @@ namespace Booking.Migrations
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoomType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaximumOccupancy = table.Column<int>(type: "int", nullable: false),
+                    MaximumOccupancy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoomSize = table.Column<float>(type: "real", nullable: false),
                     Sleeps = table.Column<int>(type: "int", nullable: false),
                     BedType = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -357,6 +461,172 @@ namespace Booking.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Activities",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TourID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ActivitiesName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activities", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Activities_Tours_TourID",
+                        column: x => x.TourID,
+                        principalTable: "Tours",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DaTours",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Guests = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    NoOfDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    messess = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    paymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DatePayment = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    tax = table.Column<int>(type: "int", nullable: false),
+                    Discount = table.Column<int>(type: "int", nullable: false),
+                    BookingFees = table.Column<int>(type: "int", nullable: false),
+                    totalPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TourID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    progress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isComment = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DaTours", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_DaTours_Tours_TourID",
+                        column: x => x.TourID,
+                        principalTable: "Tours",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_DaTours_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Excludes",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TourID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ExcludesName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Excludes", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Excludes_Tours_TourID",
+                        column: x => x.TourID,
+                        principalTable: "Tours",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GalleryTours",
+                columns: table => new
+                {
+                    ImageID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TourID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsFeatureImage = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GalleryTours", x => x.ImageID);
+                    table.ForeignKey(
+                        name: "FK_GalleryTours_Tours_TourID",
+                        column: x => x.TourID,
+                        principalTable: "Tours",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Includes",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TourID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IncludesName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Includes", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Includes_Tours_TourID",
+                        column: x => x.TourID,
+                        principalTable: "Tours",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReviewTours",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    cmt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    datecmt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    relay = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dateRelay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    status = table.Column<bool>(type: "bit", nullable: false),
+                    rating = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TourID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReviewTours", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ReviewTours_Tours_TourID",
+                        column: x => x.TourID,
+                        principalTable: "Tours",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_ReviewTours_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WishlistTours",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TourID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WishlistTours", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_WishlistTours_Tours_TourID",
+                        column: x => x.TourID,
+                        principalTable: "Tours",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_WishlistTours_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AccessibilityRooms",
                 columns: table => new
                 {
@@ -392,6 +662,44 @@ namespace Booking.Migrations
                         principalTable: "Rooms",
                         principalColumn: "RoomID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Datphongs",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Guests = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    checkIn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    checkOut = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    NoOfDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    messess = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    paymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DatePayment = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    tax = table.Column<int>(type: "int", nullable: false),
+                    Discount = table.Column<int>(type: "int", nullable: false),
+                    BookingFees = table.Column<int>(type: "int", nullable: false),
+                    totalPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoomID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    progress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isComment = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Datphongs", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Datphongs_Rooms_RoomID",
+                        column: x => x.RoomID,
+                        principalTable: "Rooms",
+                        principalColumn: "RoomID");
+                    table.ForeignKey(
+                        name: "FK_Datphongs_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -439,6 +747,11 @@ namespace Booking.Migrations
                 column: "RoomID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Activities_TourID",
+                table: "Activities",
+                column: "TourID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Amenities_HotelID",
                 table: "Amenities",
                 column: "HotelID");
@@ -447,6 +760,36 @@ namespace Booking.Migrations
                 name: "IX_AmenityRooms_RoomID",
                 table: "AmenityRooms",
                 column: "RoomID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DaTours_TourID",
+                table: "DaTours",
+                column: "TourID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DaTours_UserID",
+                table: "DaTours",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Datphongs_RoomID",
+                table: "Datphongs",
+                column: "RoomID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Datphongs_UserID",
+                table: "Datphongs",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dongtiens_UserID",
+                table: "Dongtiens",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Excludes_TourID",
+                table: "Excludes",
+                column: "TourID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FAQs_HotelID",
@@ -464,6 +807,11 @@ namespace Booking.Migrations
                 column: "RoomID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GalleryTours_TourID",
+                table: "GalleryTours",
+                column: "TourID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Highlights_HotelID",
                 table: "Highlights",
                 column: "HotelID");
@@ -471,6 +819,31 @@ namespace Booking.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Hotels_UserID",
                 table: "Hotels",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Includes_TourID",
+                table: "Includes",
+                column: "TourID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewHotels_HotelID",
+                table: "ReviewHotels",
+                column: "HotelID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewHotels_UserID",
+                table: "ReviewHotels",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewTours_TourID",
+                table: "ReviewTours",
+                column: "TourID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewTours_UserID",
+                table: "ReviewTours",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
@@ -504,6 +877,11 @@ namespace Booking.Migrations
                 name: "IX_Services_HotelID",
                 table: "Services",
                 column: "HotelID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tours_UserID",
+                table: "Tours",
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
@@ -541,6 +919,16 @@ namespace Booking.Migrations
                 name: "IX_WishlistHotels_UserID",
                 table: "WishlistHotels",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishlistTours_TourID",
+                table: "WishlistTours",
+                column: "TourID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishlistTours_UserID",
+                table: "WishlistTours",
+                column: "UserID");
         }
 
         /// <inheritdoc />
@@ -550,10 +938,25 @@ namespace Booking.Migrations
                 name: "AccessibilityRooms");
 
             migrationBuilder.DropTable(
+                name: "Activities");
+
+            migrationBuilder.DropTable(
                 name: "Amenities");
 
             migrationBuilder.DropTable(
                 name: "AmenityRooms");
+
+            migrationBuilder.DropTable(
+                name: "DaTours");
+
+            migrationBuilder.DropTable(
+                name: "Datphongs");
+
+            migrationBuilder.DropTable(
+                name: "Dongtiens");
+
+            migrationBuilder.DropTable(
+                name: "Excludes");
 
             migrationBuilder.DropTable(
                 name: "FAQs");
@@ -565,7 +968,19 @@ namespace Booking.Migrations
                 name: "GalleryRooms");
 
             migrationBuilder.DropTable(
+                name: "GalleryTours");
+
+            migrationBuilder.DropTable(
                 name: "Highlights");
+
+            migrationBuilder.DropTable(
+                name: "Includes");
+
+            migrationBuilder.DropTable(
+                name: "ReviewHotels");
+
+            migrationBuilder.DropTable(
+                name: "ReviewTours");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
@@ -595,10 +1010,16 @@ namespace Booking.Migrations
                 name: "WishlistHotels");
 
             migrationBuilder.DropTable(
+                name: "WishlistTours");
+
+            migrationBuilder.DropTable(
                 name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Tours");
 
             migrationBuilder.DropTable(
                 name: "Hotels");
