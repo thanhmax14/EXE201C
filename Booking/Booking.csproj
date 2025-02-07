@@ -33,6 +33,7 @@
   <ItemGroup>
     <Folder Include="BusinicService\" />
     <Folder Include="Repository\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

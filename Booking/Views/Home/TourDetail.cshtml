@@ -551,12 +551,16 @@
                                     
                                    
                                 </div>
-                                <a href="~/assets/img/tours/tour-large-01.jpg" data-fancybox="gallery" class="btn btn-white btn-xs view-btn"><i class="isax isax-image me-1"></i>See All</a>
+                                <a href="@Model.imgView.FirstOrDefault()" data-fancybox="gallery" class="btn btn-white btn-xs view-btn"><i class="isax isax-image me-1"></i>See All</a>
                                 <div class="slider-nav nav-center" id="small-img">
 
                                     @foreach (var itemImg in Model.imgView)
                                     {
-                                        <div><img src="@itemImg class="img-fluid" alt="Slider Img"></div>
+                                        <div>
+
+                                            <img src="@itemImg" class="img-fluid" alt="Slider Img">
+                                            
+                                        </div>
                                     }
                                 </div>
                             </div>
@@ -579,7 +583,11 @@
                             @Html.AntiForgeryToken()
                             <div class="d-flex align-items-center mb-3">
                                 <a href="javascript:void(0);" class="btn btn-outline-light btn-icon btn-sm d-flex align-items-center justify-content-center me-2"><i class="isax isax-share"></i></a>
-                                <a href="javascript:void(0);" onclick="('@Model.TourID')" class="btn btn-outline-light btn-sm d-inline-flex align-items-center"><i class="isax isax-heart5 text-danger me-1"></i>Save</a>
+                               
+                                <a class="btn btn-outline-light btn-sm d-inline-flex align-items-center" onclick="AddWishlistTouur('fc27e0f6-ed0c-4713-a526-c41bbb2aeebb', event)">
+                                    <i id="iconsave" class="isax isax-heart5 @Model.farovite me-1"></i>Save
+                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -824,15 +832,29 @@
                     </div>
                     <!-- /FAQ -->
                     <!-- Reviews -->
+
+
                     <div class="d-flex align-items-center justify-content-between flex-wrap mb-2" id="reviews">
-                        <h6 class="mb-3">Reviews (45)</h6>
-                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_review" class="btn btn-primary btn-md mb-3"><i class="isax isax-edit-2 me-1"></i>Write a Review</a>
+                        <h6 class="mb-3">Reviews</h6>
+
+                        @if (Model.isComment)
+                        {
+                            <button data-bs-toggle="modal" data-bs-target="#add_review" class="btn btn-primary btn-md mb-3"><i class="isax isax-edit-2 me-1"></i>Write a Review</button>
+                        }
+                       
+                   
+                    
+                    
                     </div>
+
+
+
+
                     <div class="row">
                         <div class="col-md-6 d-flex">
                             <div class="rating-item bg-light-200 text-center flex-fill mb-3">
                                 <h6 class="fw-medium mb-3">Customer Reviews & Ratings</h6>
-                                <h5 class="display-6">4.9 / 5.0</h5>
+                                <h5 class="display-6">5.0/ 5.0</h5>
                                 <div class="d-inline-flex align-items-center justify-content-center mb-3">
                                     <i class="ti ti-star-filled text-primary me-1"></i>
                                     <i class="ti ti-star-filled text-primary me-1"></i>
@@ -840,7 +862,7 @@
                                     <i class="ti ti-star-filled text-primary me-1"></i>
                                     <i class="ti ti-star-filled text-primary"></i>
                                 </div>
-                                <p>Based On 2,459 Reviews</p>
+                                <p>Based On 0 Reviews</p>
                             </div>
                         </div>
                         <div class="col-md-6 d-flex">
@@ -848,161 +870,144 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center mb-2">
                                         <p class="me-2 text-nowrap mb-0">5 Star Ratings</p>
-                                        <div class="progress w-100" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar bg-primary" style="width: 90%"></div>
+                                        <div class="progress w-100" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+                                            <div class="progress-bar bg-primary" style="width: 0%"></div>
                                         </div>
-                                        <p class="progress-count ms-2">247</p>
+                                        <p class="progress-count ms-2">0</p>
                                     </div>
                                     <div class="d-flex align-items-center mb-2">
                                         <p class="me-2 text-nowrap mb-0">4 Star Ratings</p>
-                                        <div class="progress mb-0 w-100" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                        <div class="progress mb-0 w-100" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+                                            <div class="progress-bar bg-primary" style="width: 0%"></div>
                                         </div>
                                         <p class="progress-count ms-2">145</p>
                                     </div>
                                     <div class="d-flex align-items-center mb-2">
                                         <p class="me-2 text-nowrap mb-0">3 Star Ratings</p>
-                                        <div class="progress mb-0 w-100" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar bg-primary" style="width: 70%"></div>
+                                        <div class="progress mb-0 w-100" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+                                            <div class="progress-bar bg-primary" style="width: 0%"></div>
                                         </div>
-                                        <p class="progress-count ms-2">600</p>
+                                        <p class="progress-count ms-2">0</p>
                                     </div>
                                     <div class="d-flex align-items-center mb-2">
                                         <p class="me-2 text-nowrap mb-0">2 Star Ratings</p>
-                                        <div class="progress mb-0 w-100" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar bg-primary" style="width: 60%"></div>
+                                        <div class="progress mb-0 w-100" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+                                            <div class="progress-bar bg-primary" style="width: 0%"></div>
                                         </div>
-                                        <p class="progress-count ms-2">560</p>
+                                        <p class="progress-count ms-2">0</p>
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <p class="me-2 text-nowrap mb-0">1 Star Ratings</p>
-                                        <div class="progress mb-0 w-100" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar bg-primary" style="width: 40%"></div>
+                                        <div class="progress mb-0 w-100" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+                                            <div class="progress-bar bg-primary" style="width: 0%"></div>
                                         </div>
-                                        <p class="progress-count ms-2">400</p>
+                                        <p class="progress-count ms-2">0</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card review-item shadow-none mb-3">
-                        <div class="card-body p-3">
-                            <div class="review-info">
-                                <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="avatar avatar-lg me-2 flex-shrink-0">
-                                            <img src="~/assets/img/users/user-05.jpg" class="rounded-circle" alt="img">
-                                        </span>
-                                        <div>
-                                            <h6 class="fs-16 fw-medium mb-1">Joseph Massey</h6>
-                                            <div class="d-flex align-items-center flex-wrap date-info">
-                                                <p class="fs-14 mb-0">2 days ago</p>
-                                                <p class="fs-14 d-inline-flex align-items-center mb-0"><span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>Unforgettable Stay!</p>
+
+
+
+   @if(Model.readcmt.Any()){
+
+                            foreach(var item in Model.readcmt)
+                            {
+                                <div class="card review-item shadow-none mb-3">
+                                    <div class="card-body p-3">
+                                        <div class="review-info">
+                                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <span class="avatar avatar-lg me-2 flex-shrink-0">
+                                                        <img src="/@item.imgUser" class="rounded-circle"
+                                                             alt="img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">@item.UserName</h6>
+                                                        <div class="d-flex align-items-center flex-wrap date-info">
+                                                            <p class="fs-14 mb-0">@item.datecmt</p>
+                                                            <p class="fs-14 d-inline-flex align-items-center mb-0">
+                                                                <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">@item.rating</span>Convenient
+                                                                Location!
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*  <a href="javascript:void(0);"
+                                        class="btn btn-outline-light btn-md d-inline-flex align-items-center mb-2">
+                                        <i class="isax isax-repeat me-1"></i>Reply
+                                        </a> *@
                                             </div>
+                                            <p class="mb-2">
+                                               @item.cmt
+                                            </p>
+                                            @*    <div class="d-inline-flex align-items-center">
+                                    <a href="javascript:void(0);"
+                                    class="d-inline-flex align-items-center fs-14 me-3">
+                                    <i class="isax isax-like-1 me-2"></i>13
+                                    </a>
+                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3">
+                                    <i class="isax isax-dislike me-2"></i>38
+                                    </a>
+                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3">
+                                    <i class="isax isax-heart5 text-danger me-2"></i>75
+                                    </a>
+                                    </div> *@
                                         </div>
-                                    </div>
-                                    <a href="javascript:void(0);" class="btn btn-outline-light btn-md d-inline-flex align-items-center mb-2"><i class="isax isax-repeat me-1"></i>Reply</a>
-                                </div>
-                                <p class="mb-2">It was a good location however the cocoon concept was weird. No tables, chairs etc was difficult as everything went on the floor.</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md me-2 mb-2" data-fancybox="gallery" href="~/assets/img/tours/tour-large-01.jpg">
-                                        <img src="~/assets/img/tours/tour-thumb-01.jpg" class="br-10" alt="img">
-                                    </div>
-                                    <div class="avatar avatar-md me-2 mb-2" data-fancybox="gallery" href="~/assets/img/tours/tour-large-02.jpg">
-                                        <img src="~/assets/img/tours/tour-thumb-02.jpg" class="br-10" alt="img">
-                                    </div>
-                                    <div class="avatar avatar-md me-0 mb-2" data-fancybox="gallery" href="~/assets/img/tours/tour-large-03.jpg">
-                                        <img src="~/assets/img/tours/tour-thumb-03.jpg" class="br-10" alt="img">
-                                    </div>
-                                </div>
-                                <div class="d-inline-flex align-items-center">
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center fs-14 me-3"><i class="isax isax-like-1 me-2"></i>21</a>
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3"><i class="isax isax-dislike me-2"></i>50</a>
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3"><i class="isax isax-heart5 text-danger me-2"></i>45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card review-item shadow-none mb-3">
-                        <div class="card-body p-3">
-                            <div class="review-info">
-                                <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="avatar avatar-lg me-2 flex-shrink-0">
-                                            <img src="~/assets/img/users/user-21.jpg" class="rounded-circle" alt="img">
-                                        </span>
-                                        <div>
-                                            <h6 class="fs-16 fw-medium mb-1">Jeffrey Jones</h6>
-                                            <div class="d-flex align-items-center flex-wrap date-info">
-                                                <p class="fs-14 mb-0">2 days ago</p>
-                                                <p class="fs-14 d-inline-flex align-items-center mb-0"><span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">4.0</span>Excellent service!</p>
+                                          
+                                        @if (!string.IsNullOrWhiteSpace(item.relay))
+                                        {
+                                            <div class="review-info reply mt-4 p-3">
+                                                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <span class="avatar avatar-lg me-2 flex-shrink-0">
+                                                            <img src="/@item.imgSeller" class="rounded-circle"
+                                                                 alt="img">
+                                                        </span>
+                                                        <div>
+                                                            <h6 class="fs-16 fw-medium mb-1">@item.SellerName</h6>
+                                                            <div class="d-flex align-items-center flex-wrap date-info">
+                                                                <p class="fs-14 mb-0">@item.daterelay</p>
+                                                                @*  <p class="fs-14 d-inline-flex align-items-center mb-0">
+                                                    <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">2.0</span>Excellent
+                                                    service!
+                                                    </p> *@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @*  <a href="javascript:void(0);"
+                                        class="btn btn-outline-light btn-md d-inline-flex align-items-center me-2">
+                                        <i class="isax isax-repeat me-1"></i>Reply
+                                        </a> *@
+                                                </div>
+                                                <p class="mb-2">
+                                                    @item.relay
+                                                </p>
+                                                @*    <div class="d-inline-flex align-items-center">
+                                    <a href="javascript:void(0);"
+                                    class="d-inline-flex align-items-center fs-14 me-3">
+                                    <i class="isax isax-like-1 me-2"></i>10
+                                    </a>
+                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3">
+                                    <i class="isax isax-dislike me-2"></i>21
+                                    </a>
+                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3">
+                                    <i class="isax isax-heart5 text-danger me-2"></i>46
+                                    </a>
+                                    </div> *@
                                             </div>
-                                        </div>
+                                        }
+
+
+                                       
                                     </div>
-                                    <a href="javascript:void(0);" class="btn btn-outline-light btn-md d-inline-flex align-items-center mb-2"><i class="isax isax-repeat me-1"></i>Reply</a>
                                 </div>
-                                <p class="mb-2">From the moment we arrived, the staff made us feel welcome. The rooms were immaculate, and every detail was thoughtfully arranged. It was the perfect blend of comfort and luxury!</p>
-                                <div class="d-inline-flex align-items-center">
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center fs-14 me-3"><i class="isax isax-like-1 me-2"></i>15</a>
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3"><i class="isax isax-dislike me-2"></i>30</a>
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3"><i class="isax isax-heart5 text-danger me-2"></i>52</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card review-item shadow-none mb-3">
-                        <div class="card-body p-3">
-                            <div class="review-info">
-                                <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="avatar avatar-lg me-2 flex-shrink-0">
-                                            <img src="~/assets/img/users/user-26.jpg" class="rounded-circle" alt="img">
-                                        </span>
-                                        <div>
-                                            <h6 class="fs-16 fw-medium mb-1">Jessie Alves</h6>
-                                            <div class="d-flex align-items-center flex-wrap date-info">
-                                                <p class="fs-14 mb-0">2 days ago</p>
-                                                <p class="fs-14 d-inline-flex align-items-center mb-0"><span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>Convenient Location!</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="javascript:void(0);" class="btn btn-outline-light btn-md d-inline-flex align-items-center mb-2"><i class="isax isax-repeat me-1"></i>Reply</a>
-                                </div>
-                                <p class="mb-2">The location was perfect for exploring the city, and the views from our room were breathtaking. It made our trip so much more enjoyable to stay somewhere central and scenic</p>
-                                <div class="d-inline-flex align-items-center">
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center fs-14 me-3"><i class="isax isax-like-1 me-2"></i>13</a>
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3"><i class="isax isax-dislike me-2"></i>38</a>
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3"><i class="isax isax-heart5 text-danger me-2"></i>75</a>
-                                </div>
-                            </div>
-                            <div class="review-info reply mt-4 p-3">
-                                <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="avatar avatar-lg me-2 flex-shrink-0">
-                                            <img src="~/assets/img/users/user-25.jpg" class="rounded-circle" alt="img">
-                                        </span>
-                                        <div>
-                                            <h6 class="fs-16 fw-medium mb-1">Adrian Hendriques</h6>
-                                            <div class="d-flex align-items-center flex-wrap date-info">
-                                                <p class="fs-14 mb-0">2 days ago</p>
-                                                <p class="fs-14 d-inline-flex align-items-center mb-0"><span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">2.0</span>Excellent service!</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="javascript:void(0);" class="btn btn-outline-light btn-md d-inline-flex align-items-center me-2"><i class="isax isax-repeat me-1"></i>Reply</a>
-                                </div>
-                                <p class="mb-2">Thank you so much for your kind words! We're thrilled to hear that our location and views made your trip even more enjoyable. We hope to welcome you back soon for another scenic stay!</p>
-                                <div class="d-inline-flex align-items-center">
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center fs-14 me-3"><i class="isax isax-like-1 me-2"></i>10</a>
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3"><i class="isax isax-dislike me-2"></i>21</a>
-                                    <a href="javascript:void(0);" class="d-inline-flex align-items-center me-3"><i class="isax isax-heart5 text-danger me-2"></i>46</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center mb-4 mb-xl-0">
-                        <a href="javascript:void(0);" class="btn btn-primary btn-md d-inline-flex align-items-center justify-content-center mt-2">See all 4,078 reviews<i class="isax isax-arrow-right-3 ms-1"></i></a>
-                    </div>
+                            }
+
+                        }
+                 
+                
                 </div>
                 <!-- /Reviews -->
                 <!-- Tour Sidebar -->
@@ -1158,7 +1163,7 @@
                     {
                         <div class="card shadow-none">
                             <div class="card-body">
-                                <form action="https://dreamstour.dreamstechnologies.com/html/hotel-details.html">
+                                <form action="">
                                     <h5 class="mb-3 fs-18">Enquire Us</h5>
                                     <div class="py-1">
                                         <div class="mb-3">
@@ -1488,7 +1493,8 @@
                         <i class="ti ti-x fs-16"></i>
                     </a>
                 </div>
-                <form action="https://dreamstour.dreamstechnologies.com/html/tour-details.html">
+                <form>
+                    @Html.AntiForgeryToken()
                     <div class="modal-body pb-0">
                         <div class="row">
                             <div class="col-md-12">
@@ -1512,29 +1518,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control">
-                                </div>
-                            </div>
+                            <input type="hidden" value="@Model.TourID" id="idh" />
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Write Your Review <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <label class="form-label">
+                                        Write Your Review <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea id="txtReview" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="d-flex align-items-center justify-content-end m-0">
-                            <button type="submit" class="btn btn-primary btn-md"><i class="isax isax-edit-2 me-1"></i>Submit Review</button>
+                            <button id="btnCmt" type="button" class="btn btn-primary btn-md">
+                                <i class="isax isax-edit-2 me-1"></i>Submit Review
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -1553,7 +1552,77 @@
     <div class="back-to-top">
         <a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top"><i class="fa-solid fa-arrow-up"></i></a>
     </div>
+    <script>
+        function AddWishlistTouur(id, event) {
+            let icon = event.currentTarget.querySelector("i"); // Lấy phần tử icon trong nút
+            if (!icon) {
+                console.error("Không tìm thấy icon!");
+                return;
+            }
 
+            if (icon.classList.contains("text-danger")) {
+                Swal.fire({
+                    title: "Bạn có chắc chắn?",
+                    text: "Bạn muốn xóa khỏi danh sách yêu thích?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Có, xóa!",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/account/RemoveWishTour",
+                            type: "POST",
+                            data: { id: id },
+                            headers: {
+                                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    cuteToast({
+                                        type: "success",
+                                        message: response.message,
+                                        timer: 5000
+                                    });
+                                    icon.classList.remove("text-danger");
+                                } else {
+                                    Swal.fire('Thất bại', response.message, 'error');
+                                }
+                            },
+                            error: function () {
+                                alert("Lỗi xảy ra khi xóa khỏi wishlist.");
+                            }
+                        });
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "/account/AddWishTour",
+                    type: "POST",
+                    data: { id: id },
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            cuteToast({
+                                type: "success",
+                                message: response.message,
+                                timer: 5000
+                            });
+                            icon.classList.add("text-danger");
+                        } else {
+                            Swal.fire('Thất bại', response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi xảy ra khi thêm vào wishlist.");
+                    }
+                });
+            }
+        }
+
+    </script>
     <!-- Jquery JS -->
     <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="~/assets/js/jquery-3.7.1.min.js" type="f4d4334d6d2726082dfded4b-text/javascript"></script>
@@ -1591,51 +1660,14 @@
     <script src="~/assets/js/script.js" type="f4d4334d6d2726082dfded4b-text/javascript"></script>
 
     <script src="~/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="f4d4334d6d2726082dfded4b-|49" defer></script><!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script>
+    
 </body>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Mirrored from dreamstour.dreamstechnologies.com/html/tour-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Jan 2025 14:13:30 GMT -->
 </html>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {      
         $("#book-now-btn").on("click", function () {
@@ -1707,76 +1739,80 @@
 
 </script>
 
-<script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Kiểm tra nếu có trạng thái cần cuộn đến #reviews sau khi reload
+        if (localStorage.getItem("scrollToReviews") === "true") {
+            localStorage.removeItem("scrollToReviews"); // Xóa trạng thái sau khi dùng
+            setTimeout(function () {
+                window.location.hash = "reviews";
+            }, 100);
 
-    function AddWishlist(id) {
-        var icon = document.getElementById("iconsave");
-        if (icon.classList.contains("text-danger")) {
-            Swal.fire({
-                title: "Bạn có chắc chắn?",
-                text: "Bạn muốn xóa khỏi danh sách yêu thích?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Có, xóa!",
-                cancelButtonText: "Hủy"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "/account/RemoveWishTour",
-                        type: "POST",
-                        data: { id: id },
-                        headers: {
-                            "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
-                        },
-                        success: function (response) {
-                            if (response.success) {
-                                cuteToast({
-                                    type: "success",
-                                    message: response.message,
-                                    timer: 5000
-                                });
-                                icon.classList.remove("text-danger");
-                            } else if (response.notAuth) {
-                                Swal.fire('Thất bại', response.message, 'error');
-                            } else {
-                                Swal.fire('Thất bại', response.message, 'error');
-                            }
-                        },
-                        error: function () {
-                            alert("Lỗi xảy ra khi xóa khỏi wishlist.");
-                        }
-                    });
-                }
-            });
-        } else {
+        }
+
+        // Sử dụng document.on để đảm bảo sự kiện hoạt động ngay cả khi modal tạo động
+        $(document).on("click", "#btnCmt", function (e) {
+            e.preventDefault();
+
+            var rating = $("input[name='rating']:checked").val();
+            var comment = $("#txtReview").val();
+            var idh = $("#idh").val();
+            var token = $('input[name="__RequestVerificationToken"]').val(); // Lấy CSRF token
+
+            if (!rating || !comment.trim()) {
+                Swal.fire("Lỗi", "Vui lòng chọn số sao và nhập đánh giá!", "error");
+                return;
+            }
+
+            console.log("Đang gửi AJAX...", { rating, comment, token });
+
+            $('#btnCmt').html('<i class="fa fa-spinner fa-spin"></i> Đang gửi...').prop('disabled', true);
+
             $.ajax({
-                url: "/account/AddWishTour",
-                type: "POST",
-                data: { id: id },
-                headers: {
-                    "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                url: "@Url.Action("SendcmtTour", "Account")",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    rating: rating,
+                    comment: comment,
+                    id: idh,
+                    __RequestVerificationToken: token
                 },
                 success: function (response) {
-                    if (response.success) {
+                    console.log("Phản hồi từ server:", response);
+
+                    if (response.status === 'success') {
                         cuteToast({
                             type: "success",
-                            message: response.message,
+                            message: response.msg,
                             timer: 5000
                         });
-                        icon.classList.add("text-danger");
-                    } else if (response.notAuth) {
-                        Swal.fire('Thất bại', response.message, 'error');
+
+                        // Đóng modal
+                        $('#add_review').modal('hide');
+
+                        // Lưu trạng thái để sau khi reload trang sẽ tự động cuộn đến #reviews
+                        localStorage.setItem("scrollToReviews", "true");
+
+                        // Reload lại trang
+                        setTimeout(() => location.reload(), 1000);
                     } else {
-                        Swal.fire('Thất bại', response.message, 'error');
+                        Swal.fire("Thất bại", response.msg, "error");
                     }
+                    $('#btnCmt').html('Submit Review').prop('disabled', false);
                 },
-                error: function () {
-                    alert("Lỗi xảy ra khi thêm vào wishlist.");
+                error: function (xhr, status, error) {
+                    console.log("Lỗi AJAX:", xhr.responseText);
+
+                    cuteToast({
+                        type: "error",
+                        message: "Không thể gửi đánh giá. Vui lòng thử lại!",
+                        timer: 5000
+                    });
+                    $('#btnCmt').html('Submit Review').prop('disabled', false);
                 }
             });
-        }
-    }
-
-
-
+        });
+    });
 </script>
+

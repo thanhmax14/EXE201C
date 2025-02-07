@@ -68,6 +68,14 @@ namespace Booking.Controllers
                     {
                         var (date, time) = SplitDateTime(item.checkIn);
                         var getImg = this._context.Galleries.FirstOrDefault(u => u.HotelID == getInfoHotel.ID && u.IsFeatureImage);
+
+
+                        var imgPath = "https://dreamstour.dreamstechnologies.com/html/assets/img/tours/tour-large-01.jpg";
+                        if (getImg != null)
+                        {
+                            imgPath = getImg.ImagePath;
+                        }
+
                         temRecBoking.Add(new RecentBookings
                         {
                             ID = getInfoHotel.ID,
@@ -77,11 +85,11 @@ namespace Booking.Controllers
                             Type = "<span class=\"badge badge-soft-info badge-xs rounded-pill mb-1\"><i class=\"isax isax-buildings me-1\"></i>Hotel</span>",
                             date = date,
                             link = $"/home/HotelDetail/{getInfoHotel.ID}",
-                            img = getImg.ImagePath,
+                            img = imgPath,
                             
                             
                         });
-                        reBoking.Add((getInfoHotel.HotelName, $"{getImg.ImagePath}", $"{item.OrderID}",
+                        reBoking.Add((getInfoHotel.HotelName, $"{imgPath}", $"{item.OrderID}",
                             getInfoHotel.ID, item.DatePayment, item.totalPaid, item.paymentStatus));
 
                     }
@@ -279,7 +287,7 @@ namespace Booking.Controllers
 
                 if (checkHotel != null)
                 {
-                    img.AddRange(await this._context.Galleries.Where(u => u.HotelID == checkHotel.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync());
+                    img.AddRange(await this._context.GalleryTours.Where(u => u.TourID == checkHotel.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync());
                     list.Add(new WishList
                     {
                         ListTours = new List<WishListTour>
@@ -928,24 +936,6 @@ namespace Booking.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             public async Task<IActionResult> Review()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -973,12 +963,32 @@ namespace Booking.Controllers
                         rating = item.rating + ".0",
                         imgSeller = item.HotelID.ToString()
                     });
+                }  
+            }
+
+            var getInfoTour = await this._context.ReviewTours.Where(u => u.UserID == user.Id).OrderByDescending(q => q.datecmt).ToListAsync();
+
+            if (getInfoTour.Any())
+            {
+                foreach (var item in getInfoTour)
+                {
+                    var getInfoHotel = await this._context.Tours.FindAsync(item.TourID);
+                    tem.Add(new readcmt
+                    {
+                        UserName = $"{user.firstName} {user.lastName}",
+                        cmt = item.cmt,
+                        imgUser = user.img,
+                        datecmt = item.datecmt,
+                        relay = getInfoHotel.TourName,
+                        rating = item.rating + ".0",
+                        imgSeller = item.TourID.ToString()
+                    });
                 }
-                return View(tem);
             }
 
 
-            return RedirectToAction("Erro404", "Home");
+
+            return View(tem);
         }
 
         [HttpPost]
@@ -1412,7 +1422,15 @@ namespace Booking.Controllers
                         var getInfoHotel = await this._context.Hotels.FindAsync(getHotsl.FirstOrDefault().HotelID);
                         if (getInfoHotel != null)
                         {
-                            var getImg = this._context.Galleries.FirstOrDefault(u => u.HotelID == getInfoHotel.ID && u.IsFeatureImage);
+                            var getImg = this._context.Galleries.FirstOrDefault(u => u.HotelID == getInfoHotel.ID);
+                            
+                            var imgPath = "https://dreamstour.dreamstechnologies.com/html/assets/img/tours/tour-large-01.jpg";
+                            if (getImg != null)
+                            {
+                                imgPath = getImg.ImagePath;
+                            }
+
+
                             tem.Add(new HotelBookingViewodels
                             {
                                 Booked = item.BookedOn,
@@ -1420,12 +1438,13 @@ namespace Booking.Controllers
                                 hotelID = getHotsl.FirstOrDefault().HotelID,
                                 Guest = item.Guests,
                                 HotelName = getInfoHotel.HotelName,
-                                img = getImg.ImagePath,
+                                img = imgPath,
                                 location = $"{getInfoHotel.City},{getInfoHotel.Country}",
                                 OrderID = item.OrderID,
                                 price = item.totalPaid,
                                 RomeName = getHotsl.FirstOrDefault().RoomName,
-                                status = item.paymentStatus
+                                status = item.paymentStatus,
+                                
                             });
                         }
                     }
@@ -1434,6 +1453,60 @@ namespace Booking.Controllers
 
             return View(tem);
         }
+
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> SendcmtTour(string rating, string comment, Guid id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { status = "error", msg = "Bạn phải đăng nhập để thực hiện hành động này!" });
+            }
+            var a = id;
+            var infoHotel = await this._context.Tours.FirstOrDefaultAsync(u => u.ID == id);
+            if (infoHotel == null)
+            {
+                return Json(new { status = "error", msg = "Tours sạn không tồn tại!" });
+            }
+            if (string.IsNullOrEmpty(rating) || string.IsNullOrEmpty(comment))
+            {
+                return Json(new { status = "error", msg = "Vui lòng nhập đầy đủ thông tin!" });
+            }
+            var getList = await this._context.DaTours.Where(u => u.UserID == user.Id && u.paymentStatus == "PAID" && !u.isComment)
+                    .ToListAsync();
+            if (getList.Any())
+            {
+                try
+                {
+                    await this._context.ReviewTours.AddAsync(new ReviewTour
+                    {
+                        cmt = comment,
+                        datecmt = DateTime.Now,
+                        UserID = user.Id,
+                        TourID = infoHotel.ID,
+                        
+                    });
+
+                    var tem = getList.FirstOrDefault();
+                    tem.isComment = true;
+                    this._context.DaTours.Update(tem);
+                    await this._context.SaveChangesAsync();
+                }
+                catch
+                {
+                    return Json(new { status = "error", msg = "Đã xảy ra lỗi không mong muốn!" });
+                }
+                return Json(new { status = "success", msg = "Cảm ơn bạn đã đánh giá!" });
+            }
+            else
+            {
+                return Json(new { status = "error", msg = "Bạn phải sử dụng dịch vụ mới được đánh giá!" });
+            }
+
+        }
+
 
 
 

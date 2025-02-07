@@ -273,53 +273,53 @@ namespace Booking.Controllers
             }
             else
             {
-                /* var user = await _userManager.GetUserAsync(User);
-                 if (user != null && await this._context.WishlistHotels.AnyAsync(u => u.UserID == user.Id && u.HotelID == id))
-                 {
-                     tem.farovite = "text-danger";
-                 }
-                 if (user != null)
-                 {
-                     var getList = await this._context.Datphongs.Where(u => u.UserID == user.Id && u.paymentStatus == "PAID" && !u.isComment)
-                     .ToListAsync();
-                     if (getList.Any())
-                     {
-                         tem.isComment = true;
-                     }
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null && await this._context.WishlistTours.AnyAsync(u => u.UserID == user.Id && u.TourID == id))
+                {
+                    tem.farovite = "text-danger";
+                }
+                if (user != null)
+                {
+                    var getList = await this._context.DaTours.Where(u => u.UserID == user.Id && u.paymentStatus == "PAID" && !u.isComment)
+                    .ToListAsync();
+                    if (getList.Any())
+                    {
+                        tem.isComment = true;
+                    }
 
 
-                 }
+                }
 
-                 var getcmt = await this._context.ReviewHotels.Where(u => u.HotelID == id && !u.status).OrderByDescending(q => q.datecmt).ToListAsync();
+                var getcmt = await this._context.ReviewTours.Where(u => u.TourID == id && !u.status).OrderByDescending(q => q.datecmt).ToListAsync();
 
-                 if (getcmt.Any())
-                 {
-                     foreach (var item in getcmt)
-                     {
-                         var infoUser = await this._userManager.FindByIdAsync(item.UserID);
-                         var infoSeller = await this._userManager.FindByIdAsync(infoHotel.UserID);
+                if (getcmt.Any())
+                {
+                    foreach (var item in getcmt)
+                    {
+                        var infoUser = await this._userManager.FindByIdAsync(item.UserID);
+                        var infoSeller = await this._userManager.FindByIdAsync(infoTour.UserID);
 
-                         if (infoUser != null && infoSeller != null)
-                         {
-                             tem.readcmt.Add(new readcmt
-                             {
-                                 datecmt = item.datecmt,
-                                 daterelay = item.dateRelay,
-                                 imgSeller = infoSeller.img,
-                                 imgUser = infoUser.img,
-                                 rating = item.rating + ".0",
-                                 relay = item.relay ?? "",
-                                 SellerName = $"{infoSeller.firstName} {infoSeller.lastName}",
-                                 UserName = $"{infoUser.firstName} {infoUser.lastName}",
-                                 cmt = item.cmt
+                        if (infoUser != null && infoSeller != null)
+                        {
+                            tem.readcmt.Add(new readcmt
+                            {
+                                datecmt = item.datecmt,
+                                daterelay = item.dateRelay,
+                                imgSeller = infoSeller.img,
+                                imgUser = infoUser.img,
+                                rating = item.rating + ".0",
+                                relay = item.relay ?? "",
+                                SellerName = $"{infoSeller.firstName} {infoSeller.lastName}",
+                                UserName = $"{infoUser.firstName} {infoUser.lastName}",
+                                cmt = item.cmt
 
-                             });
-                         }
+                            });
+                        }
 
 
 
-                     }
-                 }*/
+                    }
+                }
 
                 var stardate = DateTime.ParseExact(infoTour.startDate, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(5);
                 var endDate = DateTime.ParseExact(infoTour.EndDATE, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(22);

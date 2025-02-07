@@ -243,23 +243,20 @@ namespace Booking.Data
            .HasForeignKey(w => w.TourID)
            .OnDelete(DeleteBehavior.NoAction);
 
-
-            modelBuilder.Entity<ReviewTour>().HasKey(a => a.ID);
+            modelBuilder.Entity<ReviewTour>()
+         .HasKey(a => a.ID);
 
             modelBuilder.Entity<ReviewTour>()
-        .HasOne(w => w.AppUser)
-        .WithMany(h => h.ReviewTours)
-        .HasForeignKey(w => w.UserID)
-        .OnDelete(DeleteBehavior.NoAction);
+                .HasOne(w => w.AppUser)
+                .WithMany(h => h.ReviewTours)
+                .HasForeignKey(w => w.UserID)
+                .OnDelete(DeleteBehavior.NoAction); 
 
             modelBuilder.Entity<ReviewTour>()
-           .HasOne(w => w.Tour)
-            .WithMany(h => h.ReviewTours)
-           .HasForeignKey(w => w.TourID)
-           .OnDelete(DeleteBehavior.NoAction);
-
-
-
+                .HasOne(w => w.Tour)
+                .WithMany(h => h.ReviewTours)
+                .HasForeignKey(w => w.TourID)
+                .OnDelete(DeleteBehavior.NoAction); 
 
 
 
