@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-
+@model Booking.ViewModels.viewModelDash;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -204,7 +204,7 @@
                                         <i class="isax isax-calendar-15 fs-24"></i>
                                     </span>
                                     <p class="mb-1">Total Bookings</p>
-                                    <h5 class="mb-2">456</h5>
+                                    <h5 class="mb-2">@Model.totelBoking</h5>
                                     <p class="d-flex align-items-center justify-content-center fs-14"><i class="isax isax-arrow-up-15 me-1 text-success"></i>20% From Last Month </p>
                                 </div>
                             </div>
@@ -216,12 +216,12 @@
                                         <i class="isax isax-money-time5 fs-24"></i>
                                     </span>
                                     <p class="mb-1">Total Listings</p>
-                                    <h5 class="mb-2">23</h5>
-                                    <a href="agent-listings.html" class="fs-14 link-primary text-decoration-underline">View All</a>   
+                                    <h5 class="mb-2">@Model.totekList</h5>
+                                    <a href="/manager/listing" class="fs-14 link-primary text-decoration-underline">View All</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6 d-flex">
+                       @*  <div class="col-xl-3 col-sm-6 d-flex">
                             <div class="card shadow-none flex-fill">
                                 <div class="card-body text-center">
                                     <span class="avatar avatar rounded-circle bg-info mb-2">
@@ -232,7 +232,7 @@
                                     <p class="d-flex align-items-center justify-content-center fs-14"><i class="isax isax-arrow-down5 me-1 text-danger"></i>15% From Last Month </p>
                                 </div>
                             </div>
-                        </div>
+                        </div> *@
                         <div class="col-xl-3 col-sm-6 d-flex">
                             <div class="card shadow-none flex-fill">
                                 <div class="card-body text-center">
@@ -240,8 +240,8 @@
                                         <i class="isax isax-magic-star5 fs-24"></i>
                                     </span>
                                     <p class="mb-1">Total Reviews</p>
-                                    <h5 class="mb-2">62</h5>
-                                    <a href="agent-review.html" class="fs-14 link-primary text-decoration-underline">View All</a>   
+                                    <h5 class="mb-2">@Model.totelReviw</h5>
+                                    <a href="/manager/ViewReview" class="fs-14 link-primary text-decoration-underline">View All</a>
                                 </div>
                             </div>
                         </div>
@@ -255,26 +255,14 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <h6>Bookings Statistics</h6>
-                                        <div class="dropdown ">
+                                        <div class="dropdown">
                                             <a href="javascript:void(0);" class="dropdown-toggle btn bg-light-200 btn-sm text-gray-6 rounded-pill fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
                                                 <i class="isax isax-calendar-2 me-2 fs-14 text-gray-6"></i>2025
                                             </a>
-                                            <ul class="dropdown-menu  dropdown-menu-end p-3">
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>2025
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>2024
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>2023
-                                                    </a>
-                                                </li>
+                                            <ul class="dropdown-menu dropdown-menu-end p-3">
+                                                <li><a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-point-filled me-1"></i>2025</a></li>
+                                                <li><a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-point-filled me-1"></i>2024</a></li>
+                                                <li><a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-point-filled me-1"></i>2023</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -283,27 +271,16 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-2">
                                         <h6 class="border-icon teal">Hotels</h6>
-                                        <p class="fs-14"><span class="text-gray-9 fw-medium">16</span> Bookings</p>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <h6 class="border-icon secondary">Flights</h6>
-                                        <p class="fs-14"><span class="text-gray-9 fw-medium">12</span> Bookings</p>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <h6 class="border-icon purple">Cars</h6>
-                                        <p class="fs-14"><span class="text-gray-9 fw-medium">14</span> Bookings</p>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <h6 class="border-icon dark">Cruise</h6>
-                                        <p class="fs-14"><span class="text-gray-9 fw-medium">16</span> Bookings</p>
+                                        <p class="fs-14"><span id="hotel-bookings" class="text-gray-9 fw-medium">0</span> Bookings</p>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-0">
                                         <h6 class="border-icon primary">Tour</h6>
-                                        <p class="fs-14"><span class="text-gray-9 fw-medium">04</span> Bookings</p>
+                                        <p class="fs-14"><span id="tour-bookings" class="text-gray-9 fw-medium">0</span> Bookings</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                          <!-- /Bookings Statistics -->
 
                         <!-- Earnings -->
@@ -339,7 +316,7 @@
                                         <div class="d-flex align-items-center justify-content-between flex-wrap">
                                             <div class="mb-2">
                                                 <p class="mb-0">Total Earnings this Year</p>
-                                                <h3>$20,659</h3>
+                                                <h3 id="total-earnings">$0</h3> <!-- ID để cập nhật số tiền -->
                                             </div>
                                             <div class="d-flex align-items-center mb-2">
                                                 <p class="fs-14"><span class="badge badge-soft-success badge-md border border-success rounded-pill me-2"><i class="isax isax-arrow-up-3 "></i>12%</span>vs last years</p>
@@ -356,7 +333,7 @@
 
                     <div class="row">
 
-                        <!-- Recently Added -->
+                 @*        <!-- Recently Added -->
                         <div class="col-xl-6 col-xxl-5 d-flex">
                             <div class="card shadow-none flex-fill">
                                 <div class="card-body">
@@ -424,8 +401,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /Recently Added -->
-
+                        <!-- /Recently Added --> *@
+@* 
                         <!-- Recent Invoices -->
                         <div class="col-xxl-7 col-xl-6 d-flex">
                             <div class="card shadow-none flex-fill">
@@ -504,11 +481,11 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /Recent Invoices -->
+                        <!-- /Recent Invoices --> *@
 
                     </div>
                     
-                    <!-- Add Lists -->
+               @*      <!-- Add Lists -->
                     <div class="row row-cols-1 row-cols-md-3 row-cols-xl-5 justify-content-center">
                         <div class="col">
                             <div class="card bg-success-100 border-0 shadow-none">
@@ -557,8 +534,8 @@
 
                     </div>
                     <!-- /Add Lists -->
-                    
-                    <!-- Hotel-Booking List -->
+                     *@
+                 @*    <!-- Hotel-Booking List -->
                     <div class="card hotel-list mb-0">
                         <div class="card-body p-0">
                             <div class="list-header d-flex align-items-center justify-content-between flex-wrap">
@@ -747,7 +724,7 @@
 
                         </div>
                     </div>
-                    <!-- /Hotel-Booking List -->
+                    <!-- /Hotel-Booking List --> *@
 
                 </div>
             </div>
@@ -1688,91 +1665,120 @@
 
 <script src="~/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="3908f62ba1fd6559accf747b-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"90d86c2bca6bddca","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.1.0","token":"3ca157e612a14eccbb30cf6db6691c29"}' crossorigin="anonymous"></script>
 
+    <div class="col-xl-4 d-flex">
+        <div class="card shadow-none flex-fill">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6>Bookings Statistics</h6>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle btn bg-light-200 btn-sm text-gray-6 rounded-pill fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                            <i class="isax isax-calendar-2 me-2 fs-14 text-gray-6"></i>2025
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end p-3">
+                            <li><a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-point-filled me-1"></i>2025</a></li>
+                            <li><a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-point-filled me-1"></i>2024</a></li>
+                            <li><a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-point-filled me-1"></i>2023</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center mb-3">
+                    <div id="booking-chart"></div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="border-icon teal">Hotels</h6>
+                    <p class="fs-14"><span id="hotel-bookings" class="text-gray-9 fw-medium">0</span> Bookings</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-0">
+                    <h6 class="border-icon primary">Tour</h6>
+                    <p class="fs-14"><span id="tour-bookings" class="text-gray-9 fw-medium">0</span> Bookings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            if (document.querySelector("#booking-chart")) {
-                // Kiểm tra nếu chart đã tồn tại, thì hủy bỏ nó trước khi vẽ chart mới
-                if (window.bookingChartInstance) {
-                    window.bookingChartInstance.destroy();
-                }
+            fetch('/manager/GetBookingStatistics') // Gọi API từ Controller
+                .then(response => response.json())
+                .then(data => {
+                    if (document.querySelector("#booking-chart")) {
+                      
+                        if (window.bookingChartInstance) {
+                            window.bookingChartInstance.destroy();
+                        }
 
-                var donutChart = {
-                    chart: {
-                        height: 180,
-                        type: 'donut',
-                        toolbar: { show: false }
-                    },
-                    legend: { show: false },
-                    colors: ['#212E47', '#3538CD', '#0E9384', '#CF3425', '#98AA30'],
-                    series: [25, 15, 35, 5, 20],
-                    labels: ['Cruise', 'Cars', 'Hotels', 'Tour', 'Flights'],
-                    plotOptions: {
-                        pie: {
-                            donut: {
-                                size: '65%',
+                        var hotelCount = data.hotels;
+                        var tourCount = data.tours;
+
+                        document.getElementById("hotel-bookings").innerText = hotelCount;
+                        document.getElementById("tour-bookings").innerText = tourCount;
+
+                        var donutChart = {
+                            chart: {
+                                height: 180,
+                                type: 'donut',
+                                toolbar: { show: false }
                             },
-                        },
-                    },
-                    stroke: {
-                        width: 3,
-                        colors: ['#fff'],
-                    },
-                    dataLabels: { enabled: false }
-                };
+                            legend: { show: false },
+                            colors: ['#212E47', '#98AA30'],
+                            series: [hotelCount, tourCount],
+                            labels: ['Hotels', 'Tour'],
+                            plotOptions: {
+                                pie: {
+                                    donut: {
+                                        size: '65%',
+                                    },
+                                },
+                            },
+                            stroke: {
+                                width: 3,
+                                colors: ['#fff'],
+                            },
+                            dataLabels: { enabled: false }
+                        };
 
-                // Lưu instance của chart vào biến toàn cục
-                window.bookingChartInstance = new ApexCharts(
-                    document.querySelector("#booking-chart"),
-                    donutChart
-                );
+                        window.bookingChartInstance = new ApexCharts(
+                            document.querySelector("#booking-chart"),
+                            donutChart
+                        );
 
-                window.bookingChartInstance.render();
-            }
+                        window.bookingChartInstance.render();
+                    }
+                })
+                .catch(error => console.error("Error loading booking statistics:", error));
         });
-
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            if (document.querySelector("#earning-chart")) {
-                // Xóa chart cũ nếu có để tránh vẽ trùng
-                if (window.earningChartInstance) {
-                    window.earningChartInstance.destroy();
-                }
 
-                var sColStacked = {
-                    chart: {
-                        height: 280,
-                        type: 'bar',
-                        stacked: true,
-                        toolbar: { show: false }
-                    },
-                    colors: ['#0E9384', '#E4EBF1'],
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            legend: { position: 'bottom', offsetX: -10, offsetY: 0 }
-                        }
-                    }],
+    <script>
+        fetch('/manager/GetEarningsData')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Earnings Data:", data); // Debug dữ liệu JSON
+
+                // Đảm bảo lấy đúng key
+                let hotelRevenue = data.map(item => item.hotelRevenue);
+                let tourRevenue = data.map(item => item.tourRevenue);
+
+                // Tính tổng doanh thu cả năm
+                let totalEarnings = hotelRevenue.reduce((sum, val) => sum + val, 0) +
+                    tourRevenue.reduce((sum, val) => sum + val, 0);
+
+                // Cập nhật số tiền vào HTML
+                document.getElementById("total-earnings").textContent = "$" + totalEarnings.toLocaleString();
+
+                var options = {
+                    chart: { height: 280, type: 'bar', stacked: true, toolbar: { show: false } },
+                    colors: ['#BD1435', '#18BD14'],
                     plotOptions: {
-                        bar: {
-                            borderRadius: 5,
-                            borderRadiusWhenStacked: 'all',
-                            horizontal: false,
-                            endingShape: 'rounded'
-                        }
+                        bar: { borderRadius: 5, horizontal: false, endingShape: 'rounded' }
                     },
-                    series: [{
-                        name: 'Income',
-                        data: [5000, 16000, 8000, 5000, 4000, 5000, 12000, 5000, 8000, 5000, 5000, 8000]
-                    }, {
-                        name: 'Expenses',
-                        data: [5000, 4000, 4000, 5000, 8000, 5000, 4000, 5000, 4000, 5000, 5000, 4000]
-                    }],
+                    series: [
+                        { name: 'Hotels', data: hotelRevenue },
+                        { name: 'Tours', data: tourRevenue }
+                    ],
                     xaxis: {
                         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                        labels: {
-                            style: { colors: '#4E5561', fontSize: '12px' }
-                        }
+                        labels: { style: { colors: '#4E5561', fontSize: '12px' } }
                     },
                     yaxis: {
                         labels: {
@@ -1782,20 +1788,19 @@
                         }
                     },
                     grid: { show: false },
-                    legend: { show: false },
-                    dataLabels: { enabled: false },
+                    legend: { show: true },
                     fill: { opacity: 1 }
                 };
 
-                // Lưu instance vào biến toàn cục để tránh vẽ nhiều lần
-                window.earningChartInstance = new ApexCharts(
-                    document.querySelector("#earning-chart"),
-                    sColStacked
-                );
+                if (window.earningChartInstance) {
+                    window.earningChartInstance.destroy();
+                }
 
+                window.earningChartInstance = new ApexCharts(document.querySelector("#earning-chart"), options);
                 window.earningChartInstance.render();
-            }
-        });
+            })
+            .catch(error => console.error("Error loading earnings data:", error));
+
     </script>
 
 </body>

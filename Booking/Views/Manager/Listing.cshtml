@@ -324,6 +324,15 @@
                             </div>
                             <div class="row justify-content-center">
 
+                                 @if (Model.Any())
+                                {
+                                    foreach(var item in Model)
+                                    {
+                                        foreach(var itemHotel in item.Tour)
+                                        {
+                                             <div class="col-xxl-4 col-md-6 d-flex">
+
+
                                 <!-- Tours Grid -->
                                 <div class="col-xxl-4 col-md-6 d-flex">
                                     <div class="place-item mb-4 flex-fill">
@@ -550,17 +559,28 @@
         
                                 <!-- Tours Grid -->
                                 <div class="col-xxl-4 col-md-6 d-flex">
+
                                     <div class="place-item mb-4 flex-fill">
                                         <div class="place-img">
-                                            <a href="tour-details.html">
-                                                <img src="~/assets/img/tours/tours-15.jpg" class="img-fluid" alt="img">
-                                            </a>
+                                            <a href="/Home/TourDetail/@itemHotel.TourID">
+                                                            <img src="@(!string.IsNullOrEmpty(itemHotel.img?.FirstOrDefault()?.img) ? itemHotel.img.FirstOrDefault().img : "/assets/img/hotels/hotel-01.jpg")" class="img-fluid" alt="img">
+                                                        </a>
                                             <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-tour.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                                <a href="/Manager/EditTour/@itemHotel.TourID" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
+                                               @*  <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a> *@
                                             </div>
                                         </div>
                                         <div class="place-content">
+
+                                            <h5 class="mb-1 text-truncate"><a href="/Home/TourDetail/@itemHotel.TourID">@itemHotel.TourName</a></h5>
+                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>@itemHotel.Location</p>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <div class="d-flex flex-wrap align-items-center me-2">
+                                                    <h5 class="text-primary">@itemHotel.price VND<span class="fs-14 text-gray-6 fw-normal"></span></h5>
+                                                </div>
+                                                @* <div class="d-flex align-items-center lh-1">
+                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
+
                                             <h5 class="mb-1 text-truncate"><a href="tour-details.html">Đồi tuyết</a></h5>
                                             <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>Castle Street, Cambridge</p>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
@@ -570,36 +590,14 @@
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Hoạt động</a>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /Tours Grid -->
-
-                                <div class="col-md-12">
-                                    <!-- Pagination -->
-                                    <nav class="pagination-nav">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="javascript:void(0);" aria-label="Previous">
-                                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0);" aria-label="Next">
-                                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <!-- /Pagination -->
-                                </div>
-        
+                                        }
+                                    }
+                                }
                             </div>
                         </div>
                         <!-- /Tour List -->

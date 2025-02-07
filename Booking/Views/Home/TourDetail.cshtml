@@ -3,7 +3,9 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-
+@{
+    Layout = null;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -504,7 +506,7 @@
                                             <div class="d-flex align-items-center justify-content-between flex-wrap">
                                                 <div class="d-flex align-items-center mb-2">
                                                     <span class="avatar avatar-lg me-2 flex-shrink-0">
-                                                        <img src="/@item.imgUser" class="rounded-circle"
+                                                        <img src="@item.imgUser" class="rounded-circle"
                                                              alt="img">
                                                     </span>
                                                     <div>

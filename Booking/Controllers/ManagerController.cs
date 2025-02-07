@@ -32,7 +32,114 @@ namespace Booking.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var tem = 0;
+            var getMyHotel = await this._context.Hotels.Where(u => u.UserID == user.Id).ToListAsync();
+
+            if (getMyHotel.Any())
+            {
+                foreach (var item in getMyHotel)
+                {
+                    var getRoom = await this._context.Rooms.Where(u => u.HotelID == item.ID).ToListAsync();
+
+                    if (getRoom.Any())
+                    {
+                        foreach (var itemRom in getRoom)
+                        {
+                            var getInfoBook = await this._context.Datphongs.Where(u => u.RoomID == itemRom.RoomID).OrderByDescending(q => q.BookedOn).ToListAsync();
+                            if (getInfoBook.Any())
+                            {
+                                foreach (var itemDatPhong in getInfoBook)
+                                {
+                                    var getInfoUser = await this._userManager.FindByIdAsync(itemDatPhong.UserID);
+
+                                    if (getInfoUser != null)
+                                    {
+                                        tem++;
+                                    }
+
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+            var counttou = 0;
+            var getMyHotel1 = await this._context.Tours.Where(u => u.UserID == user.Id).ToListAsync();
+
+            if (getMyHotel1.Any())
+            {
+                foreach (var item in getMyHotel1)
+                {
+                    var getInfoBook1 = await this._context.DaTours.Where(u => u.TourID == item.ID).ToListAsync();
+                    if (getInfoBook1.Any())
+                    {
+                        foreach (var itemDatPhong in getInfoBook1)
+                        {
+                            var getInfoUser1 = await this._userManager.FindByIdAsync(itemDatPhong.UserID);
+
+                            if (getInfoUser1 != null)
+                            {
+                                counttou++;
+                            }
+
+                        }
+                    }
+                }
+            }
+            var temla = new viewModelDash();
+            temla.totelBoking = counttou + tem;
+            var countRevHo = 0;
+            var countHotelden = 0;
+            var countHotel = this._context.Hotels.Where(u => u.UserID == user.Id).ToList();
+            if (countHotel.Any())
+            {
+                foreach(var item in countHotel)
+                {
+                    countHotelden++;
+                    var check = this._context.ReviewHotels.Where(u => u.HotelID == item.ID).ToList();
+                    if (check.Any())
+                    {
+                      foreach(var itemcoun in check)
+                        {
+                            countRevHo++;
+                        }
+                    }
+                }
+            }
+
+            var countReviwT = 0;
+            var countTo = 0;
+            var counttour= this._context.Tours.Where(u => u.UserID == user.Id).ToList();
+            if (counttour.Any())
+            {
+              
+                foreach (var item in counttour)
+                {
+                    countTo++;
+                    var check1 = this._context.ReviewTours.Where(u => u.TourID == item.ID).ToList();
+                    if (check1.Any())
+                    {
+                        foreach (var itemc in check1)
+                        {
+                            countReviwT++;
+                        }
+                    }
+                }
+            }
+
+            temla.totekList = countTo + countHotelden;
+            temla.totelReviw = countRevHo + countReviwT;
+
+
+            return View(temla);
         }
          public async Task<IActionResult> Listing()
         {
@@ -87,9 +194,56 @@ namespace Booking.Controllers
 
                 });
             }
+
+            var InfoTour = new List<ListTour>();
+            var getTour = await this._context.Tours
+            .Where(h => h.UserID == user1.Id)
+            .ToListAsync();
+            var farevo1 = "";
+            foreach (var item in getTour)
+            {
+                var user = await this._userManager.FindByIdAsync(item.UserID);
+                var temImg = new List<GalleriesImg>();
+                var getImg = await this._context.GalleryTours.Where(u => u.TourID == item.ID)
+             .OrderByDescending(h => h.IsFeatureImage)
+             .ToListAsync();
+                if (getImg.Any())
+                {
+                    foreach (var itemImg in getImg)
+                    {
+                        if (!string.IsNullOrWhiteSpace(itemImg.ImagePath))
+                        {
+                            temImg.Add(new GalleriesImg { img = itemImg.ImagePath });
+                        }
+                    }
+                }
+                var flagUser = await _userManager.GetUserAsync(User);
+                if (flagUser != null && await this._context.WishlistTours.AnyAsync(u => u.UserID == flagUser.Id && u.TourID == item.ID))
+                {
+                    farevo1 = "text-danger";
+                }
+                else
+                {
+                    farevo1 = "";
+                }
+                InfoTour.Add(new ListTour
+                {
+                    TourID = item.ID,
+                    TourName = item.TourName,
+                    img = temImg,
+                    Location = $"{item.City},{item.Country}",
+                    NameSeller = user.UserName,
+                    NumberReview = 200,
+                    price = 502,
+                    farovite = farevo1
+
+                });
+            }
+
             list.Add(new ListProduct
             {
-                Hotels = infoHotel
+                Hotels = infoHotel,
+                Tour = InfoTour,
             });
             return View(list);
         }
@@ -2740,6 +2894,381 @@ namespace Booking.Controllers
                 return View(model);
             }
         }
+
+
+
+
+        public async Task<IActionResult> EditTour(Guid id)
+        {
+            var model = await this._context.Tours.FindAsync(id);
+            if(model == null)
+            {
+                return RedirectToAction("Erro404");
+            }
+            else
+            {
+                var tem = new EditTourViewModels
+                {
+                    ID = model.ID,
+                    Category = model.Category,
+                    City = model.City,
+                    Country = model.Country,
+                    Address = model.Address,
+                    ZipCode = model.ZipCode,
+                    dess = model.Description,
+                    Destination = model.Destination,
+                    endDate = model.EndDATE,
+                    startDate = model.startDate,
+                    totalProple = model.totalPreoPle,
+                    linkLocation = model.linkLocation,
+                    Pricing = model.price,
+                    mindAge = model.minAge,
+                    State = model.State,
+                    Name = model.TourName
+                };
+                var imgExit = await this._context.GalleryTours.Where(u => u.TourID == model.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync();
+
+                tem.ExistingImages = imgExit;
+
+
+                return View(tem);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTour(EditTourViewModels model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+
+                if (!ModelState.IsValid)
+                {
+                    TempData["MessseErro"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại các trường nhập.";
+                    return View(model);
+                }
+
+            }
+
+            var user1 = await _userManager.GetUserAsync(User);
+            if (user1 == null)
+            {
+                TempData["MessseErro"] = "Không tìm thấy người dùng. Vui lòng đăng nhập lại.";
+                return RedirectToAction("Erro404", "Home");
+            }
+            try
+            {
+                var getInfo = await this._context.Tours.FindAsync(model.ID);
+
+                if (getInfo == null)
+                {
+                    TempData["MessseErro"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại các trường nhập.";
+                    return View(model);
+                }
+
+
+                getInfo.Category = model.Category;
+                getInfo.City = model.City;
+                getInfo.Country = model.Country;
+                getInfo.Address = model.Address;
+                getInfo.ZipCode = model.ZipCode;
+                getInfo.Description = model.dess;
+                getInfo.Destination = model.Destination;
+                getInfo.EndDATE = model.endDate;
+                getInfo.startDate = model.startDate;
+                getInfo.DurationDay = "";
+                getInfo.totalPreoPle = model.totalProple;
+                getInfo.linkLocation = ExtractUrlFromIframe(model.linkLocation);
+                getInfo.UserID = user1.Id;
+                getInfo.DurationNight = "";
+                getInfo.price = model.Pricing;
+                getInfo.minAge = model.mindAge;
+                getInfo.State = model.State;
+                getInfo.TourName = model.Name;
+
+                this._context.Tours.Update(getInfo);
+                await this._context.SaveChangesAsync();
+
+
+                if (model.Images != null && model.Images.Any())
+                {
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotel_images");
+
+
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+
+                    var oldGalleries = await this._context.GalleryTours
+                                                           .Where(g => g.TourID == model.ID)
+                                                           .ToListAsync();
+
+                    if (oldGalleries.Any())
+                    {
+                        this._context.GalleryTours.RemoveRange(oldGalleries);
+                        await this._context.SaveChangesAsync();
+                    }
+
+                    foreach (var file in model.Images)
+                    {
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                        var filePath = Path.Combine(uploadPath, fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        await this._context.GalleryTours.AddAsync(new GalleryTour
+                        {
+                            TourID = model.ID,
+                            ImagePath = "/" + Path.Combine("uploads", "hotel_images", fileName),
+                            IsFeatureImage = true
+                        });
+                    }
+                    await this._context.SaveChangesAsync();
+                }
+
+
+
+
+                var imgExit = await this._context.GalleryTours.Where(u => u.TourID == getInfo.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync();
+
+                model.ExistingImages = imgExit;
+                TempData["Messse"] = "Khách sạn đã được câp nhật thông tin thành công!!";
+                return View(model);
+
+            }
+            catch (Exception e)
+            {
+                TempData["MessseErro"] = $"Có lỗi xảy ra: {e.Message}";
+                return View(model);
+            }
+
+        }
+
+
+        public async Task<IActionResult> HotelsBooking()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var tem = new List<ManaHotelBoking>();
+            var getMyHotel = await this._context.Hotels.Where(u => u.UserID == user.Id).ToListAsync();
+
+            if (getMyHotel.Any())
+            {
+                foreach(var item in getMyHotel)
+                {
+                    var getRoom = await this._context.Rooms.Where(u => u.HotelID == item.ID).ToListAsync();
+
+                    if (getRoom.Any())
+                    {
+                        foreach(var itemRom in getRoom)
+                        {
+                            var getInfoBook = await this._context.Datphongs.Where(u => u.RoomID == itemRom.RoomID).OrderByDescending(q => q.BookedOn).ToListAsync();
+                            if (getInfoBook.Any())
+                            {
+                                 foreach(var itemDatPhong in getInfoBook)
+                                {
+                                    var getInfoUser = await this._userManager.FindByIdAsync(itemDatPhong.UserID);
+
+                                    if (getInfoUser != null)
+                                    {
+
+                                        tem.Add(new ManaHotelBoking
+                                        {
+                                            orderCode = itemDatPhong.OrderID,
+                                            addreddHotel = $"{item.Country}",
+                                            hotemName = item.HotelName,
+                                            user = getInfoUser.firstName +" "+ getInfoUser.lastName,
+                                            addresUser = getInfoUser.Province,
+                                           roomNAME = itemRom.RoomName,
+                                           guest = itemDatPhong.Guests,
+                                           date = itemDatPhong.NoOfDate,
+                                           price = itemDatPhong.totalPaid,
+                                           booked = itemDatPhong.BookedOn+"",
+                                           DatphongID = itemDatPhong.ID,
+                                           status = itemDatPhong.progress
+
+                                        }); 
+                                    }
+
+                                }    
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+            return View(tem);
+        }
+
+
+        public async Task<IActionResult> ToursBooking()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var tem = new List<ManaHotelBoking>();
+            var getMyHotel = await this._context.Tours.Where(u => u.UserID == user.Id).ToListAsync();
+
+            if (getMyHotel.Any())
+            {
+                foreach (var item in getMyHotel)
+                {                 
+                            var getInfoBook = await this._context.DaTours.Where(u => u.TourID == item.ID).ToListAsync();
+                            if (getInfoBook.Any())
+                            {
+                                foreach (var itemDatPhong in getInfoBook)
+                                {
+                                    var getInfoUser = await this._userManager.FindByIdAsync(itemDatPhong.UserID);
+
+                                    if (getInfoUser != null)
+                                    {
+
+                                        tem.Add(new ManaHotelBoking
+                                        {
+                                            orderCode = itemDatPhong.OrderID,
+                                            addreddHotel = $"{item.Country}",
+                                            hotemName = item.TourName,
+                                            user = getInfoUser.firstName + " " + getInfoUser.lastName,
+                                            addresUser = getInfoUser.Province,
+                                            guest = itemDatPhong.Guests,
+                                            date = itemDatPhong.NoOfDate,
+                                            price = itemDatPhong.totalPaid,
+                                            booked = itemDatPhong.BookedOn + "",
+                                            DatphongID = itemDatPhong.ID,
+                                            status = itemDatPhong.progress
+
+                                        });
+                                    }
+
+                                }
+                            }
+                }
+            }
+
+            return View(tem);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBookingStatistics()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var tem = 0;
+            var getMyHotel = await this._context.Hotels.Where(u => u.UserID == user.Id).ToListAsync();
+
+            if (getMyHotel.Any())
+            {
+                foreach (var item in getMyHotel)
+                {
+                    var getRoom = await this._context.Rooms.Where(u => u.HotelID == item.ID).ToListAsync();
+
+                    if (getRoom.Any())
+                    {
+                        foreach (var itemRom in getRoom)
+                        {
+                            var getInfoBook = await this._context.Datphongs.Where(u => u.RoomID == itemRom.RoomID).OrderByDescending(q => q.BookedOn).ToListAsync();
+                            if (getInfoBook.Any())
+                            {
+                                foreach (var itemDatPhong in getInfoBook)
+                                {
+                                    var getInfoUser = await this._userManager.FindByIdAsync(itemDatPhong.UserID);
+
+                                    if (getInfoUser != null)
+                                    {
+                                        tem++;
+                                    }
+
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+            var counttou = 0;
+            var getMyHotel1 = await this._context.Tours.Where(u => u.UserID == user.Id).ToListAsync();
+
+            if (getMyHotel1.Any())
+            {
+                foreach (var item in getMyHotel1)
+                {
+                    var getInfoBook1 = await this._context.DaTours.Where(u => u.TourID == item.ID).ToListAsync();
+                    if (getInfoBook1.Any())
+                    {
+                        foreach (var itemDatPhong in getInfoBook1)
+                        {
+                            var getInfoUser1 = await this._userManager.FindByIdAsync(itemDatPhong.UserID);
+
+                            if (getInfoUser1 != null)
+                            {
+                                counttou++;
+                            }
+
+                        }
+                    }
+                }
+            }
+            var hotelBookings = tem;
+            var tourBookings = counttou;
+
+            return Json(new { hotels = hotelBookings, tours = tourBookings });
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetEarningsData()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            var hotelEarnings = await _context.Datphongs
+                .Where(dp => _context.Rooms
+                    .Where(r => _context.Hotels
+                        .Where(h => h.UserID == user.Id)
+                        .Select(h => h.ID)
+                        .Contains(r.HotelID))
+                    .Select(r => r.RoomID)
+                    .Contains(dp.RoomID))
+                .GroupBy(dp => dp.DatePayment.Value.Month)
+                .Select(g => new { Month = g.Key, Revenue = g.Sum(dp => dp.totalPaid ?? 0) })
+                .ToListAsync();
+
+            var tourEarnings = await _context.DaTours
+                .Where(dt => _context.Tours
+                    .Where(t => t.UserID == user.Id)
+                    .Select(t => t.ID)
+                    .Contains(dt.TourID))
+                .GroupBy(dt => dt.DatePayment.Value.Month)
+                .Select(g => new { Month = g.Key, Revenue = g.Sum(dt => dt.totalPaid ?? 0) })
+                .ToListAsync();
+
+            var earningsByMonth = Enumerable.Range(1, 12).Select(month => new
+            {
+                Month = month,
+                HotelRevenue = hotelEarnings.FirstOrDefault(e => e.Month == month)?.Revenue ?? 0,
+                TourRevenue = tourEarnings.FirstOrDefault(e => e.Month == month)?.Revenue ?? 0
+            }).ToList();
+
+            return Json(earningsByMonth);
+        }
+
+
 
 
     }
