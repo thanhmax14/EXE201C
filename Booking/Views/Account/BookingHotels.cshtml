@@ -1029,7 +1029,7 @@
 
                         $("#booking-success").modal("show");
                         $("#booking-success").on("hidden.bs.modal", function () {
-                            window.location.href = "/";
+                            window.location.href = "/account/HotelsBooking";
                         });
                     } else if (response.Notfunds) {
                         Swal.fire({

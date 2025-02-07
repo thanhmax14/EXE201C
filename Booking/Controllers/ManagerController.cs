@@ -784,6 +784,8 @@ namespace Booking.Controllers
                         }
                     }
                 }
+
+
                 if (model.Highlights != null && model.Highlights.Any())
                 {
                     var highlights = new List<Highlight>();
@@ -1346,7 +1348,7 @@ namespace Booking.Controllers
         public async Task<IActionResult> HotelEdit(Guid id)
         {
             var infoHotel = await this._context.Hotels.FirstOrDefaultAsync(u => u.ID == id);
-            var tem = new CreateHotelViewModel();
+            var tem = new EditViewModels();
 
             if (infoHotel == null)
             {
@@ -1354,14 +1356,1298 @@ namespace Booking.Controllers
             }
             else
             {
-        
+                try
+                {
+                    tem.ID = infoHotel.ID;
+                    tem.State = infoHotel.State;
+                    tem.StarRating = infoHotel.StarRatings;
+                    tem.Address = infoHotel.Address;
+                    tem.linkLocation = infoHotel.linkLocation;
+                    tem.Category = infoHotel.Category;
+                    tem.dess = infoHotel.Description;
+                    tem.ZipCode = infoHotel.ZipCode;
+                    tem.City = infoHotel.City;
+                    tem.TotalRooms = infoHotel.TotalRooms;
+                    tem.MaxCapacity = infoHotel.MaxCapacity;
+                    tem.Country = infoHotel.Country;
+                    tem.Name = infoHotel.HotelName;
+
+                    var getServices = await this._context.Services.Where(u => u.HotelID == infoHotel.ID).ToListAsync();
+                    var serveccs = new List<bool>(new bool[18]);
+
+                    if (getServices.Any())
+                    {
+                        foreach (var service in getServices)
+                        {
+                            if (service.ServiceName.Contains("Dịch vụ phòng 24h"))
+                            {
+                                serveccs[0] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ ăn uống trong phòng"))
+                            {
+                                serveccs[1] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ concierge"))
+                            {
+                                serveccs[2] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dọn phòng hàng ngày"))
+                            {
+                                serveccs[3] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ quầy lễ tân"))
+                            {
+                                serveccs[4] = true;
+                            }
+                            else if (service.ServiceName.Contains("Nhà hàng tại chỗ"))
+                            {
+                                serveccs[5] = true;
+                            }
+                            else if (service.ServiceName.Contains("Hỗ trợ nhận/trả phòng"))
+                            {
+                                serveccs[6] = true;
+                            }
+                            else if (service.ServiceName.Contains("Gửi hành lý miễn phí"))
+                            {
+                                serveccs[7] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ giặt là và là ủi"))
+                            {
+                                serveccs[8] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ giặt khô"))
+                            {
+                                serveccs[9] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ làm tóc và làm đẹp"))
+                            {
+                                serveccs[10] = true;
+                            }
+                            else if (service.ServiceName.Contains("Điều trị spa trong phòng"))
+                            {
+                                serveccs[11] = true;
+                            }
+                            else if (service.ServiceName.Contains("Valet parking"))
+                            {
+                                serveccs[12] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ giữ trẻ"))
+                            {
+                                serveccs[13] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ gọi đánh thức"))
+                            {
+                                serveccs[14] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ thông dịch"))
+                            {
+                                serveccs[15] = true;
+                            }
+                            else if (service.ServiceName.Contains("Dịch vụ đổi ngoại tệ"))
+                            {
+                                serveccs[16] = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        serveccs = Enumerable.Repeat(false, 18).ToList();
+                    }
 
 
+                    var getSAccessibility = await this._context.Amenities.Where(u => u.HotelID == infoHotel.ID).ToListAsync();
+                    var Accessibility = new List<bool>(new bool[18]);
 
-                return View();
+                    // Danh sách các dịch vụ cần kiểm tra
+                    var amenitiesList = new[]
+                    {
+    "Hồ bơi", "Cà phê", "Tiện ích giặt là", "Két an toàn trong phòng",
+    "Chuyển sân bay", "Quầy bar", "Phòng tập thể dục", "Phòng gym",
+    "Lễ tân 24/7", "Bữa sáng miễn phí", "Phòng kết nối", "Đỗ xe miễn phí",
+    "Ti vi", "Điều hòa", "SPA"
+};
+
+                    if (getSAccessibility.Any())
+                    {
+                        foreach (var service in getSAccessibility)
+                        {
+                            for (int i = 0; i < amenitiesList.Length; i++)
+                            {
+                                if (service.AmenityName.Contains(amenitiesList[i]))
+                                {
+                                    Accessibility[i] = true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Accessibility = Enumerable.Repeat(false, 18).ToList();
+                    }
+
+                    var getRoomType = await this._context.RoomTypes.Where(u => u.HotelID == infoHotel.ID).ToListAsync();
+                    var RoomTypes = new List<bool>(new bool[15]);
+
+                    // Danh sách các tên phòng cần kiểm tra
+                    var roomTypeNames = new[]
+                    {
+    "Phòng đơn", "Phòng đôi", "Phòng giường đơn", "Phòng Deluxe", "Phòng Suite",
+    "Phòng Junior Suite", "Phòng gia đình", "Phòng kết nối", "Phòng accessible",
+    "Phòng Studio", "Phòng Penthouse", "Biệt thự", "Phòng hạng kinh tế",
+    "Phòng có view thành phố", "Phòng có view biển"
+};
+
+                    if (getRoomType.Any())
+                    {
+                        foreach (var room in getRoomType)
+                        {
+                            for (int i = 0; i < roomTypeNames.Length; i++)
+                            {
+                                if (room.RoomTypeName.Contains(roomTypeNames[i]))
+                                {
+                                    RoomTypes[i] = true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        RoomTypes = Enumerable.Repeat(false, 15).ToList();
+                    }
+
+                    tem.Accessibility = Accessibility;
+                    tem.RoomTypes = RoomTypes;
+                    tem.IsRoomService24h = serveccs;
+
+                    var Highlights = await this._context.Highlights.Where(u => u.HotelID == infoHotel.ID).Select(h => h.HighlightText).ToListAsync();
+                    tem.Highlights.AddRange(Highlights);
+                    var imgExit = await this._context.Galleries.Where(u => u.HotelID == infoHotel.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync();
+
+                    tem.ExistingImages = imgExit;
+                    return View(tem);
+                }
+                catch(Exception ex)
+                {
+                    TempData["MessseErro"] = $"Có lỗi xảy ra: {ex.Message}";
+                    return NotFound();
+                }
             }
+
         }
-     
+        [HttpPost]
+        public async Task<IActionResult> HotelEdit(EditViewModels model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["MessseErro"] = "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại các trường nhập.";
+                return View(model);
+            }
+
+            try
+            {
+                var infoHotel = await this._context.Hotels.FirstOrDefaultAsync(u => u.ID == model.ID);
+                if(infoHotel == null)
+                {
+                    TempData["MessseErro"] = "Không tìm thấy khách sạn";
+                    return View(model);
+                }
+
+                var user1 = await _userManager.GetUserAsync(User);
+                if (user1 == null)
+                {
+                    TempData["MessseErro"] = "Không tìm thấy người dùng. Vui lòng đăng nhập lại.";
+                    return RedirectToAction("Erro404", "Home");
+                }
+
+                infoHotel.HotelName = model.Name;
+                infoHotel.Category = model.Category;
+                infoHotel.StarRatings = model.StarRating;
+                infoHotel.TotalRooms = model.TotalRooms;
+                infoHotel.MaxCapacity = model.MaxCapacity;
+                infoHotel.Country = model.Country;
+                infoHotel.City = model.City;
+                infoHotel.linkLocation = ExtractUrlFromIframe(model.linkLocation);
+                 infoHotel.State = model.State;
+                infoHotel.ZipCode = model.ZipCode;
+                infoHotel.Address = model.Address;
+                infoHotel.Description = model.dess;
+                infoHotel.Address1 = model.Address; ;
+                infoHotel.UserID = user1.Id;
+
+              
+               this._context.Hotels.Update(infoHotel);
+                await this._context.SaveChangesAsync();
+                var TienNghi = new List<string>();
+                if (model.Accessibility.Any())
+                {
+                    foreach (var accessibility in model.Accessibility.Select((value, index) => new { value, index }))
+                    {
+                        switch (accessibility.index)
+                        {
+                            case 0:
+                                if (!accessibility.value) // Kiểm tra nếu giá trị là false
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Hồ bơi") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 1:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Cà phê") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 2:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Tiện ích giặt là") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 3:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Két an toàn trong phòng") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 4:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Chuyển sân bay") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 5:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Quầy bar") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 6:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Phòng tập thể dục") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 7:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Phòng gym") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 8:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Lễ tân 24/7") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 9:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Bữa sáng miễn phí") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 10:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Phòng kết nối") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 11:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Đỗ xe miễn phí") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 12:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Ti vi") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 13:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("Điều hòa") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            case 14:
+                                if (!accessibility.value)
+                                {
+                                    var amenityToDelete = await this._context.Amenities
+                                        .Where(a => a.AmenityName.Contains("SPA") && a.HotelID == model.ID)
+                                        .FirstOrDefaultAsync();
+
+                                    if (amenityToDelete != null)
+                                    {
+                                        this._context.Amenities.Remove(amenityToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+
+                if (model.RoomTypes.Any())
+                {
+                    var roomTypeNames = new[]
+{
+    "Phòng đơn", "Phòng đôi", "Phòng giường đơn", "Phòng Deluxe", "Phòng Suite",
+    "Phòng Junior Suite", "Phòng gia đình", "Phòng kết nối", "Phòng accessible",
+    "Phòng Studio", "Phòng Penthouse", "Biệt thự", "Phòng hạng kinh tế",
+    "Phòng có view thành phố", "Phòng có view biển"
+};
+                    foreach (var service in model.RoomTypes.Select((value, index) => new { value, index }))
+                    {
+                        var roomTypeName = roomTypeNames[service.index];
+                        switch (service.index)
+                        {
+                            case 0:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                        .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                        .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 1:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                       .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 2:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                        .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                        .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 3:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                         .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 4:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                        .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                        .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 5:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                        .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                        .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 6:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                       .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 7:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                      .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 8:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                      .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 9:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                       .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 10:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                      .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 11:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                       .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 12:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                      .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 13:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                      .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 14:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                       .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 15:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                      .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 16:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.RoomTypes
+                       .Where(a => a.RoomTypeName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.RoomTypes.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+                // Danh sách các dịch vụ bạn muốn kiểm tra
+                var serviceNames = new[]
+                {
+    "Dịch vụ phòng 24h", "Dịch vụ ăn uống trong phòng", "Dịch vụ concierge", "Dọn phòng hàng ngày",
+    "Dịch vụ quầy lễ tân", "Nhà hàng tại chỗ", "Hỗ trợ nhận/trả phòng", "Gửi hành lý miễn phí",
+    "Dịch vụ giặt là và là ủi", "Dịch vụ giặt khô", "Dịch vụ làm tóc và làm đẹp", "Điều trị spa trong phòng",
+    "Valet parking", "Dịch vụ giữ trẻ", "Dịch vụ gọi đánh thức", "Dịch vụ thông dịch", "Dịch vụ đổi ngoại tệ",""
+};
+
+                if (model.IsRoomService24h.Any())
+                {
+                  
+                    foreach (var service in model.IsRoomService24h.Select((value, index) => new { value, index }))
+                    {
+                        var roomTypeName = serviceNames[service.index];
+                        switch (service.index)
+                        {
+                            case 0:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ phòng 24h</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 1:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                      .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ ăn uống trong phòng</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 2:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                      .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ concierge</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 3:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                      .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dọn phòng hàng ngày</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 4:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                      .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ quầy lễ tân</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 5:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Nhà hàng tại chỗ</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 6:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                        .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                        .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Hỗ trợ nhận/trả phòng</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 7:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Gửi hành lý miễn phí</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 8:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                      .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ giặt là và là ủi</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 9:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ giặt khô</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 10:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                      .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ làm tóc và làm đẹp</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            case 11:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Điều trị spa trong phòng</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                           
+                                 case 12:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Valet parking</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            
+                                 case 13:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ giữ trẻ</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            
+                                 case 14:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ gọi đánh thức</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                           
+                                 case 15:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ thông dịch</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                           
+                                 case 16:
+                                if (!service.value)
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                       .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                       .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete != null)
+                                    {
+                                        this._context.Services.Remove(RoomTypeToDelete);
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    var RoomTypeToDelete = await this._context.Services
+                                                         .Where(a => a.ServiceName.Contains(roomTypeName) && a.HotelID == model.ID)
+                                                         .FirstOrDefaultAsync();
+                                    if (RoomTypeToDelete == null)
+                                    {
+                                        await this._context.Services.AddAsync(new Service
+                                        {
+                                            HotelID = model.ID,
+                                            ServiceName = "<div class=\"d-flex align-items-center mb-3\">\r\n    <span class=\"avatar avatar-md bg-primary-transparent rounded-circle me-2\">\r\n        <i class=\"isax isax-verify fs-16\"></i>\r\n    </span>\r\n    <p>Dịch vụ ăn uống trong phòng</p>\r\n</div>"
+                                        });
+                                        await this._context.SaveChangesAsync();
+                                    }
+                                }
+                                break;
+                            
+
+
+                        }
+                    }
+                }
+
+
+                if (model.Highlights != null && model.Highlights.Any())
+                {
+                    var highlights = new List<Highlight>();
+
+                    foreach (var item in model.Highlights)
+                    {
+                        var RoomTypeToDelete = await this._context.Highlights
+                      .Where(a => a.HighlightText.Contains(item) && a.HotelID == model.ID)
+                      .FirstOrDefaultAsync();
+                        if (RoomTypeToDelete != null)
+                        {
+                            this._context.Highlights.Remove(RoomTypeToDelete);
+                            await this._context.SaveChangesAsync();
+                        }
+                    }
+                    await this._context.Highlights.AddRangeAsync(highlights);
+                    await this._context.SaveChangesAsync();
+                }
+
+                if (model.Images != null && model.Images.Any())
+                {
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "hotel_images");
+
+  
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+
+                    var oldGalleries = await this._context.Galleries
+                                                           .Where(g => g.HotelID == model.ID)
+                                                           .ToListAsync();
+
+                    if (oldGalleries.Any())
+                    {
+                        // Xóa ảnh cũ khỏi thư mục
+                      
+                        // Xóa tất cả ảnh cũ trong cơ sở dữ liệu
+                        this._context.Galleries.RemoveRange(oldGalleries);
+                        await this._context.SaveChangesAsync();
+                    }
+
+                    // Thêm ảnh mới vào thư mục và cơ sở dữ liệu
+                    foreach (var file in model.Images)
+                    {
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName); // Tạo tên file duy nhất
+                        var filePath = Path.Combine(uploadPath, fileName);
+
+                        // Lưu ảnh vào thư mục
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        // Thêm thông tin ảnh vào cơ sở dữ liệu
+                        await this._context.Galleries.AddAsync(new Gallery
+                        {
+                            HotelID = model.ID,
+                            ImagePath = "/" + Path.Combine("uploads", "hotel_images", fileName)
+                        });
+                    }
+
+                    // Lưu các thay đổi vào cơ sở dữ liệu
+                    await this._context.SaveChangesAsync();
+                }
+
+              
+                var imgExit = await this._context.Galleries.Where(u => u.HotelID == infoHotel.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync();
+
+                model.ExistingImages = imgExit;
+                TempData["Messse"] = "Khách sạn đã được câp nhật thông tin thành công!!";
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["MessseErro"] = $"Có lỗi xảy ra: {ex.Message}";
+                return View(model);
+            }
+
+
+
+
+        }
 
     }
 }

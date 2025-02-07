@@ -4,6 +4,7 @@ using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250207040056_migrationsv21")]
+    partial class migrationsv21
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,9 +125,6 @@ namespace Booking.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsBanByadmin")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -536,46 +536,6 @@ namespace Booking.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("ReviewHotels");
-                });
-
-            modelBuilder.Entity("Booking.Models.ReviewTour", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TourID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("cmt")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("dateRelay")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("datecmt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("rating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("relay")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("TourID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("ReviewTours");
                 });
 
             modelBuilder.Entity("Booking.Models.Room", b =>
@@ -1230,25 +1190,6 @@ namespace Booking.Migrations
                     b.Navigation("Hotel");
                 });
 
-            modelBuilder.Entity("Booking.Models.ReviewTour", b =>
-                {
-                    b.HasOne("Booking.Models.tour", "Tour")
-                        .WithMany("ReviewTours")
-                        .HasForeignKey("TourID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Booking.Models.AppUser", "AppUser")
-                        .WithMany("ReviewTours")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Tour");
-                });
-
             modelBuilder.Entity("Booking.Models.Room", b =>
                 {
                     b.HasOne("Booking.Models.Hotel", "Hotel")
@@ -1435,8 +1376,6 @@ namespace Booking.Migrations
 
                     b.Navigation("ReviewHotels");
 
-                    b.Navigation("ReviewTours");
-
                     b.Navigation("Tours");
 
                     b.Navigation("WishlistHotels");
@@ -1489,8 +1428,6 @@ namespace Booking.Migrations
                     b.Navigation("GalleryTours");
 
                     b.Navigation("Includes");
-
-                    b.Navigation("ReviewTours");
 
                     b.Navigation("WishlistTours");
                 });

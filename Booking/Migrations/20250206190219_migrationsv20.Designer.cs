@@ -4,6 +4,7 @@ using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250206190219_migrationsv20")]
+    partial class migrationsv20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,9 +127,6 @@ namespace Booking.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsBanByadmin")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -204,70 +204,6 @@ namespace Booking.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("Booking.Models.DaTour", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("BookedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("BookingFees")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DatePayment")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Discount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Guests")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NoOfDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("TourID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("isComment")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("messess")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("paymentStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("progress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("tax")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("totalPaid")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("TourID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("DaTours");
                 });
 
             modelBuilder.Entity("Booking.Models.Excludes", b =>
@@ -536,46 +472,6 @@ namespace Booking.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("ReviewHotels");
-                });
-
-            modelBuilder.Entity("Booking.Models.ReviewTour", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TourID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("cmt")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("dateRelay")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("datecmt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("rating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("relay")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("TourID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("ReviewTours");
                 });
 
             modelBuilder.Entity("Booking.Models.Room", b =>
@@ -1104,25 +1000,6 @@ namespace Booking.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Booking.Models.DaTour", b =>
-                {
-                    b.HasOne("Booking.Models.tour", "Tour")
-                        .WithMany("DaTours")
-                        .HasForeignKey("TourID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Booking.Models.AppUser", "AppUser")
-                        .WithMany("DaTours")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Tour");
-                });
-
             modelBuilder.Entity("Booking.Models.Excludes", b =>
                 {
                     b.HasOne("Booking.Models.tour", "Tour")
@@ -1228,25 +1105,6 @@ namespace Booking.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Hotel");
-                });
-
-            modelBuilder.Entity("Booking.Models.ReviewTour", b =>
-                {
-                    b.HasOne("Booking.Models.tour", "Tour")
-                        .WithMany("ReviewTours")
-                        .HasForeignKey("TourID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Booking.Models.AppUser", "AppUser")
-                        .WithMany("ReviewTours")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Tour");
                 });
 
             modelBuilder.Entity("Booking.Models.Room", b =>
@@ -1425,8 +1283,6 @@ namespace Booking.Migrations
 
             modelBuilder.Entity("Booking.Models.AppUser", b =>
                 {
-                    b.Navigation("DaTours");
-
                     b.Navigation("Datphongs");
 
                     b.Navigation("Dongtiens");
@@ -1434,8 +1290,6 @@ namespace Booking.Migrations
                     b.Navigation("Hotels");
 
                     b.Navigation("ReviewHotels");
-
-                    b.Navigation("ReviewTours");
 
                     b.Navigation("Tours");
 
@@ -1482,15 +1336,11 @@ namespace Booking.Migrations
                 {
                     b.Navigation("Activities");
 
-                    b.Navigation("DaTours");
-
                     b.Navigation("Excludes");
 
                     b.Navigation("GalleryTours");
 
                     b.Navigation("Includes");
-
-                    b.Navigation("ReviewTours");
 
                     b.Navigation("WishlistTours");
                 });

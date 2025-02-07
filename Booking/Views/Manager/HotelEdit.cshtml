@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿
+@model Booking.ViewModels.EditViewModels
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -556,7 +562,8 @@
                             </div>
                         </div>
                         <div class="col-lg-9">
-                            <form method="post" asp-action="HotelEdit">
+                            <form asp-action="HotelEdit" method="post" enctype="multipart/form-data" id="formid11">
+
                                 <div class="card shadow-none" id="basic_info">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
@@ -568,20 +575,23 @@
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Hotel Name</label>
-                                                    <input type="text" class="form-control" value="Hotel Plaza Athenee">
+                                                    <input type="text" class="form-control" asp-for="Name">
+                                                    <span asp-validation-for="Name" class="text-danger"></span>
                                                 </div>
+
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Category</label>
-                                                    <select class="select">
+                                                    <select class="select" asp-for="Category">
                                                         <option>Select</option>
-                                                        <option selected>Hotels</option>
-                                                        <option>Villa</option>
-                                                        <option>Apartment</option>
-                                                        <option>Guest House</option>
-                                                        <option>Lodge</option>
+                                                        <option value="Hotels">Hotels</option>
+                                                        <option value="Villa">Villa</option>
+                                                        <option value="Apartment">Apartment</option>
+                                                        <option value="Guest House">Guest House</option>
+                                                        <option value="Lodge">Lodge</option>
                                                     </select>
+                                                    <span asp-validation-for="Category" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
@@ -592,7 +602,9 @@
                                                         <span class="input-icon-addon">
                                                             <i class="isax isax-calendar"></i>
                                                         </span>
+
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
@@ -603,32 +615,37 @@
                                                         <span class="input-icon-addon">
                                                             <i class="isax isax-calendar"></i>
                                                         </span>
+
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Star Ratings</label>
-                                                    <select class="select">
+                                                    <select class="select" asp-for="StarRating">
                                                         <option>Select</option>
                                                         <option>1</option>
                                                         <option>2</option>
-                                                        <option selected>3</option>
+                                                        <option>3</option>
                                                         <option>4</option>
                                                         <option>5</option>
                                                     </select>
+                                                    <span asp-validation-for="StarRating" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Total Number Of Rooms</label>
-                                                    <input type="text" class="form-control" value="10">
+                                                    <input type="number" class="form-control" asp-for="TotalRooms">
+                                                    <span asp-validation-for="TotalRooms" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Maximum Capacity</label>
-                                                    <input type="text" class="form-control" value="50">
+                                                    <input type="number" class="form-control" asp-for="MaxCapacity">
+                                                    <span asp-validation-for="MaxCapacity" class="text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -645,42 +662,48 @@
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Country</label>
-                                                    <select class="select">
+                                                    <select class="select" asp-for="Country">
                                                         <option>Select</option>
-                                                        <option>United States</option>
-                                                        <option selected>Canada</option>
+                                                        <option>Việt Nam</option>
+                                                        <option>Canada</option>
                                                         <option>United Kingdom</option>
                                                     </select>
+                                                    <span asp-validation-for="Country" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">City</label>
-                                                    <input type="text" class="form-control" value="Oxford Street">
+                                                    <input type="text" class="form-control" asp-for="City">
+                                                    <span asp-validation-for="City" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">State</label>
-                                                    <input type="text" class="form-control" value="London">
+                                                    <input type="text" class="form-control" asp-for="State">
+                                                    <span asp-validation-for="State" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Zip Code</label>
-                                                    <input type="text" class="form-control" value="654">
+                                                    <input type="text" class="form-control" asp-for="ZipCode">
+                                                    <span asp-validation-for="ZipCode" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Address</label>
-                                                    <input type="text" class="form-control" value="Oxford Street, London">
+                                                    <input type="text" class="form-control" asp-for="Address">
+                                                    <span asp-validation-for="Address" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Address 1</label>
-                                                    <input type="text" class="form-control" value="Ciutat Vella, Barcelona">
+                                                    <label class="form-label">Link Maps</label>
+                                                    <input type="text" class="form-control" asp-for="linkLocation">
+                                                    <span asp-validation-for="linkLocation" class="text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -694,12 +717,19 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row add-highlight-info">
+                                              @for (int i = 0; i < Model.Highlights.Count; i++)
+                                                    {
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Highlights</label>
-                                                    <input type="text" class="form-control" value="Spacious Rooms">
+                                                  
+                                                        <input type="text" class="form-control" asp-for="Highlights[@i]" value="@Model.Highlights[i]" />
+                                                   
                                                 </div>
                                             </div>
+                                            }
+
+
                                         </div>
                                         <div>
                                             <a href="javascript:void(0);" class="btn btn-primary btn-sm add-highlight"><i class="isax isax-add-circle me-1"></i>Add New</a>
@@ -717,37 +747,37 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-1">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[0]" id="service-1">
                                                         <label class="form-check-label ms-2" for="service-1">
                                                             24-Hour Room Service
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-2">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[1]" id="service-2">
                                                         <label class="form-check-label ms-2" for="service-2">
                                                             In-Room Dining
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-3">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[2]" id="service-3">
                                                         <label class="form-check-label ms-2" for="service-3">
                                                             Concierge Services
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-4">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[3]" id="service-4">
                                                         <label class="form-check-label ms-2" for="service-4">
                                                             Daily Housekeeping
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-5">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[4]" id="service-5">
                                                         <label class="form-check-label ms-2" for="service-5">
                                                             Front Desk Services
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-6">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[5]" id="service-6">
                                                         <label class="form-check-label ms-2" for="service-6">
                                                             On-Site Restaurants
                                                         </label>
@@ -757,37 +787,37 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-7">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[6]" id="service-7">
                                                         <label class="form-check-label ms-2" for="service-7">
                                                             Check-In/Check-Out Assistance
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-8">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[7]" id="service-8">
                                                         <label class="form-check-label ms-2" for="service-8">
                                                             Free luggage deposit
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-9">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[8]" id="service-9">
                                                         <label class="form-check-label ms-2" for="service-9">
                                                             Laundry and Ironing Service
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-10">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[9]" id="service-10">
                                                         <label class="form-check-label ms-2" for="service-10">
                                                             Dry Cleaning Service
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-11">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[10]" id="service-11">
                                                         <label class="form-check-label ms-2" for="service-11">
                                                             Hair and Beauty Service
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-12">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[11]" id="service-12">
                                                         <label class="form-check-label ms-2" for="service-12">
                                                             In-Room Spa Treatments
                                                         </label>
@@ -797,37 +827,37 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-13">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[12]" id="service-13">
                                                         <label class="form-check-label ms-2" for="service-13">
                                                             Valet Parking
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-14">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[13]" id="service-14">
                                                         <label class="form-check-label ms-2" for="service-14">
                                                             Babysitting
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-15">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[14]" id="service-15">
                                                         <label class="form-check-label ms-2" for="service-15">
                                                             Dry Cleaning Service
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-16">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[15]" id="service-16">
                                                         <label class="form-check-label ms-2" for="service-16">
                                                             Wake-Up Call Service
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-17">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[16]" id="service-17">
                                                         <label class="form-check-label ms-2" for="service-17">
                                                             Translator Service
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-18">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[17]" id="service-18">
                                                         <label class="form-check-label ms-2" for="service-18">
                                                             Currency Exchange Service
                                                         </label>
@@ -837,6 +867,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <div class="card shadow-none">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
@@ -848,37 +880,37 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-1">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[0]" id="accessibility-1">
                                                         <label class="form-check-label ms-2" for="accessibility-1">
                                                             Wheelchair accessible
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-2">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[1]" id="accessibility-2">
                                                         <label class="form-check-label ms-2" for="accessibility-2">
                                                             Visual alarms in hallways
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-3">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[2]" id="accessibility-3">
                                                         <label class="form-check-label ms-2" for="accessibility-3">
                                                             Elevator
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-4">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[3]" id="accessibility-4">
                                                         <label class="form-check-label ms-2" for="accessibility-4">
                                                             Braille/raised signage
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-5">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[4]" id="accessibility-5">
                                                         <label class="form-check-label ms-2" for="accessibility-5">
                                                             Roll-in shower with a bench or seat
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-6">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[5]" id="accessibility-6">
                                                         <label class="form-check-label ms-2" for="accessibility-6">
                                                             Grab bars near the toilet and shower
                                                         </label>
@@ -888,37 +920,37 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-7">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[6]" id="accessibility-7">
                                                         <label class="form-check-label ms-2" for="accessibility-7">
                                                             Wheelchair-accessible gym
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-8">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[7]" id="accessibility-8">
                                                         <label class="form-check-label ms-2" for="accessibility-8">
                                                             Wheelchair-accessible business center
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-9">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[8]" id="accessibility-9">
                                                         <label class="form-check-label ms-2" for="accessibility-9">
                                                             Wheelchair-accessible lounge
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-10">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[9]" id="accessibility-10">
                                                         <label class="form-check-label ms-2" for="accessibility-10">
                                                             Wheelchair-accessible concierge desk
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-11">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[10]" id="accessibility-11">
                                                         <label class="form-check-label ms-2" for="accessibility-11">
                                                             Lowered towel racks
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-12">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[11]" id="accessibility-12">
                                                         <label class="form-check-label ms-2" for="accessibility-12">
                                                             Braille on room numbers, elevator buttons
                                                         </label>
@@ -928,37 +960,37 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-13">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[12]" id="accessibility-13">
                                                         <label class="form-check-label ms-2" for="accessibility-13">
                                                             Step-free or ramped access
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-14">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[13]" id="accessibility-14">
                                                         <label class="form-check-label ms-2" for="accessibility-14">
                                                             Automatic doors
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-15">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[14]" id="accessibility-15">
                                                         <label class="form-check-label ms-2" for="accessibility-15">
                                                             Grab bars in the bathroom
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-16">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[15]" id="accessibility-16">
                                                         <label class="form-check-label ms-2" for="accessibility-16">
                                                             Wide doorways
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-17">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[16]" id="accessibility-17">
                                                         <label class="form-check-label ms-2" for="accessibility-17">
                                                             Lowered switches
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-18">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[17]" id="accessibility-18">
                                                         <label class="form-check-label ms-2" for="accessibility-18">
                                                             Accessible curtains
                                                         </label>
@@ -979,31 +1011,31 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-1">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[0]" id="room-1">
                                                         <label class="form-check-label ms-2" for="room-1">
                                                             Single Room
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-2">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[1]" id="room-2">
                                                         <label class="form-check-label ms-2" for="room-2">
                                                             Double Room
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-3">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[2]" id="room-3">
                                                         <label class="form-check-label ms-2" for="room-3">
                                                             Twin Room
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-4">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[3]" id="room-4">
                                                         <label class="form-check-label ms-2" for="room-4">
                                                             Deluxe Room
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-5">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[4]" id="room-5">
                                                         <label class="form-check-label ms-2" for="room-5">
                                                             Suite
                                                         </label>
@@ -1013,31 +1045,31 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-6">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[5]" id="room-6">
                                                         <label class="form-check-label ms-2" for="room-6">
                                                             Junior Suite
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-7">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[6]" id="room-7">
                                                         <label class="form-check-label ms-2" for="room-7">
                                                             Family Room
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-8">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[7]" id="room-8">
                                                         <label class="form-check-label ms-2" for="room-8">
                                                             Connecting Rooms
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-9">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[8]" id="room-9">
                                                         <label class="form-check-label ms-2" for="room-9">
                                                             Accessible Room
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-10">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[9]" id="room-10">
                                                         <label class="form-check-label ms-2" for="room-10">
                                                             Studio Room
                                                         </label>
@@ -1047,31 +1079,31 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-11">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[10]" id="room-11">
                                                         <label class="form-check-label ms-2" for="room-11">
                                                             Penthouse
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-12">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[11]" id="room-12">
                                                         <label class="form-check-label ms-2" for="room-12">
                                                             Villa
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-13">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[12]" id="room-13">
                                                         <label class="form-check-label ms-2" for="room-13">
                                                             Economy Room
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-14">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[13]" id="room-14">
                                                         <label class="form-check-label ms-2" for="room-14">
                                                             City View
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="room-15">
+                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[14]" id="room-15">
                                                         <label class="form-check-label ms-2" for="room-15">
                                                             Ocean View
                                                         </label>
@@ -1081,120 +1113,120 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow-none" id="popular_amenities">
-                                    <div class="card-header">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Amenities</h5>
-                                        </div>
-                                    </div>
-                                    <div class="card-body pb-1">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="mb-3">
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-1">
-                                                        <label class="form-check-label ms-2" for="amenities-1">
-                                                            Free Wi-Fi
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-2">
-                                                        <label class="form-check-label ms-2" for="amenities-2">
-                                                            Air Conditioning
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-3">
-                                                        <label class="form-check-label ms-2" for="amenities-3">
-                                                            Heater
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-4">
-                                                        <label class="form-check-label ms-2" for="amenities-4">
-                                                            TV (Cable/Satellite)
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-5">
-                                                        <label class="form-check-label ms-2" for="amenities-5">
-                                                            Coffee Maker
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-6">
-                                                        <label class="form-check-label ms-2" for="amenities-6">
-                                                            Mini Fridge
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="mb-3">
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-7">
-                                                        <label class="form-check-label ms-2" for="amenities-7">
-                                                            Safe Deposit Box
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-8">
-                                                        <label class="form-check-label ms-2" for="amenities-8">
-                                                            Iron/Ironing Board
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-9">
-                                                        <label class="form-check-label ms-2" for="amenities-9">
-                                                            Hair Dryer
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-10">
-                                                        <label class="form-check-label ms-2" for="amenities-10">
-                                                            Shower
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-11">
-                                                        <label class="form-check-label ms-2" for="amenities-11">
-                                                            Jacuzzi/Hot Tub
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-12">
-                                                        <label class="form-check-label ms-2" for="amenities-12">
-                                                            Microwave
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="mb-3">
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-13">
-                                                        <label class="form-check-label ms-2" for="amenities-13">
-                                                            Bluetooth Speaker
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-14">
-                                                        <label class="form-check-label ms-2" for="amenities-14">
-                                                            Sofa/Seating Area
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check d-flex align-items-center ps-0 mb-2">
-                                                        <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-15">
-                                                        <label class="form-check-label ms-2" for="amenities-15">
-                                                            Extra Pillows and Blankets
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                @*  <div class="card shadow-none" id="popular_amenities">
+                                <div class="card-header">
+                                <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="fs-18">Amenities</h5>
                                 </div>
-                                <div class="card shadow-none" id="faq">
+                                </div>
+                                <div class="card-body pb-1">
+                                <div class="row">
+                                <div class="col-lg-4 col-md-6">
+                                <div class="mb-3">
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[0]" id="amenities-1">
+                                <label class="form-check-label ms-2" for="amenities-1">
+                                Free Wi-Fi
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[1]" id="amenities-2">
+                                <label class="form-check-label ms-2" for="amenities-2">
+                                Air Conditioning
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[2]" id="amenities-3">
+                                <label class="form-check-label ms-2" for="amenities-3">
+                                Heater
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[3]" id="amenities-4">
+                                <label class="form-check-label ms-2" for="amenities-4">
+                                TV (Cable/Satellite)
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[4]" id="amenities-5">
+                                <label class="form-check-label ms-2" for="amenities-5">
+                                Coffee Maker
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[5]" id="amenities-6">
+                                <label class="form-check-label ms-2" for="amenities-6">
+                                Mini Fridge
+                                </label>
+                                </div>
+                                </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                <div class="mb-3">
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[6]" id="amenities-7">
+                                <label class="form-check-label ms-2" for="amenities-7">
+                                Safe Deposit Box
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[7]" id="amenities-8">
+                                <label class="form-check-label ms-2" for="amenities-8">
+                                Iron/Ironing Board
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[8]" id="amenities-9">
+                                <label class="form-check-label ms-2" for="amenities-9">
+                                Hair Dryer
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[9]" id="amenities-10">
+                                <label class="form-check-label ms-2" for="amenities-10">
+                                Shower
+                                </label>
+                                </divAccessibility
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[10]" id="amenities-11">
+                                <label class="form-check-label ms-2" for="amenities-11">
+                                Jacuzzi/Hot Tub
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[11]" id="amenities-12">
+                                <label class="form-check-label ms-2" for="amenities-12">
+                                Microwave
+                                </label>
+                                </div>
+                                </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                <div class="mb-3">
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[12]" id="amenities-13">
+                                <label class="form-check-label ms-2" for="amenities-13">
+                                Bluetooth Speaker
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[13]" id="amenities-14">
+                                <label class="form-check-label ms-2" for="amenities-14">
+                                Sofa/Seating Area
+                                </label>
+                                </div>
+                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Amenities[14]" id="amenities-15">
+                                <label class="form-check-label ms-2" for="amenities-15">
+                                Extra Pillows and Blankets
+                                </label>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div> *@
+                             @*    <div class="card shadow-none" id="faq">
                                     <div class="card-header">
                                         <h5 class="fs-18">FAQ</h5>
                                     </div>
@@ -1207,7 +1239,7 @@
                                                         <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#edit_faq" class="rounded-edit d-flex align-items-center justify-content-center me-2">
                                                             <i class="isax isax-edit-2"></i>
                                                         </a>
-                                                        <a href="javascript:void(0);" class="trash-icon d-flex align-items-center justify-content-center">
+                                                        <a href="javascript:void(0);" class="trash-icon d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete_modal">
                                                             <i class="isax isax-trash text-danger"></i>
                                                         </a>
                                                     </div>
@@ -1222,7 +1254,7 @@
                                                         <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#edit_faq" class="rounded-edit d-flex align-items-center justify-content-center me-2">
                                                             <i class="isax isax-edit-2"></i>
                                                         </a>
-                                                        <a href="javascript:void(0);" class="trash-icon d-flex align-items-center justify-content-center">
+                                                        <a href="javascript:void(0);" class="trash-icon d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete_modal">
                                                             <i class="isax isax-trash text-danger"></i>
                                                         </a>
                                                     </div>
@@ -1235,50 +1267,90 @@
                                             </a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> *@
                                 <div class="card shadow-none" id="gallery">
                                     <div class="card-header">
-                                        <h5 class="fs-18">Gallery</h5>
+                                        <h5 class="fs-18">Hotel Gallery</h5>
                                     </div>
+                                    <input  type="hidden" asp-for="ID"/>
                                     <div class="card-body">
                                         <div class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column mb-2">
                                             <span class="upload-img d-block mb-2"><i class="isax isax-document-upload fs-24"></i></span>
                                             <h6 class="mb-1">Upload Gallery Images</h6>
-                                            <p class="mb-0">Upload Feature Image First, Image size should below 5MB</p>
-                                            <input type="file" accept="video/image">
+                                            <p class="mb-0">Upload Feature Image First, Image size should be below 5MB</p>
+                                            <input type="file" accept="image/*" multiple id="file-input-hotel" asp-for="Images">
                                         </div>
-                                        <div class="d-flex align-items-center">
-                                            <a href="javascript:void(0);" class="gallery-upload-img me-2">
-                                                <img src="~/assets/img/uploads/upload-01.jpg" alt="Img">
-                                                <span class="trash-icon d-flex align-items-center justify-content-center text-danger gallery-trash"><i class="isax isax-trash"></i></span>
-                                            </a>
-                                            <a href="javascript:void(0);" class="gallery-upload-img me-2">
-                                                <img src="~/assets/img/uploads/upload-02.jpg" alt="Img">
-                                                <span class="trash-icon d-flex align-items-center justify-content-center text-danger gallery-trash"><i class="isax isax-trash"></i></span>
-                                            </a>
-                                            <a href="javascript:void(0);" class="gallery-upload-img me-2">
-                                                <img src="~/assets/img/uploads/upload-03.jpg" alt="Img">
-                                                <span class="trash-icon d-flex align-items-center justify-content-center text-danger gallery-trash"><i class="isax isax-trash"></i></span>
-                                            </a>
-                                            <a href="javascript:void(0);" class="gallery-upload-img me-2">
-                                                <img src="~/assets/img/uploads/upload-04.jpg" alt="Img">
-                                                <span class="trash-icon d-flex align-items-center justify-content-center text-danger gallery-trash"><i class="isax isax-trash"></i></span>
-                                            </a>
-                                            <a href="javascript:void(0);" class="gallery-upload-img me-2">
-                                                <img src="~/assets/img/uploads/upload-05.jpg" alt="Img">
-                                                <span class="trash-icon d-flex align-items-center justify-content-center text-danger gallery-trash"><i class="isax isax-trash"></i></span>
-                                            </a>
+
+                                        <!-- Hiển thị các ảnh đã có sẵn -->
+                                        <div class="d-flex align-items-center" id="hotel-gallery">
+                                            @foreach (var image in Model.ExistingImages)
+                                            {
+                                                <a href="javascript:void(0);" class="gallery-upload-img me-2">
+                                                    <img src="@Url.Content(image)" alt="Image" />
+                                                    <span class="trash-icon d-flex align-items-center justify-content-center text-danger gallery-trash">
+                                                        <i class="isax isax-trash"></i>
+                                                    </span>
+                                                </a>
+                                            }
                                         </div>
+
                                     </div>
+                                    <span asp-validation-for="Images" class="text-danger"></span>
                                 </div>
+
+                                <script>
+                                    // JavaScript để hiển thị các ảnh đã chọn
+                                    document.getElementById('file-input-hotel').addEventListener('change', function (event) {
+                                        const files = event.target.files;
+                                        const hotelGallery = document.getElementById('hotel-gallery');
+                                        hotelGallery.innerHTML = ''; // Xóa các ảnh hiện có trong gallery trước khi thêm mới
+
+                                        Array.from(files).forEach((file, index) => {
+                                            if (file && file.type.startsWith('image')) {
+                                                const reader = new FileReader();
+
+                                                reader.onload = function (e) {
+                                                    const imgElement = document.createElement('a');
+                                                    imgElement.href = 'javascript:void(0);';
+                                                    imgElement.classList.add('gallery-upload-img', 'me-2');
+                                                    imgElement.id = 'hotel-img-' + index; // Đặt ID cho ảnh
+
+                                                    const imgTag = document.createElement('img');
+                                                    imgTag.src = e.target.result;
+                                                    imgTag.alt = 'Img';
+
+                                                    const trashIcon = document.createElement('span');
+                                                    trashIcon.classList.add('trash-icon', 'd-flex', 'align-items-center', 'justify-content-center', 'text-danger', 'gallery-trash');
+
+                                                    const icon = document.createElement('i');
+                                                    icon.classList.add('isax', 'isax-trash');
+                                                    trashIcon.appendChild(icon);
+
+                                                    imgElement.appendChild(imgTag);
+                                                    imgElement.appendChild(trashIcon);
+
+                                                    hotelGallery.appendChild(imgElement);
+                                                };
+
+                                                reader.readAsDataURL(file);
+                                            }
+                                        });
+                                    });
+                                </script>
+
+
                                 <div class="card shadow-none" id="description">
                                     <div class="card-header">
                                         <h5 class="fs-18">Description</h5>
                                     </div>
                                     <div class="card-body text-editor">
-                                        <div class="summernote"></div>
+                                        <!-- Input ẩn để lưu nội dung Summernote -->
+                                        <input type="hidden" id="editorContent" name="dess" asp-for="dess" />
+                                        <!-- Thay div bằng textarea -->
+                                        <textarea class="summernote"></textarea>
                                     </div>
                                 </div>
+
                                 <div class="d-flex align-items-center justify-content-center">
                                     <button type="button" class="btn btn-light me-2">Reset</button>
                                     <button type="submit" class="btn btn-primary">Add New Hotel</button>
@@ -1292,7 +1364,7 @@
             </div>
         </div>
     </div>
-    <!-- /Page Wrapper -->
+  
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1615,6 +1687,11 @@
         <a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top"><i class="fa-solid fa-arrow-up"></i></a>
     </div>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Jquery JS -->
     <!-- Jquery JS -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="~/assets/js/jquery-3.7.1.min.js" type="e048e21a62b777f7e6c1c923-text/javascript"></script>
@@ -1656,3 +1733,85 @@
 </body>
 
 </html>
+<!-- Load jQuery trước -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<!-- Load CSS của Summernote -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+
+<!-- Load JS của Summernote -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        // Kiểm tra jQuery có hoạt động không
+        console.log("jQuery đã được tải!");
+
+        // Điền dữ liệu từ input ẩn vào Summernote khi trang được tải lại
+        var initialContent = $('#editorContent').val(); // Lấy nội dung từ input ẩn
+        if (initialContent) {
+            $('.summernote').summernote('code', initialContent); // Đặt nội dung vào Summernote
+        }
+
+        // Khởi tạo Summernote
+        $('.summernote').summernote({
+            height: 200 // Đặt chiều cao của editor
+        });
+
+        // Xử lý sự kiện submit form
+        $('#formid11').on('submit', function (e) {
+            e.preventDefault(); // Ngăn chặn gửi form mặc định
+
+            var editorContent = $('.summernote').summernote('code');
+            $('#editorContent').val(editorContent); // Gán nội dung vào input ẩn
+
+            console.log("Dữ liệu gửi đi:", $('#editorContent').val()); // Kiểm tra dữ liệu
+
+            this.submit(); // Gửi form sau khi cập nhật nội dung
+        });
+    });
+
+
+    @if (TempData["Messse"] != null)
+    {
+        <text>
+            Swal.fire({
+                title: "Chúc mừng!",
+                text: '@Html.Raw(TempData["Messse"])',
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Logic sau khi nhấn OK
+                }
+            });
+        </text>
+    }
+
+
+    @if (TempData["MessseErro"] != null)
+    {
+
+        <text>
+            Swal.fire({
+                title: "Failed!!",
+                text: '@Html.Raw(@TempData["MessseErro"])',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                }
+            });
+        </text>
+
+    }
+
+
+
+</script>

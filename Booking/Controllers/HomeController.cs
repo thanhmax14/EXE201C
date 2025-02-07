@@ -13,6 +13,7 @@ using Booking.ViewModels;
 using Booking.Services;
 using Booking.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace Booking.Controllers
 {
@@ -40,10 +41,12 @@ namespace Booking.Controllers
         {
         var list = new List<ListProduct>();
         var infoHotel = new List<ListHotels>();
+   
         var getHotel = await this._context.Hotels
         .Where(h => h.HotelName!="") 
         .OrderBy(h => h.Established) 
         .ToListAsync();
+
             var farevo = "";
            foreach(var item in getHotel)
             {
@@ -84,9 +87,65 @@ namespace Booking.Controllers
 
                 }); 
             }
+
+            var infoTour = new List<ListTour>();
+            var getTour = await this._context.Tours
+       .Where(h => h.TourName != "")       
+       .ToListAsync();
+
+            var farevoTour = "";
+            foreach (var item in getTour)
+            {
+                var user = await this._userManager.FindByIdAsync(item.UserID);
+                var temImg = new List<GalleriesImg>();
+                var getImg = await this._context.GalleryTours.Where(u => u.TourID == item.ID)
+             .OrderByDescending(h => h.IsFeatureImage)
+             .ToListAsync();
+                if (getImg.Any())
+                {
+                    foreach (var itemImg in getImg)
+                    {
+                        if (!string.IsNullOrWhiteSpace(itemImg.ImagePath))
+                        {
+                            temImg.Add(new GalleriesImg { img = itemImg.ImagePath });
+                        }
+                    }
+                }
+                var flagUser = await _userManager.GetUserAsync(User);
+                if (flagUser != null && await this._context.WishlistTours.AnyAsync(u => u.UserID == flagUser.Id && u.TourID == item.ID))
+                {
+                    farevo = "text-danger";
+                }
+                else
+                {
+                    farevo = "";
+                }
+                infoTour.Add(new ListTour
+                {
+                    TourID = item.ID,
+                    TourName = item.TourName,
+                    img = temImg,
+                    Location = $"{item.City},{item.Country}",
+                    NameSeller = user.UserName,
+                    NumberReview = 200,
+                    price = 502,
+                    farovite = farevo,
+                    category = item.Category
+                    
+                });
+            }
+
+
+
+
+
+
+
             list.Add(new ListProduct
             {
-                Hotels = infoHotel
+                Hotels = infoHotel,
+                Tour = infoTour,
+                
             });
             ViewBag.List = list;
             return View();
@@ -170,6 +229,7 @@ namespace Booking.Controllers
                 tem.LocationsURL = infoHotel.linkLocation;
                 var getInfoRoom = this._context.Rooms.Where(u => u.HotelID == infoHotel.ID).ToList();
                 tem.TotalRom = getInfoRoom.Count;
+                
                 if (getInfoRoom.Any())
                 {
                     var romView = new RoomView();
@@ -202,6 +262,109 @@ namespace Booking.Controllers
 
             return View(tem);
         }
+        public async Task<IActionResult> TourDetail(Guid id)
+        {
+            var infoTour = await this._context.Tours.FirstOrDefaultAsync(u => u.ID == id);
+            var tem = new TourDetail();
+
+            if (infoTour == null)
+            {
+                return RedirectToAction("Erro404");
+            }
+            else
+            {
+                /* var user = await _userManager.GetUserAsync(User);
+                 if (user != null && await this._context.WishlistHotels.AnyAsync(u => u.UserID == user.Id && u.HotelID == id))
+                 {
+                     tem.farovite = "text-danger";
+                 }
+                 if (user != null)
+                 {
+                     var getList = await this._context.Datphongs.Where(u => u.UserID == user.Id && u.paymentStatus == "PAID" && !u.isComment)
+                     .ToListAsync();
+                     if (getList.Any())
+                     {
+                         tem.isComment = true;
+                     }
+
+
+                 }
+
+                 var getcmt = await this._context.ReviewHotels.Where(u => u.HotelID == id && !u.status).OrderByDescending(q => q.datecmt).ToListAsync();
+
+                 if (getcmt.Any())
+                 {
+                     foreach (var item in getcmt)
+                     {
+                         var infoUser = await this._userManager.FindByIdAsync(item.UserID);
+                         var infoSeller = await this._userManager.FindByIdAsync(infoHotel.UserID);
+
+                         if (infoUser != null && infoSeller != null)
+                         {
+                             tem.readcmt.Add(new readcmt
+                             {
+                                 datecmt = item.datecmt,
+                                 daterelay = item.dateRelay,
+                                 imgSeller = infoSeller.img,
+                                 imgUser = infoUser.img,
+                                 rating = item.rating + ".0",
+                                 relay = item.relay ?? "",
+                                 SellerName = $"{infoSeller.firstName} {infoSeller.lastName}",
+                                 UserName = $"{infoUser.firstName} {infoUser.lastName}",
+                                 cmt = item.cmt
+
+                             });
+                         }
+
+
+
+                     }
+                 }*/
+
+                var stardate = DateTime.ParseExact(infoTour.startDate, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(5);
+                var endDate = DateTime.ParseExact(infoTour.EndDATE, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(22);
+                tem.strarDate = infoTour.startDate;
+                tem.endDate = infoTour.EndDATE;
+                tem.TourID = infoTour.ID;
+                tem.TorName = infoTour.TourName;
+                tem.duration = CalculateStayDuration(stardate, endDate);
+                tem.Category = infoTour.Category;
+                tem.Locations = $"{infoTour.City},{infoTour.Country}";
+                tem.Descriptions = infoTour.Description;
+                tem.ngaydi = stardate + "";
+                tem.ngaive = endDate + "";
+                tem.TotalPreople = infoTour.totalPreoPle;
+                tem.price = infoTour.price;
+
+
+
+                var Activities = await this._context.Activities.Where(u => u.TourID == infoTour.ID).Select(h => h.ActivitiesName).ToListAsync();
+                tem.Activities.AddRange(Activities);
+                   var Includes = await this._context.Includes.Where(u => u.TourID == infoTour.ID).Select(h => h.IncludesName).ToListAsync();
+                tem.Includes.AddRange(Includes);
+
+                   var Excludes = await this._context.Excludes.Where(u => u.TourID == infoTour.ID).Select(h => h.ExcludesName).ToListAsync();
+                tem.Excludes.AddRange(Excludes);
+
+
+
+                var img = await this._context.GalleryTours.Where(u => u.TourID == infoTour.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync();
+                tem.imgView.AddRange(img);
+                tem.LocationsURL = infoTour.linkLocation;
+                var getInfoRoom = this._context.Rooms.Where(u => u.HotelID == infoTour.ID).ToList();
+            
+
+
+            }
+            return View(tem);
+        }
+        public static string CalculateStayDuration(DateTime checkIn, DateTime checkOut)
+        {
+            var stayDuration = checkOut.Date - checkIn.Date;
+            int noOfDays = stayDuration.Days + 1;
+            int noOfNights = stayDuration.Days;
+            return $"{noOfDays} Days, {noOfNights} Nights";
+        }
         public IActionResult Erro404()
         {
             return View();
@@ -211,7 +374,7 @@ namespace Booking.Controllers
         {
             return View();
         }
-
+        
 
 
         [HttpGet]
