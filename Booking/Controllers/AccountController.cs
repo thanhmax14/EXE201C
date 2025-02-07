@@ -265,6 +265,44 @@ namespace Booking.Controllers
                 }
             }
 
+
+            var getWishTour = await this._context.WishlistTours
+     .Where(h => h.UserID == user.Id)
+     .OrderBy(h => h.CreateDate)
+     .ToListAsync();
+
+
+            foreach (var h in getWishTour)
+            {
+                var checkHotel = await this._context.Tours.FirstOrDefaultAsync(u => u.ID == h.TourID);
+                List<string?> img = new List<string?>();
+
+                if (checkHotel != null)
+                {
+                    img.AddRange(await this._context.Galleries.Where(u => u.HotelID == checkHotel.ID).OrderByDescending(h => h.IsFeatureImage).Select(h => h.ImagePath).ToListAsync());
+                    list.Add(new WishList
+                    {
+                        ListTours = new List<WishListTour>
+    {
+        new WishListTour { ID =h.TourID,
+                            Descriptions = checkHotel.Description,
+                            TourName = checkHotel.TourName,
+                            img = img,
+                            Location =  $"{checkHotel.City},{checkHotel.Country}",
+                            NameSeller = user.UserName,
+                            category = checkHotel.Category,
+                            NumberReview =0,
+                            price =checkHotel.price,
+                            rating =5+".0"
+        }
+    }
+                    });
+                }
+            }
+
+
+
+
             return View(list);
         }
         [HttpPost]
@@ -343,6 +381,101 @@ namespace Booking.Controllers
                 return Json(new { success = true, message = $"Hotel {checkhotek.HotelName} đã bị xóa khỏi danh sách yêu thích!" });
             }
         }
+
+
+
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<IActionResult> AddWishTour(Guid id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { notAuth = true, message = "Bạn phải đăng nhập thể thực hiện hành động này!" });
+            }
+            var checkhotek = await this._context.Tours.FindAsync(id);
+            if (checkhotek == null)
+            {
+                return Json(new { success = false, message = "Tours không tồn tại!!" });
+            }
+            else if (await this._context.WishlistTours.AnyAsync(u => u.UserID == user.Id && u.TourID == id))
+            {
+                return Json(new { success = false, message = $"Tours {checkhotek.TourName} đã tồn tại trong danh sách yêu thích.!" });
+            }
+            else
+            {
+                var tem = new WishlistTour
+                {
+                    TourID = id,
+                    ID = Guid.NewGuid(),
+                    CreateDate = DateTime.Now,
+                    UserID = user.Id
+                };
+                try
+                {
+                    var add = await this._context.WishlistTours.AddAsync(tem);
+                    await this._context.SaveChangesAsync();
+                    return Json(new { success = true, message = $"Thêm Tours {checkhotek.TourName} thành công!" });
+                }
+                catch
+                {
+                    return Json(new { success = false, message = "Thêm thất bại!" });
+                }
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> RemoveWishTour(Guid id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { notAuth = true, message = "Bạn phải đăng nhập thể thực hiện hành động này!" });
+            }
+            var checkhotek = await this._context.Tours.FindAsync(id);
+            if (checkhotek == null)
+            {
+                return Json(new { success = false, message = "Tours không tồn tại!!" });
+            }
+            else if (await this._context.WishlistTours.AnyAsync(u => u.UserID == user.Id && u.TourID == id))
+            {
+                var getHotel = await this._context.WishlistTours.FirstOrDefaultAsync(u => u.UserID == user.Id && u.TourID == id);
+
+                try
+                {
+                    var add = this._context.WishlistTours.Remove(getHotel);
+                    await this._context.SaveChangesAsync();
+                    return Json(new { success = true, message = $"Xóa {checkhotek.TourName} khỏi danh sách yêu thích thành công!" });
+                }
+                catch
+                {
+                    return Json(new { success = false, message = $"Xóa {checkhotek.TourName} khỏi danh sách yêu thích thất bại!" });
+                }
+            }
+            else
+            {
+                return Json(new { success = true, message = $"Tours {checkhotek.TourName} đã bị xóa khỏi danh sách yêu thích!" });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public async Task<IActionResult> Wallet()
         {
         
@@ -664,7 +797,156 @@ namespace Booking.Controllers
         }
 
 
-        public async Task<IActionResult> Review()
+
+
+
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ComfirmTour([FromBody] TourRequest request)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { notAuth = true, msg = "Bạn phải đăng nhập để thực hiện hành động này!" });
+            }
+            if (!user.isUpdateProfile)
+            {
+                return Json(new { notUpdate = true, msg = "Bạn phải cập nhật đầy đủ thông tin cá nhân!." });
+            }
+            if (request == null || request.tourID == null)
+            {
+                return Json(new { status = "error", msg = "Dữ liệu đặt phòng không hợp lệ." });
+            }
+           
+            if (request.Guests == null)
+            {
+                return Json(new { status = "error", msg = "Bạn chưa chọn số lượng khách." });
+            }
+            var rooms = await _context.Tours
+                .Where(u => request.tourID == u.ID)
+                .OrderByDescending(x => x.price)
+                .ToListAsync();
+
+            if (!rooms.Any())
+            {
+                return Json(new { status = "error", msg = "Không tìm thấy Tour!." });
+            }
+            var soluong = request.Guests.Adults + request.Guests.Infants + request.Guests.Children;
+
+            if(soluong> rooms.FirstOrDefault().totalPreoPle)
+            {
+                return Json(new { status = "error", msg = "Số lượng khách bạn chọn quá mức!" });
+            }
+
+            var checkExit = await this._context.Tours.FindAsync(rooms.FirstOrDefault().ID);
+            if (checkExit != null && checkExit.UserID == user.Id)
+            {
+                return Json(new { status = "error", msg = "Bạn không thể đặt khách sạn của chính bạn." });
+            }
+            try
+            {
+                var galleryImages = await _context.GalleryTours
+               .Where(u => u.TourID == request.tourID && u.IsFeatureImage)
+               .FirstOrDefaultAsync();
+
+                var imgPath = "https://dreamstour.dreamstechnologies.com/html/assets/img/tours/tour-large-01.jpg";
+                if (galleryImages != null)
+                {
+                    imgPath = galleryImages.ImagePath;
+                }
+
+                var stardate = DateTime.ParseExact(checkExit.startDate, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(5);
+                var endDate = DateTime.ParseExact(checkExit.EndDATE, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(22);
+
+                var listTour = new OrderTourDetail
+                {
+                    TourID = request.tourID,
+                    Departure = stardate + "",
+                    Return = endDate + "",
+                    Infants = request.Guests?.Infants ?? 0,
+                    Adults = request.Guests?.Adults ?? 1,
+                    Children = request.Guests?.Children ?? 0,
+                    Tax = 0,
+                    Discount = 0,
+                    img = imgPath,
+                    NameTour = checkExit.TourName,
+                    BookingFees = 0,
+                    total = checkExit.price,
+                    NoOfdate = CalculateStayDuration(stardate, endDate)
+                };
+
+                var billingInfo = new BilingTourViewModels
+                {
+                    id = user.Id,
+                    address = user.address,
+                    birthday = user.sinhNhat,
+                    District = user.District,
+                    email = user.Email,
+                    firstName = user.firstName,
+                    img = user.img,
+                    lastName = user.lastName,
+                    phone = user.PhoneNumber,
+                    Province = user.Province,
+                    Ward = user.Ward,
+                    zipcode = user.ZipCode,
+                    list = listTour
+                };
+                HttpContext.Session.SetString("BillingTourInfo", JsonConvert.SerializeObject(billingInfo));
+                return Json(new { status = "success", url = Url.Action("Bookingtour", "Account") });
+            }
+            catch(Exception e)
+            {
+                return Json(new { status = "error", msg = $"{e.Message}" });
+            }
+        }
+
+
+        public async Task<IActionResult> BookingTour()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var billingData = HttpContext.Session.GetString("BillingTourInfo");
+
+            if (string.IsNullOrEmpty(billingData))
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+
+            var model = JsonConvert.DeserializeObject<BilingTourViewModels>(billingData);
+            var a = model;
+            return View(model);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            public async Task<IActionResult> Review()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -732,7 +1014,7 @@ namespace Booking.Controllers
                 }
                 if (money < tongtien)
                 {
-                    return Json(new { Notfunds = true, message = "Bạn không đủ tiền thanh toán vui lòng nạp!." });
+                    return Json(new { notFunds = true, message = "Bạn không đủ tiền thanh toán vui lòng nạp!." });
                 }
 
                 if (string.IsNullOrEmpty(billingData) || tongtien ==0m)
@@ -795,6 +1077,110 @@ namespace Booking.Controllers
                 return Json(new { success = false, message = "Lỗi khi thanh toán: " + ex.Message });
             }
         }
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ComfirmPayTour(string optional)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Bạn phải đăng nhập để thực hiện hành động này!" });
+            }
+            var money = 0m;
+            try
+            {
+                var getBalace = await this._context.Dongtiens.Where(u => u.UserID == user.Id && u.trangthai == "done")
+                 .OrderByDescending(h => h.thoigian)
+                 .FirstOrDefaultAsync();
+                if (getBalace != null)
+                {
+                    money = getBalace.sotiensau;
+                }
+                var romName = "Tour";
+                var order = "123456";
+                var billingData = HttpContext.Session.GetString("BillingTourInfo");
+
+                var model = JsonConvert.DeserializeObject<BilingTourViewModels>(billingData);
+
+                var tongtien = model.list.total;
+               
+               
+
+                if (string.IsNullOrEmpty(billingData) || tongtien == 0m)
+                {
+                    return Json(new { success = false, message = "Lỗi khi thanh toán: " });
+                }
+
+                var checkTour = await this._context.Tours.FindAsync(model.list.TourID);
+                if (checkTour == null)
+                {
+                    return Json(new { success = false, message = "Lỗi khi thanh toán: " });
+                }
+                if (money < checkTour.price)
+                {
+                    return Json(new { Notfunds = true, message = "Bạn không đủ tiền thanh toán vui lòng nạp!." });
+                }
+                var stardate = DateTime.ParseExact(checkTour.startDate, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(5);
+                var endDate = DateTime.ParseExact(checkTour.EndDATE, "dd-MM-yyyy", CultureInfo.InvariantCulture).AddHours(22);
+
+
+
+                romName = model.list.NameTour;
+                    string guests =
+    (model.list.Adults > 0 ? $"Adults {model.list.Adults}" : "") +
+    (model.list.Adults > 0 && model.list.Children > 0 ? ", " : "") +
+    (model.list.Children > 0 ? $"Children {model.list.Children}" : "");
+
+                    var orderID = RandomCode.GenerateUniqueCode();
+                    order = orderID;
+                    var temp = new DaTour
+                    {
+                        OrderID = orderID,
+                        ID = Guid.NewGuid(),
+                        UserID = user.Id,
+                        BookedOn = DateTime.Now,
+                        BookingFees = 0,                      
+                        DatePayment = DateTime.Now,
+                        Discount = 0,
+                        Guests = string.IsNullOrEmpty(guests) ? "No guests" : guests,
+                        messess = optional,
+                        TourID = model.list.TourID,
+                        NoOfDate = CalculateStayDuration(stardate, endDate),
+                        paymentStatus = "PAID",
+                        tax = 0,
+                        totalPaid = tongtien,
+                        progress = "Upcoming",
+
+                    };
+
+                    var updateDongtien = this._context.Dongtiens.AddAsync(new dongtien
+                    {
+                        IsComplete = true,
+                        method = "buy",
+                        UserID = user.Id,
+                        noidung = $"/account/invoices/{orderID}",
+                        sotientruoc = getBalace.sotiensau,
+                        sotienthaydoi = -tongtien,
+                        sotiensau = getBalace.sotiensau - tongtien,
+                        thoigian = DateTime.Now,
+                        trangthai = "done",
+
+                    });
+                  await   this._context.DaTours.AddAsync(temp);
+                  await  this._context.SaveChangesAsync();
+                
+
+                return Json(new { success = true, message = "Thanh toán thành công!", roomName = $"{romName}", referenceNumber = $"{order}" }); ;
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi khi thanh toán: " + ex.Message });
+            }
+        }
         public static string CalculateStayDuration(DateTime checkIn, DateTime checkOut)
         {
             var stayDuration = checkOut.Date - checkIn.Date;
@@ -841,23 +1227,30 @@ namespace Booking.Controllers
 
             return View(tem);
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> invoices(string id)
         {
-            var user = await _userManager.GetUserAsync(User);
+           /* var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToAction("Erro404", "Home");
-            }
+            }*/
 
             var tem = new invoicesViewModels();
             var getHotel = await this._context.Datphongs.Where(u => u.OrderID == id).ToListAsync();
 
             if (getHotel.Any())
             {
+                var user = await this._userManager.FindByIdAsync(getHotel.FirstOrDefault().UserID);
+                if (user == null)
+                {
+                    return RedirectToAction("Erro404", "Home");
+                }
+                
 
-                var totel = getHotel.Sum(u => u.totalPaid);
+
+                    var totel = getHotel.Sum(u => u.totalPaid);
                 foreach (var item in getHotel)
                 {
                     var getHotsl = await this._context.Rooms.Where(u => u.RoomID == item.RoomID).ToListAsync();
@@ -951,6 +1344,54 @@ namespace Booking.Controllers
         }
 
 
+        public async Task<IActionResult> TourBooking()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+            var list = await this._context.DaTours.Where(u => u.UserID == user.Id).OrderByDescending(query => query.BookedOn).ToListAsync();
+            var tem = new List<TourBookingViewodels>();
+            if (list.Any())
+            {
+                foreach(var item in list)
+                {
+                   
+
+                        var getInfoTour = await this._context.Tours.FindAsync(item.TourID);
+                        if (getInfoTour != null)
+                        {
+                            var getImg = this._context.GalleryTours.FirstOrDefault(u => u.TourID == getInfoTour.ID && u.IsFeatureImage);
+
+                        var imgPath = "https://dreamstour.dreamstechnologies.com/html/assets/img/tours/tour-large-01.jpg";
+                        if (getImg != null)
+                        {
+                            imgPath = getImg.ImagePath;
+                        }
+                        tem.Add(new TourBookingViewodels
+                            {
+                                date = item.NoOfDate,
+                                TourID = item.TourID,
+                                Guest = item.Guests,
+                                TourName = getInfoTour.TourName,
+                                img = imgPath,
+                                OrderID = item.OrderID,
+                                price = item.totalPaid,
+                                status = item.progress,
+                                Category =getInfoTour.Category,
+                                Booked = item.BookedOn
+                                
+                            });
+                        }
+                    
+                }
+            }
+
+            return View(tem);
+        }
+
+
         public async Task<IActionResult> HotelsBooking()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -962,7 +1403,7 @@ namespace Booking.Controllers
             var tem = new List<HotelBookingViewodels>();
             if (list.Any())
             {
-                foreach(var item in list)
+                foreach (var item in list)
                 {
                     var getHotsl = await this._context.Rooms.Where(u => u.RoomID == item.RoomID).ToListAsync();
                     if (getHotsl.Any())
@@ -993,9 +1434,6 @@ namespace Booking.Controllers
 
             return View(tem);
         }
-
-
-
 
 
 

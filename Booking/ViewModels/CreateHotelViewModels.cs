@@ -59,8 +59,8 @@ namespace Booking.ViewModels
         [Required]
         public List<bool> RoomTypes { get; set; } = new List<bool>();
 
-        [Required]
-        public List<bool> Amenities { get; set; } = new List<bool>();
+/*        [Required]
+        public List<bool> Amenities { get; set; } = new List<bool>();*/
 
         [Required]
         public List<IFormFile> Images { get; set; } = new List<IFormFile> ();

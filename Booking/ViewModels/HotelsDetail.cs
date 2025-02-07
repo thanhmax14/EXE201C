@@ -28,6 +28,7 @@ namespace Booking.ViewModels
         public bool isComment { get; set; } = false;
         public List<RoomView> Room { get; set; } = new List<RoomView>();
         public List<readcmt> readcmt { get; set; } = new List<readcmt>();
+        public decimal price { get; set; }
 
 
     }

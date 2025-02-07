@@ -30,6 +30,17 @@ namespace Booking.Data
         public DbSet<ReviewHotels>  ReviewHotels { get; set; }
 
 
+        public DbSet<tour> Tours { get; set; }
+        public DbSet<GalleryTour> GalleryTours { get; set; }
+        public DbSet<WishlistTour> WishlistTours { get; set; }
+        public DbSet<Includes> Includes { get; set; }
+        public DbSet<Activities> Activities { get; set; }
+        public DbSet<Excludes> Excludes { get; set; }
+        public DbSet<DaTour> DaTours { get; set; }
+        public DbSet<ReviewTour> ReviewTours { get; set; }
+     
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -47,11 +58,59 @@ namespace Booking.Data
          .HasOne(h => h.AppUser)
          .WithMany(h => h.Hotels)
          .HasForeignKey(h => h.UserID);
+
+
+            modelBuilder.Entity<tour>()
+           .HasOne(h => h.AppUser)
+           .WithMany(h => h.Tours)
+           .HasForeignKey(h => h.UserID);
+
+
+
+
             // Thiết lập quan hệ 1-n
             modelBuilder.Entity<Highlight>()
                 .HasOne(h => h.Hotel)
                 .WithMany(h => h.Highlights)
                 .HasForeignKey(h => h.HotelID);
+
+                     modelBuilder.Entity<GalleryTour>()
+                .HasOne(h => h.Tour)
+                .WithMany(h => h.GalleryTours)
+                .HasForeignKey(h => h.TourID);
+
+                     modelBuilder.Entity<Activities>()
+                .HasOne(h => h.Tour)
+                .WithMany(h => h.Activities)
+                .HasForeignKey(h => h.TourID);
+
+                     modelBuilder.Entity<Includes>()
+                .HasOne(h => h.Tour)
+                .WithMany(h => h.Includes)
+                .HasForeignKey(h => h.TourID);   
+                
+            modelBuilder.Entity<Excludes>()
+                .HasOne(h => h.Tour)
+                .WithMany(h => h.Excludes)
+                .HasForeignKey(h => h.TourID);
+
+
+
+            modelBuilder.Entity<WishlistTour>().HasKey(a => a.ID);
+
+            modelBuilder.Entity<WishlistTour>()
+        .HasOne(w => w.AppUser)
+        .WithMany(h => h.WishlistTours)
+        .HasForeignKey(w => w.UserID)
+        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<WishlistTour>()
+           .HasOne(w => w.Tour)
+            .WithMany(h => h.WishlistTours)
+           .HasForeignKey(w => w.TourID)
+           .OnDelete(DeleteBehavior.NoAction);
+
+
 
             modelBuilder.Entity<Service>()
                 .HasOne(s => s.Hotel)
@@ -168,6 +227,37 @@ namespace Booking.Data
             .WithMany(h => h.Datphongs)
            .HasForeignKey(w => w.RoomID)
            .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<DaTour>().HasKey(a => a.ID);
+
+            modelBuilder.Entity<DaTour>()
+        .HasOne(w => w.AppUser)
+        .WithMany(h => h.DaTours)
+        .HasForeignKey(w => w.UserID)
+        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<DaTour>()
+           .HasOne(w => w.Tour)
+            .WithMany(h => h.DaTours)
+           .HasForeignKey(w => w.TourID)
+           .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<ReviewTour>().HasKey(a => a.ID);
+
+            modelBuilder.Entity<ReviewTour>()
+        .HasOne(w => w.AppUser)
+        .WithMany(h => h.ReviewTours)
+        .HasForeignKey(w => w.UserID)
+        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ReviewTour>()
+           .HasOne(w => w.Tour)
+            .WithMany(h => h.ReviewTours)
+           .HasForeignKey(w => w.TourID)
+           .OnDelete(DeleteBehavior.NoAction);
+
 
 
 

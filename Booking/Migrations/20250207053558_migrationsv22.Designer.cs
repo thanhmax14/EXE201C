@@ -4,6 +4,7 @@ using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250207053558_migrationsv22")]
+    partial class migrationsv22
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -544,12 +547,16 @@ namespace Booking.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<Guid>("TourID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("cmt")
                         .HasColumnType("nvarchar(max)");
@@ -571,11 +578,11 @@ namespace Booking.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("AppUserId");
+
                     b.HasIndex("TourID");
 
-                    b.HasIndex("UserID");
-
-                    b.ToTable("ReviewTours");
+                    b.ToTable("ReviewTour");
                 });
 
             modelBuilder.Entity("Booking.Models.Room", b =>
@@ -1232,16 +1239,16 @@ namespace Booking.Migrations
 
             modelBuilder.Entity("Booking.Models.ReviewTour", b =>
                 {
+                    b.HasOne("Booking.Models.AppUser", "AppUser")
+                        .WithMany("ReviewTours")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Booking.Models.tour", "Tour")
                         .WithMany("ReviewTours")
                         .HasForeignKey("TourID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Booking.Models.AppUser", "AppUser")
-                        .WithMany("ReviewTours")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
