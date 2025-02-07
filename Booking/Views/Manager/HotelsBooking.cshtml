@@ -1,8 +1,9 @@
-﻿@{
+﻿@model List<Booking.ViewModels.ManaHotelBoking>
+@{
     Layout = null;
 }
 
-@model List<Booking.ViewModels.ListProduct>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +26,7 @@
     <link rel="shortcut icon" href="~/assets/img/favicon.png" type="image/x-icon">
 
     <!-- Theme Settings Js -->
-	<script src="~/assets/js/theme-script.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/js/theme-script.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <link rel="stylesheet" href="~/assets/css/animate.css">
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
@@ -40,11 +41,8 @@
     <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
 
-    <!-- Fancybox CSS -->
-    <link rel="stylesheet" href="~/assets/plugins/fancybox/jquery.fancybox.min.css">
-
-    <!-- Owlcarousel CSS -->
-    <link rel="stylesheet" href="~/assets/plugins/owlcarousel/owl.carousel.min.css">
+    <!-- Daterangepikcer CSS -->
+    <link rel="stylesheet" href="~/assets/plugins/daterangepicker/daterangepicker.css">
 
     <!-- Iconsax CSS -->
     <link rel="stylesheet" href="~/assets/css/iconsax.css">
@@ -66,7 +64,7 @@
                 <div class="d-flex align-items-center justify-content-between flex-wrap">
                     <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Toll Free : +1 56565 56594</p>
                     <div class="d-flex align-items-center">
-                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14"><i class="isax isax-message-text-15 me-2"></i>Email : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b72757d745b7e637a766b777e35787476">[email&#160;protected]</a></p>
+                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14"><i class="isax isax-message-text-15 me-2"></i>Email : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="442d2a222b04213c25293428216a272b29">[email&#160;protected]</a></p>
                         <div class="dropdown flag-dropdown mb-2 me-3">
                             <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
@@ -91,8 +89,8 @@
                         </div>
                         <div class="dropdown mb-2 me-3">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-								USD
-							</a>
+                                USD
+                            </a>
                             <ul class="dropdown-menu p-2 mt-2">
                                 <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
                                 <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
@@ -109,7 +107,6 @@
             </div>
         </div>
         <!-- /Header Topbar-->
-
         <!-- Header -->
         <header>
             <div class="container">
@@ -440,8 +437,8 @@
                                                         <h6>Agent Dashboard</h6>
                                                         <ul>
                                                             <li><a href="agent-dashboard.html">Dashboard</a></li>
-                                                            <li class="active"><a href="agent-listings.html">Listings</a></li>
-                                                            <li><a href="agent-hotel-booking.html">Bookings</a></li>
+                                                            <li><a href="agent-listings.html">Listings</a></li>
+                                                            <li class="active"><a href="agent-flight-booking.html">Bookings</a></li>
                                                             <li><a href="agent-enquirers.html">Enquiries</a></li>
                                                             <li><a href="agent-earnings.html">Earnings</a></li>
                                                             <li><a href="agent-review.html">Reviews</a></li>
@@ -467,8 +464,8 @@
                             <div class="dropdown profile-dropdown">
                                 <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
                                     <span class="avatar avatar-md">
-									<img src="~/assets/img/users/user-05.jpg" alt="Img" class="img-fluid rounded-circle border border-white border-4">
-								</span>
+                                        <img src="~/assets/img/users/user-05.jpg" alt="Img" class="img-fluid rounded-circle border border-white border-4">
+                                    </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end p-3">
                                     <li>
@@ -510,11 +507,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Listings</h2>
+                    <h2 class="breadcrumb-title mb-2">Hotel Bookings</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Listings</li>
+                            <li class="breadcrumb-item active" aria-current="page">Hotel Bookings</li>
                         </ol>
                     </nav>
                 </div>
@@ -522,7 +519,6 @@
         </div>
     </div>
     <!-- /Breadcrumb -->
-
     <!-- Page Wrapper -->
     <div class="content">
         <div class="container">
@@ -558,15 +554,15 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="agent-listings.html" class="d-flex align-items-center active">
+                                    <a href="agent-listings.html" class="d-flex align-items-center">
                                         <i class="isax isax-menu-14 me-2"></i>Listings
                                     </a>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
+                                    <a href="javascript:void(0);" class="d-block active subdrop"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
                                         <li>
-                                            <a href="agent-hotel-booking.html" class="fs-14 d-inline-flex align-items-center">Hotels</a>
+                                            <a href="agent-hotel-booking.html" class="fs-14 d-inline-flex align-items-center active">Hotels</a>
                                         </li>
                                         <li>
                                             <a href="agent-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
@@ -613,536 +609,206 @@
                 </div>
                 <!-- /Sidebar -->
 
-                <div class="col-xl-9 col-lg-8"> 
-                    <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
-                        <div class="place-nav listing-nav">
-                            <ul class="nav mb-2">
-                                <li class="me-2">
-                                    <a href="javascript:void(0);" class="nav-link active" data-bs-toggle="tab" data-bs-target="#Hotels-list">
-                                        Hotels
-                                    </a>
-                                </li>
-                               
-                                <li class="me-2">
-                                    <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab" data-bs-target="#Tour-list">
-                                        Tour
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                        <div class="dropdown mb-4">
-                            <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                All Listing
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end p-3">
-                                <li>
-                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Active</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Inactive</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-content">
+                <div class="col-xl-9 col-lg-8">
+                    <!-- Booking Header -->
+                    <div class="card booking-header border-0">
+                        <div class="card-body header-content d-flex align-items-center justify-content-between flex-wrap ">
+                            <div>
+                                <h6 class="mb-1">Hotel Bookings</h6>
+                                <p class="fs-14 text-gray-6 fw-normal ">No of Booking : 150</p>
+                            </div>
 
-                        <!-- Hotels List -->
-                        <div class="tab-pane fade active show" id="Hotels-list">
-                            <div class="card border-0">
-                                <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
-                                    <div>
-                                        <h5 class="mb-1">Listings</h5>
-                                        <p>No of  Listings : 200</p>
-                                    </div>
-                                   <div>
-                                    <a href="add-hotel.html" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
-                                   </div>
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="input-icon-start position-relative">
+                                    <span class="icon-addon">
+                                        <i class="isax isax-calendar-edit fs-14"></i>
+                                    </span>
+                                    <input type="text" class="form-control date-range bookingrange" placeholder="Select" value="Academic Year : 2024 / 2025">
                                 </div>
                             </div>
-                            <div class="row justify-content-center">
+                        </div>
+                    </div>
+                    <!-- /Booking Header -->
+                    <!-- Hotel-Booking List -->
+                    <div class="card hotel-list">
+                        <div class="card-body p-0">
+                            <div class="list-header d-flex align-items-center justify-content-between flex-wrap">
+                                <h6 class="">Booking List</h6>
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <div class="input-icon-start  me-2 position-relative">
+                                        <span class="icon-addon">
+                                            <i class="isax isax-search-normal-1 fs-14"></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Search">
+                                    </div>
+                                    <div class="dropdown me-3">
+                                        <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Room Type
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end p-3">
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1">Single Room</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1">Double Room</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1">Twin Room</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dropdown me-3">
+                                        <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Status
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end p-3">
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1">Upcoming</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1">Cancelled</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item rounded-1">Completed</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="d-flex align-items-center sort-by">
+                                        <span class="fs-14 text-gray-9 fw-medium">Sort By :</span>
+                                        <div class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn rounded d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Recommended
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end p-3">
+                                                <li>
+                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Recently Added</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Ascending</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Desending</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Last Month</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">Last 7 Days</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
+                                </div>
+                            </div>
 
-                                @if (Model.Any())
-                                {
-                                    foreach(var item in Model)
-                                    {
-                                        foreach(var itemHotel in item.Hotels)
-                                        {
-                                            <div class="col-xl-4 col-md-6 d-flex">
-                                                <div class="place-item mb-4 flex-fill">
-                                                    <div class="place-img">
-                                                        <a href="/home/HotelDetail/@itemHotel.HotelID">
-                                                            <img src="@(!string.IsNullOrEmpty(itemHotel.img?.FirstOrDefault()?.img) ? itemHotel.img.FirstOrDefault().img : "/assets/img/hotels/hotel-01.jpg")" class="img-fluid" alt="img">
+                            <!-- Hotel List -->
+                            <div class="custom-datatable-filter table-responsive">
+                                <table class="table datatable">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Hotel</th>
+                                            <th>Booked By</th>
+                                            <th>Room & Guest</th>
+                                            <th>Days</th>
+                                            <th>Pricing</th>
+                                            <th>Booked on</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-
-                                                        </a>
-                                                        <div class="edit-delete-item d-flex align-items-center">
-                                                            <a href="/manager/HotelEdit/@itemHotel.HotelID" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                            <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
+                                        @if(Model.Any()){
+                                            foreach(var item in Model)
+                                            {
+                                                <tr>
+                                                    <td><a href="/account/invoices/@item.orderCode" class="link-primary fw-medium">#@item.orderCode.Substring(0,4)</a></td>
+                                                    <td>
+                                                        <div>
+                                                            <p class="text-dark mb-0 fw-medium fs-14"><a href="/home/HotelDetail/@item.HotelID">@item.hotemName</a></p>
+                                                            <span class="fs-14 fw-normal text-gray-6">@item.addreddHotel</span>
                                                         </div>
-                                                    </div>
-                                                    <div class="place-content">
-                                                        <h5 class="mb-1 text-truncate"><a href="hotel-details.html">@itemHotel.HotelName</a></h5>
-                                                        <p class="d-flex align-items-center mb-2"><i class="isax isax-location5 me-2"></i>@itemHotel.Location</p>
-                                                        <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                            <h5 class="text-primary text-nowrap me-2">$@itemHotel.price <span class="fs-14 fw-normal text-default">/ Night</span></h5>
-                                                            <div class="d-flex align-items-center lh-1">
-                                                                <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                            </div>
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="fs-14 mb-1">@item.user</h6>
+                                                        <span class="fs-14 fw-normal text-gray-6">@item.addresUser</span>
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="fs-14 mb-1">Suite Room</h6>
+                                                        <span class="fs-14 fw-normal text-gray-6">@item.guest</span>
+                                                    </td>
+                                                    <td>@item.date</td>
+                                                    <td>@item.price VND</td>
+                                                    <td>@item.booked</td>
+                                                    <td>
+                                                        @if (item.status.ToLower() == "Upcoming".ToLower())
+                                                        {
+                                                            <span class="badge badge-info rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Upcoming</span>
+                                                        }
+                                                        else if (item.status.ToLower() == "Cancelled".ToLower())
+                                                        {
+                                                            <span class="badge badge-danger rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Cancelled</span>
+                                                        }
+                                                        else if (item.status.ToLower() == "Completed".ToLower())
+                                                        {
+                                                            <span class="badge badge-success rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Completed</span>
+                                                        }
+                                                        else if (item.status.ToLower() == "Pending".ToLower())
+                                                        {
+                                                            <span class="badge badge-secondary rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Pending</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <a href="javascript:void(0);" ><i class="isax isax-eye"></i></a>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    </td>
+                                                </tr>
+                                            }
                                         }
-                                    }
-                                }
 
 
-                                <!-- Hotel Grid -->
-                              
-                                <!-- /Hotel Grid -->
-        
+                                       
                                  
-                            
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /Hotel List -->
 
-                           @*      <div class="col-md-12">
-                                    <!-- Pagination -->
-                                    <nav class="pagination-nav">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="javascript:void(0);" aria-label="Previous">
-                                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0);" aria-label="Next">
-                                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <!-- /Pagination -->
-                                </div> *@
-        
-                            </div>
                         </div>
-                        <!-- /Hotels List -->
-        
-              
-        
-                        <!-- Tour List -->
-                        <div class="tab-pane fade" id="Tour-list">
-                            <div class="card border-0">
-                                <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
-                                    <div>
-                                        <h5 class="mb-1">Listings</h5>
-                                        <p>No of  Listings : 200</p>
-                                    </div>
-                                   <div>
-                                    <a href="add-hotel.html" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
-                                   </div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                 @if (Model.Any())
-                                {
-                                    foreach(var item in Model)
-                                    {
-                                        foreach(var itemHotel in item.Tour)
-                                        {
-                                             <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="/Home/TourDetail/@itemHotel.TourID">
-                                                            <img src="@(!string.IsNullOrEmpty(itemHotel.img?.FirstOrDefault()?.img) ? itemHotel.img.FirstOrDefault().img : "/assets/img/hotels/hotel-01.jpg")" class="img-fluid" alt="img">
-                                                        </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="/Manager/EditTour/@itemHotel.TourID" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                               @*  <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a> *@
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="mb-1 text-truncate"><a href="/Home/TourDetail/@itemHotel.TourID">@itemHotel.TourName</a></h5>
-                                            <p class="d-flex align-items-center mb-3"><i class="isax isax-location5 me-2"></i>@itemHotel.Location</p>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">@itemHotel.price VND<span class="fs-14 text-gray-6 fw-normal"></span></h5>
-                                                </div>
-                                                @* <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div> *@
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                        }
-                                    }
-                                }
-                            </div>
-                        </div>
-                        <!-- /Tour List -->
-
-                        <!-- Flight List -->
-                        <div class="tab-pane fade" id="flight-list">
-                            <div class="card border-0">
-                                <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
-                                    <div>
-                                        <h5 class="mb-1">Listings</h5>
-                                        <p>No of  Listings : 200</p>
-                                    </div>
-                                   <div>
-                                    <a href="add-flight.html" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
-                                   </div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-09.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Antonov An-32</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Air India</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Texas</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$500 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-        
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-08.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">SkyBound 102</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Indigo</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Dubai</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$600 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-        
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-06.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Nimbus 345</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Indigo</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Dubai</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$300 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#active_list" data-bs-toggle="modal" class="d-flex align-items-center text-danger"><i class="isax isax-info-circle me-1"></i>Inactive</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-        
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-01.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">AstraFlight 215</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Indigo</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Frankfurt</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$300 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-        
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-02.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Cloudrider 789</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Air India</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Dallas</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$550 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-        
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-03.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Aether Express 901</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Indigo</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Seoul</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$450 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-        
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-07.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Voyager 658</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Air India</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Sydney</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$350 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-        
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-04.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Silverwing 505</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Air India</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at London</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$700 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-        
-                                <!-- Flight Grid -->
-                                <div class="col-xxl-4 col-md-6 d-flex">
-                                    <div class="place-item mb-4 flex-fill">
-                                        <div class="place-img">
-                                            <a href="flight-details.html">
-                                                <img src="~/assets/img/flight/flight-05.jpg" class="img-fluid" alt="img">
-                                            </a>
-                                            <div class="edit-delete-item d-flex align-items-center">
-                                                <a href="edit-flight.html" class="me-2 d-inline-flex align-items-center justify-content-center"><i class="isax isax-edit"></i></a>
-                                                <a href="#" class="d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#delete-list"><i class="isax isax-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="place-content">
-                                            <h5 class="text-truncate mb-1"><a href="flight-details.html">Altair 333</a></h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="avatar avatar-sm me-2">
-                                                    <img src="~/assets/img/icons/airindia.svg" class="rounded-circle" alt="icon">
-                                                </span>
-                                                <p class="fs-14 mb-0 me-2">Air India</p>
-                                                <p class="fs-14 mb-0"><i class="ti ti-point-filled text-primary me-2"></i>1-stop at Los Angeles</p>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$650 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
-                                                </div>
-                                                <div class="d-flex align-items-center lh-1">
-                                                    <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Flight Grid -->
-                                
-                                <div class="col-md-12">
-                                    <!-- Pagination -->
-                                    <nav class="pagination-nav">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="javascript:void(0);" aria-label="Previous">
-                                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0);" aria-label="Next">
-                                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <!-- /Pagination -->
-                                </div>          
-                            </div>
-                        </div>
-                        <!-- /Flight List -->
-        
                     </div>
+                    <!-- /Hotel-Booking List -->
+                    <!-- Pagination -->
+                    <div class="table-paginate d-flex justify-content-between align-items-center flex-wrap row-gap-3">
+                        <div class="value d-flex align-items-center">
+                            <span>Show</span>
+                            <select>
+                                <option>5</option>
+                                <option>10</option>
+                                <option>20</option>
+                            </select>
+                            <span>entries</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <a href="javascript:void(0);"><span class="me-3"><i class="isax isax-arrow-left-2"></i></span></a>
+                            <nav aria-label="Page navigation">
+                                <ul class="paginations d-flex justify-content-center align-items-center">
+                                    <li class="page-item me-2"><a class="page-link-1 active d-flex justify-content-center align-items-center " href="javascript:void(0);">1</a></li>
+                                    <li class="page-item me-2"><a class="page-link-1 d-flex justify-content-center align-items-center" href="javascript:void(0);">2</a></li>
+                                    <li class="page-item "><a class="page-link-1 d-flex justify-content-center align-items-center" href="javascript:void(0);">3</a></li>
+                                </ul>
+                            </nav>
+                            <a href="javascript:void(0);"><span class="ms-3"><i class="isax isax-arrow-right-3"></i></span></a>
+                        </div>
+                    </div>
+                    <!-- /Pagination -->
                 </div>
             </div>
         </div>
     </div>
     <!-- /Page Wrapper -->
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1301,8 +967,8 @@
                             <div class="d-sm-flex align-items-center justify-content-center justify-content-xl-end">
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start me-0 pe-0 me-sm-3 pe-sm-3 border-end mb-3">
                                     <span class="avatar avatar-lg bg-primary rounded-circle flex-shrink-0">
-										<i class="ti ti-headphones-filled fs-24"></i>
-									</span>
+                                        <i class="ti ti-headphones-filled fs-24"></i>
+                                    </span>
                                     <div class="ms-2">
                                         <p class="mb-1">Customer Support</p>
                                         <p class="fw-medium text-dark">+1 56589 54598</p>
@@ -1310,11 +976,11 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
                                     <span class="avatar avatar-lg bg-secondary rounded-circle flex-shrink-0">
-										<i class="ti ti-message fs-24 text-gray-9"></i>
-									</span>
+                                        <i class="ti ti-message fs-24 text-gray-9"></i>
+                                    </span>
                                     <div class="ms-2">
                                         <p class="mb-1">Drop Us an Email</p>
-                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e28b8c848da2879a838f928e87cc818d8f">[email&#160;protected]</a></p>
+                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ef7f0f8f1defbe6fff3eef2fbb0fdf1f3">[email&#160;protected]</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -1394,64 +1060,477 @@
 
     </footer>
     <!-- /Footer -->
-
-     <!-- Inactive Modal -->
-     <div class="modal fade" id="inactive_list" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+    <!-- Upcoming Modal -->
+    <div class="modal fade" id="upcoming" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-xl">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Booking Info <span class="fs-14 fw-medium text-primary">#HB-1245</span></h5>
+                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn-close text-dark"></a>
+                </div>
                 <div class="modal-body">
-                    <div class="text-center">
-                        <h5 class="mb-3">Inactive Listing</h5>
-                        <p class="mb-3">Are you sure you want to mark this listing as inactive and keep it unavailable</p>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="#" class="btn btn-light me-2">No</a>
-                            <a href="agent-listings.html" class="btn btn-primary">Yes</a>
+                    <div class="upcoming-content">
+                        <div class="upcoming-title mb-4 d-flex align-items-center justify-content-between p-3 rounded">
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="me-2">
+                                    <img src="~/assets/img/hotels/hotel-13.jpg" alt="image" class="avatar avartar-md avatar-rounded">
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">The Luxe Haven</h6>
+                                    <div class="title-list">
+                                        <p class="d-flex align-items-center pe-2 me-2 border-end border-light fw-normal"><i class="isax isax-building me-2"></i>Luxury Hotel</p>
+                                        <p class="d-flex align-items-center pe-2 me-2 border-end border-light fw-normal"><i class="isax isax-location5 me-2"></i>15/C Prince Dareen Road, New York</p>
+                                        <p class="d-flex align-items-center pe-2 me-2  fw-normal"><span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>(400 Reviews)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="badge badge-info rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Upcoming</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Room Details</h6>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Room Type</h6>
+                                    <p class="text-gray-6 fs-16 ">Queen Room</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">No of Rooms</h6>
+                                    <p class="text-gray-6 fs-16 ">1</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Room Price</h6>
+                                    <p class="text-gray-6 fs-16 ">$400</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Guests</h6>
+                                    <p class="text-gray-6 fs-16 ">4 Adults, 2 Child</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Booking Info</h6>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Booked On</h6>
+                                    <p class="text-gray-6 fs-16 ">15 May 2024</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Check In Date & Time</h6>
+                                    <p class="text-gray-6 fs-16 ">20 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Checkout Date & Time</h6>
+                                    <p class="text-gray-6 fs-16 ">25 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">No of Days Stay</h6>
+                                    <p class="text-gray-6 fs-16 ">4 Days, 5 Nights</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Extra Service Info</h6>
+                            <div class="d-flex align-items-center">
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14 me-2">Cleaning</span>
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14 me-2">Airport Pickup</span>
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14">Breakfast</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Billing Info</h6>
+                            <div class="row gy-3">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Name</h6>
+                                    <p class="text-gray-6 fs-16 ">Chris Foxy</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Email</h6>
+                                    <p class="text-gray-6 fs-16 "><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4a2922382c2578797f7c0a2f322b273a262f64292527">[email&#160;protected]</a></p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Phone</h6>
+                                    <p class="text-gray-6 fs-16 ">+1 12656 26654</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Address</h6>
+                                    <p class="text-gray-6 fs-16 ">15/C Prince Dareen Road, New York</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Order Info</h6>
+                            <div class="row gy-3">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Order Id</h6>
+                                    <p class="text-primary fs-16 ">#45669</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Payment Method</h6>
+                                    <p class="text-gray-6 fs-16 ">Credit Card (Visa)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Payment Status</h6>
+                                    <p class="text-success fs-16 ">Paid</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Date of Payment</h6>
+                                    <p class="text-gray-6 fs-16 ">20 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Tax</h6>
+                                    <p class="text-gray-6 fs-16 ">15% ($60)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Discount</h6>
+                                    <p class="text-gray-6 fs-16 ">20% ($15)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Booking Fees</h6>
+                                    <p class="text-gray-6 fs-16 ">$25</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Total Paid</h6>
+                                    <p class="text-gray-6 fs-16 ">$6569</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:void(0);" class="btn btn-md btn-primary" data-bs-toggle="modal" data-bs-target="#cancel-booking">Cancel Booking</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Inactive Modal -->
-
-    <!-- Active Modal -->
-    <div class="modal fade" id="active_list" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+    <!-- /Upcoming Modal -->
+    <!-- Completed Modal -->
+    <div class="modal fade" id="completed" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-xl">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Booking Info <span class="fs-14 fw-medium text-primary">#HB-1245</span></h5>
+                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn-close text-dark"></a>
+                </div>
                 <div class="modal-body">
-                    <div class="text-center">
-                        <h5 class="mb-3">Active Listing</h5>
-                        <p class="mb-3">Are you sure you want to mark this listing as active and keep it available?</p>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="#" class="btn btn-light me-2">No</a>
-                            <a href="agent-listings.html" class="btn btn-primary">Yes</a>
+                    <div class="upcoming-content">
+                        <div class="upcoming-title mb-4 d-flex align-items-center justify-content-between p-3 rounded">
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="me-2">
+                                    <img src="~/assets/img/hotels/hotel-13.jpg" alt="image" class="avatar avartar-md avatar-rounded">
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">The Luxe Haven</h6>
+                                    <div class="title-list">
+                                        <p class="d-flex align-items-center pe-2 me-2 border-end border-light fw-normal"><i class="isax isax-building me-2"></i>Luxury Hotel</p>
+                                        <p class="d-flex align-items-center pe-2 me-2 border-end border-light fw-normal"><i class="isax isax-location5 me-2"></i>15/C Prince Dareen Road, New York</p>
+                                        <p class="d-flex align-items-center pe-2 me-2  fw-normal"><span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>(400 Reviews)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="badge badge-success rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Completed</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Room Details</h6>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Room Type</h6>
+                                    <p class="text-gray-6 fs-16 ">Queen Room</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">No of Rooms</h6>
+                                    <p class="text-gray-6 fs-16 ">1</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Room Price</h6>
+                                    <p class="text-gray-6 fs-16 ">$400</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Guests</h6>
+                                    <p class="text-gray-6 fs-16 ">4 Adults, 2 Child</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Booking Info</h6>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Booked On</h6>
+                                    <p class="text-gray-6 fs-16 ">15 May 2024</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Check In Date & Time</h6>
+                                    <p class="text-gray-6 fs-16 ">20 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Checkout Date & Time</h6>
+                                    <p class="text-gray-6 fs-16 ">25 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">No of Days Stay</h6>
+                                    <p class="text-gray-6 fs-16 ">4 Days, 5 Nights</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Extra Service Info</h6>
+                            <div class="d-flex align-items-center">
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14 me-2">Cleaning</span>
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14 me-2">Airport Pickup</span>
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14">Breakfast</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Billing Info</h6>
+                            <div class="row gy-3">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Name</h6>
+                                    <p class="text-gray-6 fs-16 ">Chris Foxy</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Email</h6>
+                                    <p class="text-gray-6 fs-16 "><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="03606b71656c3130363543667b626e736f662d606c6e">[email&#160;protected]</a></p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Phone</h6>
+                                    <p class="text-gray-6 fs-16 ">+1 12656 26654</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Address</h6>
+                                    <p class="text-gray-6 fs-16 ">15/C Prince Dareen Road, New York</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Order Info</h6>
+                            <div class="row gy-3">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Order Id</h6>
+                                    <p class="text-primary fs-16 ">#45669</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Payment Method</h6>
+                                    <p class="text-gray-6 fs-16 ">Credit Card (Visa)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Payment Status</h6>
+                                    <p class="text-success fs-16 ">Paid</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Date of Payment</h6>
+                                    <p class="text-gray-6 fs-16 ">20 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Tax</h6>
+                                    <p class="text-gray-6 fs-16 ">15% ($60)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Discount</h6>
+                                    <p class="text-gray-6 fs-16 ">20% ($15)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Booking Fees</h6>
+                                    <p class="text-gray-6 fs-16 ">$25</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Total Paid</h6>
+                                    <p class="text-gray-6 fs-16 ">$6569</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="hotel-details.html" class="btn btn-md btn-primary">Book Again</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Active Modal -->
-
-    <!-- Delete Modal -->
-    <div class="modal fade" id="delete-list" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+    <!-- /Completed Modal -->
+    <!-- Cancelled Modal -->
+    <div class="modal fade" id="cancelled" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-xl">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Booking Info <span class="fs-14 fw-medium text-primary">#HB-1245</span></h5>
+                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn-close text-dark"></a>
+                </div>
                 <div class="modal-body">
-                    <div class="text-center">
-                        <h5 class="mb-3">Delete Listing</h5>
-                        <p class="mb-3">Are you sure you want to delete this listing?</p>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="#" class="btn btn-light me-2">No</a>
-                            <a href="agent-listings.html" class="btn btn-primary">Yes, Delete</a>
+                    <div class="upcoming-content">
+                        <div class="upcoming-title mb-4 d-flex align-items-center justify-content-between p-3 rounded">
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="me-2">
+                                    <img src="~/assets/img/hotels/hotel-13.jpg" alt="image" class="avatar avartar-md avatar-rounded">
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">The Luxe Haven</h6>
+                                    <div class="title-list">
+                                        <p class="d-flex align-items-center pe-2 me-2 border-end border-light fw-normal"><i class="isax isax-building me-2"></i>Luxury Hotel</p>
+                                        <p class="d-flex align-items-center pe-2 me-2 border-end border-light fw-normal"><i class="isax isax-location5 me-2"></i>15/C Prince Dareen Road, New York</p>
+                                        <p class="d-flex align-items-center pe-2 me-2  fw-normal"><span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>(400 Reviews)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="badge badge-danger rounded-pill d-inline-flex align-items-center fs-10"><i class="fa-solid fa-circle fs-5 me-1"></i>Cancelled</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Room Details</h6>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Room Type</h6>
+                                    <p class="text-gray-6 fs-16 ">Queen Room</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">No of Rooms</h6>
+                                    <p class="text-gray-6 fs-16 ">1</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Room Price</h6>
+                                    <p class="text-gray-6 fs-16 ">$400</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Guests</h6>
+                                    <p class="text-gray-6 fs-16 ">4 Adults, 2 Child</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Booking Info</h6>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Booked On</h6>
+                                    <p class="text-gray-6 fs-16 ">15 May 2024</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Check In Date & Time</h6>
+                                    <p class="text-gray-6 fs-16 ">20 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Checkout Date & Time</h6>
+                                    <p class="text-gray-6 fs-16 ">25 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">No of Days Stay</h6>
+                                    <p class="text-gray-6 fs-16 ">4 Days, 5 Nights</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Extra Service Info</h6>
+                            <div class="d-flex align-items-center">
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14 me-2">Cleaning</span>
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14 me-2">Airport Pickup</span>
+                                <span class="bg-light rounded-pill py-1 px-2 text-gray-6 fs-14">Breakfast</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Billing Info</h6>
+                            <div class="row gy-3">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Name</h6>
+                                    <p class="text-gray-6 fs-16 ">Chris Foxy</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Email</h6>
+                                    <p class="text-gray-6 fs-16 "><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="03606b71656c3130363543667b626e736f662d606c6e">[email&#160;protected]</a></p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Phone</h6>
+                                    <p class="text-gray-6 fs-16 ">+1 12656 26654</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Address</h6>
+                                    <p class="text-gray-6 fs-16 ">15/C Prince Dareen Road, New York</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6 class="mb-2">Order Info</h6>
+                            <div class="row gy-3">
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Order Id</h6>
+                                    <p class="text-primary fs-16 ">#45669</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Payment Method</h6>
+                                    <p class="text-gray-6 fs-16 ">Credit Card (Visa)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Payment Status</h6>
+                                    <p class="text-success fs-16 ">Paid</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Date of Payment</h6>
+                                    <p class="text-gray-6 fs-16 ">20 May 2024, 10:50 AM</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Tax</h6>
+                                    <p class="text-gray-6 fs-16 ">15% ($60)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Discount</h6>
+                                    <p class="text-gray-6 fs-16 ">20% ($15)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Booking Fees</h6>
+                                    <p class="text-gray-6 fs-16 ">$25</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="fs-14">Total Paid</h6>
+                                    <p class="text-gray-6 fs-16 ">$6569</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upcoming-details mb-0">
+                            <h6 class="mb-2">Cancel Reason</h6>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <h6 class="fs-14">Reason</h6>
+                                    <p class="text-gray-6 fs-16 ">Illness or medical appointments that prevent travel</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="hotel-details.html" class="btn btn-md btn-primary">Reschedule</a>
                 </div>
             </div>
         </div>
     </div>
-    <!--  Delete Modal -->
-
+    <!-- /Cancelled Modal -->
+    <!-- Booking Cancel -->
+    <div class="modal fade" id="cancel-booking">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-5">
+                    <form action="agent-hotel-booking.html">
+                        <div class="text-center">
+                            <div class="mb-4">
+                                <i class="isax isax-location-cross5 text-danger fs-40"></i>
+                            </div>
+                            <h5 class="mb-2">Are you sure you want to cancel booking?</h5>
+                            <p class="mb-4 text-gray-9">Order ID : <span class="text-primary">#HB-1245</span></p>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Reason <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <a href="#" class="btn btn-light me-2" data-bs-dismiss="modal">No, Dont Cancel</a>
+                            <button type="submit" class="btn btn-primary">Yes, Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Booking Cancel -->
     <!-- Cursor -->
     <div class="xb-cursor tx-js-cursor">
         <div class="xb-cursor-wrapper">
@@ -1461,50 +1540,46 @@
     <!-- /Cursor -->
 
     <div class="back-to-top">
-		<a class="back-to-top-icon align-items-center justify-content-center d-flex"  href="#top"><i class="fa-solid fa-arrow-up"></i></a>
-	</div>
+        <a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
 
     <!-- Jquery JS -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="~/assets/js/jquery-3.7.1.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="~/assets/js/jquery-3.7.1.min.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <!-- Bootstrap JS -->
-    <script src="~/assets/js/bootstrap.bundle.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <!-- Wow JS -->
-    <script src="~/assets/js/wow.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/js/wow.min.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <!-- Apex JS -->
-    <script src="~/assets/plugins/apexchart/apexcharts.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
-    <script src="~/assets/plugins/apexchart/chart-data.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/plugins/apexchart/apexcharts.min.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
+    <script src="~/assets/plugins/apexchart/chart-data.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <!-- MeanMenu Js -->
-    <script src="~/assets/js/jquery.meanmenu.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/js/jquery.meanmenu.min.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
-    <!-- Swiper Js -->
-    <script src="~/assets/plugins/owlcarousel/owl.carousel.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
-
-    <!-- Fancybox JS -->
-    <script src="~/assets/plugins/fancybox/jquery.fancybox.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
-
-    <!-- Counter JS -->
-    <script src="~/assets/js/jquery.counterup.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
-    <script src="~/assets/js/jquery.waypoints.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <!-- Daterangepikcer JS -->
+    <script src="~/assets/js/moment.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
+    <script src="~/assets/plugins/daterangepicker/daterangepicker.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <!-- Sticky Sidebar JS -->
-    <script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
-    <script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
+    <script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <!-- Datepicker Core JS -->
-    <script src="~/assets/plugins/moment/moment.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
-    <script src="~/assets/js/bootstrap-datetimepicker.min.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/plugins/moment/moment.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
+    <script src="~/assets/js/bootstrap-datetimepicker.min.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <!-- cursor JS -->
-    <script src="~/assets/js/cursor.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/js/cursor.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
     <!-- Script JS -->
-    <script src="~/assets/js/script.js" type="b4f4178824cab9d30cf8989a-text/javascript"></script>
+    <script src="~/assets/js/script.js" type="cc66fd9220f381816df45ca6-text/javascript"></script>
 
-<script src="~/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="b4f4178824cab9d30cf8989a-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"90d86d4f5bc9ddca","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.1.0","token":"3ca157e612a14eccbb30cf6db6691c29"}' crossorigin="anonymous"></script>
+    <script src="~/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="cc66fd9220f381816df45ca6-|49" defer></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"90d86ca4f848ddca","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.1.0","token":"3ca157e612a14eccbb30cf6db6691c29"}' crossorigin="anonymous"></script>
 </body>
 
 </html>
