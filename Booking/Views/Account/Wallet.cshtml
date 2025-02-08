@@ -8,14 +8,14 @@
     Layout = null; 
 }
 
+<!-- Meta Tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golocal - Travel and Tour Booking Bootstrap 5 template</title>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Meta Tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Golocal - Travel and Tour Booking Bootstrap 5 template</title>
 
     <meta name="description" content="Golocal - A premium Bootstrap 5 template crafted for travel and tour booking. Tailored for travel agencies and booking platforms, it features flight, hotel, and tour reservations, and holiday packages.">
     <meta name="keywords" content="travel booking template, tour booking, Bootstrap 5 travel template, Golocal, hotel booking, flights booking, holiday packages, tour agency website, travel agency template, travel HTML template, booking system, responsive travel template, Bootstrap travel website">
@@ -124,29 +124,7 @@
                 <div class="col-xl-3 col-lg-4 theiaStickySidebar">
                     <div class="card user-sidebar mb-4">
 
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            var tien = await UserManager.GetUserAsync(User);
-                            <div class="card-header user-sidebar-header">
-                                <div class="profile-content rounded-pill">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class=" d-flex align-items-center justify-content-center">
-                                            <img src="@tien.img" alt="image" class="img-fluid avatar avatar-lg rounded-circle me-1">
-                                            <div>
-                                                <h6 class="fs-16">@tien.UserName</h6>
-                                                <span class="fs-14 text-gray-6">@tien.joinin</span>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="d-flex align-items-center justify-content-center">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
-
+                    @await Html.PartialAsync("_ptirialUser")
 
 
                         <div class="card-body user-sidebar-body">
@@ -162,18 +140,9 @@
                                 <li class="submenu">
                                     <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5"></i><span>My Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
-                                        @* <li>
-                         <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
-                         </li> *@
                                         <li>
                                             <a href="/account/HotelsBooking" class="fs-14 d-inline-flex align-items-center ">Khách sạn</a>
                                         </li>
-                                        @*  <li>
-                         <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
-                         </li>
-                         <li>
-                         <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
-                         </li> *@
                                         <li>
                                             <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour du lịch</a>
                                         </li>
@@ -184,14 +153,6 @@
                                         <i class="isax isax-magic-star5"></i> Đánh giá
                                     </a>
                                 </li>
-                                @* <li>
-                 <div class="message-content">
-                 <a href="chat.html" class="d-flex align-items-center">
-                 <i class="isax isax-message-square5"></i> Messages
-                 </a>
-                 <span class="msg-count rounded-circle">02</span>
-                 </div>
-                 </li> *@
                                 <li class="mb-2">
                                     <a href="/account/Wishlist" class="d-flex align-items-center">
                                         <i class="isax isax-heart5"></i> Danh sách mong muốn
@@ -218,14 +179,6 @@
                                         <i class="isax isax-profile-tick5"></i> Hồ sơ
                                     </a>
                                 </li>
-                                @*    <li>
-                 <div class="message-content">
-                 <a href="notification.html" class="d-flex align-items-center">
-                 <i class="isax isax-notification-bing5"></i> Notifications
-                 </a>
-                 <span class="msg-count bg-purple rounded-circle">05</span>
-                 </div>
-                 </li> *@
                                 <li>
                                     <a href="/account/settings" class="d-flex align-items-center">
                                         <i class="isax isax-setting-25"></i> Cài đặt

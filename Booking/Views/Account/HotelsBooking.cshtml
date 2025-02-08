@@ -76,35 +76,9 @@
             <div class="row">
 
                 <!-- Sidebar -->
-                <div class="col-xl-3 col-lg-4 theiaStickySidebar">
-                    <div class="card user-sidebar mb-4">
-
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            var tien = await UserManager.GetUserAsync(User);
-                            <div class="card-header user-sidebar-header">
-                                <div class="profile-content rounded-pill">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class=" d-flex align-items-center justify-content-center">
-                                            <img src="@tien.img" alt="image" class="img-fluid avatar avatar-lg rounded-circle me-1">
-                                            <div>
-                                                <h6 class="fs-16">@tien.UserName</h6>
-                                                <span class="fs-14 text-gray-6">@tien.joinin</span>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
-
-
-
+                <div class="col-xl-3 col-lg-3 theiaStickySidebar">
+                    <div class="card user-sidebar mb-4 mb-lg-0">
+                        @await Html.PartialAsync("_ptirialUser")
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>

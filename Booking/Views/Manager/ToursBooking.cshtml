@@ -121,36 +121,7 @@
                  <!-- Sidebar -->
                 <div class="col-xl-3 col-lg-4 theiaStickySidebar">
                     <div class="card user-sidebar agent-sidebar mb-4 mb-lg-0">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            var tien = await UserManager.GetUserAsync(User);
-                            <div class="card-header user-sidebar-header text-center bg-gray-transparent">
-                                <div class="agent-profile d-inline-flex">
-                                    <img src="@tien.img" alt="image" class="img-fluid rounded-circle">
-                                    <a href="agent-settings.html" class="avatar avatar-sm rounded-circle btn btn-primary d-flex align-items-center justify-content-center p-0"><i class="isax isax-edit-2 fs-14"></i></a>
-                                </div>
-                                <h6 class="fs-16">@tien.UserName</h6>
-                                <span class="fs-14 text-gray-6">@tien.joinin</span>
-                            </div>
-                        }
-                        @* <div class="card-header user-sidebar-header text-center bg-gray-transparent">
-                            <div class="agent-profile d-inline-flex">
-                                <img src="~/assets/img/users/user-43.jpg" alt="image" class="img-fluid rounded-circle">
-                                <a href="agent-settings.html" class="avatar avatar-sm rounded-circle btn btn-primary d-flex align-items-center justify-content-center p-0"><i class="isax isax-edit-2 fs-14"></i></a>
-                            </div>
-                            <h6 class="fs-16">Chris Foxy</h6>
-                            <p class="fs-14 mb-2">Member Since 10 May 2025</p>
-                            <div class="d-flex align-items-center justify-content-center notify-item">
-                                <a href="agent-notifications.html" class="rounded-circle btn btn-white d-flex align-items-center justify-content-center p-0 me-2 position-relative">
-                                    <i class="isax isax-notification-bing5 fs-20"></i>
-                                    <span class="position-absolute p-1 bg-secondary rounded-circle"></span>
-                                </a>
-                                <a href="agent-chat.html" class="rounded-circle btn btn-white d-flex align-items-center justify-content-center p-0 position-relative">
-                                    <i class="isax isax-message-square5 fs-20"></i>
-                                    <span class="position-absolute p-1 bg-danger rounded-circle"></span>
-                                </a>
-                            </div>
-                        </div> *@
+                        @await Html.PartialAsync("_patirialSller")
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
@@ -164,7 +135,7 @@
                                     </a>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
+                                    <a href="javascript:void(0);" class="d-block active subdrop"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
                                         <li>
                                             <a href="/manager/hotelsBooking" class="fs-14 d-inline-flex align-items-center">Khách sạn</a>

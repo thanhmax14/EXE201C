@@ -1249,6 +1249,7 @@ namespace Booking.Controllers
 
             var tem = new invoicesViewModels();
             var getHotel = await this._context.Datphongs.Where(u => u.OrderID == id).ToListAsync();
+            var gettour = await this._context.DaTours.Where(u => u.OrderID == id).ToListAsync();
 
             if (getHotel.Any())
             {
@@ -1257,10 +1258,8 @@ namespace Booking.Controllers
                 {
                     return RedirectToAction("Erro404", "Home");
                 }
-                
 
-
-                    var totel = getHotel.Sum(u => u.totalPaid);
+                var totel = getHotel.Sum(u => u.totalPaid);
                 foreach (var item in getHotel)
                 {
                     var getHotsl = await this._context.Rooms.Where(u => u.RoomID == item.RoomID).ToListAsync();
@@ -1292,10 +1291,45 @@ namespace Booking.Controllers
                 return View(tem);
 
             }
+            else if (gettour.Any())
+            {
+                var user = await this._userManager.FindByIdAsync(gettour.FirstOrDefault().UserID);
+                if (user == null)
+                {
+                    return RedirectToAction("Erro404", "Home");
+                }
+
+                var totel = gettour.Sum(u => u.totalPaid);
+                foreach (var item in gettour)
+                {
+
+                    var getInfoHotel = await this._context.Tours.FindAsync(gettour.FirstOrDefault().TourID);
+                    if (getInfoHotel != null)
+                    {
+                        tem.vat = 0;
+                        tem.UserName = $"{user.firstName} {user.lastName}";
+                        tem.address = user.address;
+                        tem.phone = user.PhoneNumber;
+                        tem.email = user.Email;
+                        tem.duedate = item.DatePayment;
+                        tem.creteDate = item.BookedOn;
+                        tem.discount = 0;
+                        tem.Total = totel;
+                        tem.list.Add((getInfoHotel.TourName, item.totalPaid, 0m, item.totalPaid));
+                        tem.orderID = id;
+                        tem.status = item.progress;
+
+                    }
+                 
+                }
+                return View(tem);
+            }
+
             else
             {
                 return RedirectToAction("Erro404", "Home");
             }
+
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
