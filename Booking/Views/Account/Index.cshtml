@@ -1,832 +1,492 @@
-﻿@model Booking.ViewModels.DashBoardUser
-
-
-
-
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
-
-
-
+@{
+    Layout = null;
+}
 
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from dreamstour.dreamstechnologies.com/html/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Jan 2025 14:14:30 GMT -->
 <head>
-    <!-- Meta Tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Golocal - Travel and Tour Booking Bootstrap 5 template</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <meta name="description" content="Golocal - A premium Bootstrap 5 template crafted for travel and tour booking. Tailored for travel agencies and booking platforms, it features flight, hotel, and tour reservations, and holiday packages.">
-    <meta name="keywords" content="travel booking template, tour booking, Bootstrap 5 travel template, Golocal, hotel booking, flights booking, holiday packages, tour agency website, travel agency template, travel HTML template, booking system, responsive travel template, Bootstrap travel website">
-    <meta name="author" content="Dreams Technologies">
-    <meta name="robots" content="index, follow">
+  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-   
+  <!-- Favicons -->
+  <link href="~/assets_admin/img/favicon.png" rel="icon">
+  <link href="~/assets_admin/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="~/assets_admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="~/assets_admin/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="~/assets_admin/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="~/assets_admin/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="~/assets_admin/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="~/assets_admin/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="~/assets_admin/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="~/assets_admin/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Apr 20 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
 
 <body>
 
-    <div class="main-header">
-        <!-- Header Topbar-->
-        <div class="header-topbar text-center bg-transparent">
-            <div class="container">
-                <div class="d-flex align-items-center justify-content-between flex-wrap">
-                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Hotline: +84 123456789</p>
-                    <div class="d-flex align-items-center">
-                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14">
-                            <i class="isax isax-message-text-15 me-2"></i>Email : <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                                                     class="__cf_email__"
-                                                                                     data-cfemail="0f666169604f6a776e627f636a216c6062">[email&#160;protected]</a>
-                        </p>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
 
-                        <div class="fav-dropdown mb-2">
-                            <a href="wishlist.html" class="position-relative">
-                                <i class="isax isax-heart"></i><span class="count-icon bg-secondary text-gray-9">0</span>
-                            </a>
-                        </div>
-                    </div>
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/admin" class="logo d-flex align-items-center">
+        <img src="~/assets_admin/img/logo.png" alt="">
+        <span class="d-none d-lg-block">NiceAdmin</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="~/assets_admin/img/messages-1.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
                 </div>
-            </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="~/assets_admin/img/messages-2.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="~/assets_admin/img/messages-3.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="~/assets_admin/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+          </a><!-- End Profile Image Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Kevin Anderson</h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.cshtml">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.cshtml">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.cshtml">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/Home/logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="/admin">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Manage Account</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="@Url.Action("RedirectToManageUsers", "Admin")">
+              <i class="bi bi-circle"></i><span>Normal Users</span>
+            </a>
+          </li>
+          <li>
+            <a href="@Url.Action("RedirectToManageSellers", "Admin")">
+              <i class="bi bi-circle"></i><span>Sellers</span>
+            </a>
+          </li>
+          <li>
+            <a href="@Url.Action("RedirectToSalesRegistration", "Admin")">
+            <i class="bi bi-circle"></i><span>Sales Registration</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+
+      <div style="display: flex;">
+        <h1 style="margin-right: 10px;">Dashboard</h1>|
+        <div class="filter">
+          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <li class="dropdown-header text-start">
+              <h6>Filter</h6>
+            </li>
+
+            <li><a class="dropdown-item" href="#">Today</a></li>
+            <li><a class="dropdown-item" href="#">This Month</a></li>
+            <li><a class="dropdown-item" href="#">This Year</a></li>
+          </ul>
         </div>
-        <!-- /Header Topbar-->
-        <!-- Header -->
-        @await Html.PartialAsync("_patiarialHearder")
-        <!-- /Header -->
-    </div>
+      </div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb-bar breadcrumb-bg-04 text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Bảng điều khiển</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center mb-0">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Bảng điều khiển</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Breadcrumb -->
-    <!-- Page Wrapper -->
-    <div class="content content-two">
-        <div class="container">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.cshtml">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard </li>
+        </ol>
 
-            <div class="row">
+      </nav>
+    </div><!-- End Page Title -->
 
-                <!-- Sidebar -->
-                <div class="col-xl-3 col-lg-4 theiaStickySidebar">
-                    <div class="card user-sidebar mb-4">
+    <section class="section dashboard">
+      <div class="row">
 
-                        @await Html.PartialAsync("_ptirialUser")
+        <!-- Left side columns -->
+        <div class="col-lg-12">
+          <div class="row">
 
 
-
-                        <div class="card-body user-sidebar-body">
-                            <ul>
-                                <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Chính</span>
-                                </li>
-                                <li>
-                                    <a href="/account" class="d-flex align-items-center active">
-                                        <i class="isax isax-grid-55"></i> Bảng điều khiển
-                                    </a>
-                                </li>
-                                <li class="submenu">
-                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5"></i><span>My Bookings</span><span class="menu-arrow"></span></a>
-                                    <ul>
-                                        @* <li>
-                         <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
-                         </li> *@
-                                        <li>
-                                            <a href="/account/HotelsBooking" class="fs-14 d-inline-flex align-items-center ">Khách sạn</a>
-                                        </li>
-                                        @*  <li>
-                         <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
-                         </li>
-                         <li>
-                         <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
-                         </li> *@
-                                        <li>
-                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour du lịch</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="/account/review" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5"></i> Đánh giá
-                                    </a>
-                                </li>
-                                @* <li>
-                 <div class="message-content">
-                 <a href="chat.html" class="d-flex align-items-center">
-                 <i class="isax isax-message-square5"></i> Messages
-                 </a>
-                 <span class="msg-count rounded-circle">02</span>
-                 </div>
-                 </li> *@
-                                <li class="mb-2">
-                                    <a href="/account/Wishlist" class="d-flex align-items-center">
-                                        <i class="isax isax-heart5"></i> Danh sách mong muốn
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài chính</span>
-                                </li>
-                                <li>
-                                    <a href="/account/wallet" class="d-flex align-items-center ">
-                                        <i class="isax isax-wallet-add-15"></i> Ví
-                                    </a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="/account/payment" class="d-flex align-items-center">
-                                        <i class="isax isax-money-recive5"></i> Thanh toán
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài khoản</span>
-                                </li>
-                                <li>
-                                    <a href="/account/profile" class="d-flex align-items-center">
-                                        <i class="isax isax-profile-tick5"></i> Hồ sơ
-                                    </a>
-                                </li>
-                                @*    <li>
-                 <div class="message-content">
-                 <a href="notification.html" class="d-flex align-items-center">
-                 <i class="isax isax-notification-bing5"></i> Notifications
-                 </a>
-                 <span class="msg-count bg-purple rounded-circle">05</span>
-                 </div>
-                 </li> *@
-                                <li>
-                                    <a href="/account/settings" class="d-flex align-items-center">
-                                        <i class="isax isax-setting-25"></i> Cài đặt
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Home/Logout" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Đăng xuất
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Sidebar -->
-
-                <div class="col-xl-9 col-lg-8">
-                    <div class="alert alert-teal alert-dismissible d-flex align-items-center border-0 mb-4 fade show">
-                        <i class="isax isax-info-circle5 me-2"></i> Nhắc nhở về đặt phòng sắp tới của bạn tại Hotel Hayat vào ngày 15 tháng 5 năm 2025 lúc 09:30 sáng. Chúng tôi mong được gặp bạn!
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fas fa-xmark"></i></button>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card shadow-none">
+                        <div class="col-xxl-6 col-md-6">
+                            <div class="card info-card revenue-card">
                                 <div class="card-body">
+                                    <h5 class="card-title">Revenue <span>| This Month</span></h5>
                                     <div class="d-flex align-items-center">
-                                        <span class="avatar avatar-xl rounded-circle bg-primary me-3">
-                                            <i class="isax isax-calendar-15 fs-36"></i>
-                                        </span>
-                                        <div>
-                                            <h3>@Model.numberBoking</h3>
-                                            <p>Tổng số đặt phòng</p>
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-currency-dollar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="revenue-amount">$0</h6> <!-- Sẽ được cập nhật bằng AJAX -->
+                                            <span class="text-success small pt-1 fw-bold">8%</span>
+                                            <span class="text-muted small pt-2 ps-1">increase</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6">
-                            <div class="card shadow-none">
+
+                        <div class="col-xxl-6 col-md-6">
+                            <div class="card info-card revenue-card">
                                 <div class="card-body">
+                                    <h5 class="card-title">Total Deposit <span>| This Month</span></h5>
                                     <div class="d-flex align-items-center">
-                                        <span class="avatar avatar-xl rounded-circle bg-secondary me-3">
-                                            <i class="isax isax-money-send5 fs-36"></i>
-                                        </span>
-                                        <div>
-                                            <h3>@Model.totalTrans VND</h3>
-                                            <p>Tổng số giao dịch</p>
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-currency-dollar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="deposit-amount">$0</h6> <!-- Sẽ được cập nhật bằng AJAX -->
+                                            <span class="text-success small pt-1 fw-bold">8%</span>
+                                            <span class="text-muted small pt-2 ps-1">increase</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @*     <div class="col-xl-4">
-                            <div class="card shadow-none">
+
+                        <div class="col-12">
+                            <div class="card">
                                 <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <span class="avatar avatar-xl rounded-circle bg-purple me-3">
-                                            <i class="isax isax-money-tick5 fs-36"></i>
-                                        </span>
-                                        <div>
-                                            <h3>$5965</h3>
-                                            <p>Average Value</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> *@
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-7 d-flex">
-                            <div class="card shadow-none flex-fill">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h6>Đặt phòng gần đây</h6>
-                                        <div class="dropdown ">
-                                            <a href="javascript:void(0);" class="dropdown-toggle btn bg-light-200 btn-sm text-gray-6 rounded-pill fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
-                                                <i class="isax isax-document-filter me-2 fs-14 text-gray-6"></i>Filter
-                                            </a>
-                                            <ul class="dropdown-menu  dropdown-menu-end p-3">
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>Completed
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>Upcoming
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>Inprogress
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    @if (Model.RecentBookings.Any())
-                                    {
-                                        foreach(var item in Model.RecentBookings)
-                                        {
-                                            <div class="card shadow-none mb-2">
-                                                <div class="card-body">
-                                                    <div class="d-flex align-items-center flex-wrap row-gap-2">
-                                                        <a href="@item.link" class="avatar avatar-xl flex-shrink-0 me-2">
-                                                            <img src="@item.img" class="img-fluid rounded-circle" alt="Img" width="45px" height="45px">
-                                                        </a>
-                                                        <div class="flex-fill">
-                                                           @Html.Raw(item.Type)
-                                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                                <h6 class="fs-16 text-truncate"><a href="@item.link">@Html.Raw(item.Name)</a></h6>
-
-
-                                                                @if (item.status == "Upcoming")
-                                                                {
-                                                                    <span class="badge badge-purple badge-sm  rounded-pill"><i class="ti ti-point-filled me-1"></i>Upcoming</span>
-                                                                }
-                                                                else if (item.status == "Inpogress")
-                                                                {
-                                                                    <span class="badge badge-info badge-sm rounded-pill"><i class="ti ti-point-filled me-1"></i>Inpogress</span>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <span class="badge badge-success badge-sm rounded-pill"><i class="ti ti-point-filled me-1"></i>Completed</span>
-                                                                }
-
-                                                            </div>
-                                                            <div class="d-flex align-items-center flex-wrap">
-                                                                <p class="fs-14 d-flex align-items-center border-end pe-2 me-2 mb-0"><i class="isax isax-calendar-25 me-2"></i>Date : @item.date</p>
-                                                                <p class="fs-14 d-flex align-items-center"><i class="isax isax-timer5 me-2"></i>Time : @item.time</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        </div>
-              
-
-
-                        <div class="col-xl-5 d-flex">
-                            <div class="card shadow-none flex-fill">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h6>Hóa đơn gần đây</h6>
-                                        <div class="dropdown ">
-                                            <a href="javascript:void(0);" class="dropdown-toggle btn bg-light-200 btn-sm text-gray-6 rounded-pill fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
-                                                <i class="isax isax-document-filter me-2 fs-14 text-gray-6"></i>All
-                                            </a>
-                                            <ul class="dropdown-menu  dropdown-menu-end p-3">
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>All
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>Recent
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    @if (Model.RecentInvoices.Any())
-                                    {
-                                        foreach(var item in Model.RecentInvoices)
-                                        {
-                                            <div class="card shadow-none mb-4">
-                                                <div class="card-body p-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <a href="/home/HotelDetail/@item.Item4" class="avatar avatar-lg rounded-circle flex-shrink-0 me-2">
-                                                            <img src="@item.Item2" class="img-fluid rounded-circle" alt="Img">
-                                                        </a>
-                                                        <div class="d-flex justify-content-between align-items-center flex-fill">
-                                                            <div>
-                                                                <h6 class="fs-16 fw-medium mb-1"><a href="/home/HotelDetail/@item.Item4">@item.Item1</a></h6>
-                                                                <div class="d-flex align-items-center flex-wrap">
-                                                                    <a href="/account/invoices/@item.Item3" class="fs-14 link-primary border-end pe-2 me-2 mb-0">#@item.Item3.Substring(0,4)</a>
-                                                                    <p class="fs-14">Date: @item.Item5</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="text-end">
-                                                                <h6 class="fw-medium mb-1">$@item.Item6</h6>
-
-                                                                @if (@item.Item7 == "PAID")
-                                                                {
-                                                                    <p class="fs-14 text-success">Paid</p>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    }
-
-                                    
-
-
-
-
-                                  
+                                    <h5 class="card-title">Reports <span>/Today</span></h5>
+                                    <div id="reportsChart"></div> <!-- Biểu đồ sẽ được cập nhật -->
                                 </div>
                             </div>
                         </div>
 
-
-                    </div>
-
-                 @*    <div class="row justify-content-center">
-                        <div class="col-xl col-lg-4 col-sm-6">
-                            <!-- Tours Plan-->
-                            <div class="tours-item mb-4">
-                                <a href="hotel-grid.html" class="tours-img">
-                                    <img src="assets/img/hotels/hotel-15.jpg" class="img-fluid w-100" alt="img">
-                                </a>
-                                <div class="tours-content text-center">
-                                    <h6 class="fs-16 fw-medium">968 Hotels</h6>
-                                    <a href="hotel-grid.html" class="link-primary text-decoration-underline">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Tours Plan-->
-                        </div>
-
-                        <div class="col-xl col-lg-4 col-sm-6">
-                            <!-- Tours Plan-->
-                            <div class="tours-item mb-4">
-                                <a href="flight-grid.html" class="tours-img">
-                                    <img src="assets/img/flight/flight-07.jpg" class="img-fluid w-100" alt="img">
-                                </a>
-                                <div class="tours-content text-center">
-                                    <h6 class="fs-16 fw-medium">689 Flights</h6>
-                                    <a href="flight-grid.html" class="link-primary text-decoration-underline">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Tours Plan-->
-                        </div>
-
-                        <div class="col-xl col-lg-4 col-sm-6">
-                            <!-- Tours Plan-->
-                            <div class="tours-item mb-4">
-                                <a href="tour-grid.html" class="tours-img">
-                                    <img src="assets/img/tours/tours-24.jpg" class="img-fluid w-100" alt="img">
-                                </a>
-                                <div class="tours-content text-center">
-                                    <h6 class="fs-16 fw-medium">985 Tours</h6>
-                                    <a href="tour-grid.html" class="link-primary text-decoration-underline">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Tours Plan-->
-                        </div>
-
-                        <div class="col-xl col-lg-4 col-sm-6">
-                            <!-- Tours Plan-->
-                            <div class="tours-item mb-4">
-                                <a href="car-grid.html" class="tours-img">
-                                    <img src="assets/img/cars/car-11.jpg" class="img-fluid w-100" alt="img">
-                                </a>
-                                <div class="tours-content text-center">
-                                    <h6 class="fs-16 fw-medium">698 Cars</h6>
-                                    <a href="car-grid.html" class="link-primary text-decoration-underline">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Tours Plan-->
-                        </div>
-
-                        <div class="col-xl col-lg-4 col-sm-6">
-                            <!-- Tours Plan-->
-                            <div class="tours-item mb-4">
-                                <a href="cruise-grid.html" class="tours-img">
-                                    <img src="assets/img/cruise/cruise-15.jpg" class="img-fluid w-100" alt="img">
-                                </a>
-                                <div class="tours-content text-center">
-                                    <h6 class="fs-16 fw-medium">968 Cruise</h6>
-                                    <a href="cruise-grid.html" class="link-primary text-decoration-underline">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Tours Plan-->
-                        </div>
-
-                    </div> *@
-
-                    <div class="row">
-
-                        <!-- Recent Booking -->
-                        <div class="col-xl-6 col-xxl-7 d-flex">
-                            <div class="card shadow-none flex-fill">
-                                <div class="card-body pb-0">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h6>Đặt phòng gần đây</h6>
-                                        <div class="dropdown ">
-                                            <a href="javascript:void(0);" class="dropdown-toggle btn bg-light-200 btn-sm text-gray-6 rounded-pill fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
-                                                <i class="isax isax-calendar-2 me-2 fs-14 text-gray-6"></i>2025
-                                            </a>
-                                            <ul class="dropdown-menu  dropdown-menu-end p-3">
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>2025
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>2024
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>2023
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-2">
-                                            <p class="mb-0">Chi tiêu cho việc đặt phòng</p>
-                                            <div class="d-flex align-items-center">
-                                                <h3 class="me-2">20.659.000 VND</h3>
-                                                <p class="fs-14"><span class="badge badge-soft-success badge-md border border-success rounded-pill me-2"><i class="isax isax-arrow-up-3 "></i>12%</span>so với năm trước.</p>
-                                            </div>
-                                        </div>
-                                        <div id="transcation_chart"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Recent Booking -->
-                        <!-- Most Booked Services -->
-                     
-
-
-
-                        <div class="col-xl-6 col-xxl-5 d-flex">
-                            <div class="card shadow-none flex-fill">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h6>Thống kê đặt chỗ</h6>
-                                        <div class="dropdown ">
-                                            <a href="javascript:void(0);" class="dropdown-toggle btn bg-light-200 btn-sm text-gray-6 rounded-pill fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
-                                                <i class="isax isax-calendar-2 me-2 fs-14 text-gray-6"></i>Tháng 1
-                                            </a>
-                                            <ul class="dropdown-menu  dropdown-menu-end p-3">
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>Tháng 2
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>Tháng 2
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                        <i class="ti ti-point-filled me-1"></i>Tháng 3
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-0">
-                                            <p class="mb-0">Tổng số tiền chi tiêu</p>
-                                            <h3>2.659.000 VND</h3>
-                                        </div>
-                                        <div id="tours_chart"></div>
-                                        <p class="fs-14"><span class="text-success">+21 %</span> tăng so với năm trước.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Most Booked Services -->
-
-                    </div>
+           
 
           
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Page Wrapper -->
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-top">
-                <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1">
-                    <div class="col">
-                        <div class="footer-widget">
-                            <h5>Pages</h5>
-                            <ul class="footer-menu">
-                                <li>
-                                    <a href="team.html">Đội ngũ của chúng tôi</a>
-                                </li>
-                                <li>
-                                    <a href="pricing-plan.html">Gói giá</a>
-                                </li>
-                                <li>
-                                    <a href="gallery.html">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="profile-settings.html">Cài đặt</a>
-                                </li>
-                                <li>
-                                    <a href="my-profile.html">Hồ sơ</a>
-                                </li>
-                                <li>
-                                    <a href="agent-listings.html">Danh sách</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="footer-widget">
-                            <h5>Doanh nghiệp</h5>
-                            <ul class="footer-menu">
-                                <li>
-                                    <a href="about-us.html">Về chúng tôi</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Cơ hội nghề nghiệp</a>
-                                </li>
-                                <li>
-                                    <a href="blog-grid.html">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Chương trình liên kết</a>
-                                </li>
-                                <li>
-                                    <a href="add-flight.html">Thêm danh sách của bạn</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Đối tác của chúng tôi</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="footer-widget">
-                            <h5>Điểm đến</h5>
-                            <ul class="footer-menu">
-                                <li>
-                                    <a href="javascript:void(0);">Hawai</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Istanbul</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">San Diego</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Belgium</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Los Angeles</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Newyork</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="footer-widget">
-                            <h5>Hỗ trợ</h5>
-                            <ul class="footer-menu">
-                                <li>
-                                    <a href="contact-us.html">Liên hệ</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Thông báo pháp lý</a>
-                                </li>
-                                <li>
-                                    <a href="privacy-policy.html">Chính sách quyền riêng tư</a>
-                                </li>
-                                <li>
-                                    <a href="terms-conditions.html">Điều khoản và Điều kiện</a>
-                                </li>
-                                <li>
-                                    <a href="chat.html">Hỗ trợ trò chuyện</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Chính sách hoàn trả</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="footer-widget">
-                            <h5>Dịch vụ</h5>
-                            <ul class="footer-menu">
-                                <li>
-                                    <a href="hotel-grid.html">Khách sạn</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Trình tìm kiếm hoạt động</a>
-                                </li>
-                                <li>
-                                    <a href="flight-grid.html">Tìm kiếm chuyến bay</a>
-                                </li>
-                                <li>
-                                    <a href="tour-grid.html">Thuê kỳ nghỉ</a>
-                                </li>
-                                <li>
-                                    <a href="car-grid.html">Thuê xe</a>
-                                </li>
-                                <li>
-                                    <a href="tour-details.html">Gói kỳ nghỉ</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-wrap bg-white">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 col-xl-3 col-xxl-3">
-                            <div class="mb-3 text-center text-xl-start">
-                                <a href="index.html" class="d-block footer-logo-light">
-                                    <img src="~/assets/img/logo-dark.svg" alt="logo">
-                                </a>
-                                <a href="index.html" class="footer-logo-dark">
-                                    <img src="~/assets/img/logo.svg" alt="logo">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-xl-4 col-xxl-4">
-                            <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                <h6 class="fs-14 fw-medium me-2 mb-2">Available on : </h6>
-                                <a href="javascript:void(0);" class="d-block mb-3 me-2">
-                                    <img src="~/assets/img/icons/googleplay.svg" alt="logo">
-                                </a>
-                                <a href="javascript:void(0);" class="d-block mb-3">
-                                    <img src="~/assets/img/icons/appstore.svg" alt="logo">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-xl-5 col-xxl-5">
-                            <div class="d-sm-flex align-items-center justify-content-center justify-content-xl-end">
-                                <div class="d-flex align-items-center justify-content-center justify-content-sm-start me-0 pe-0 me-sm-3 pe-sm-3 border-end mb-3">
-                                    <span class="avatar avatar-lg bg-primary rounded-circle flex-shrink-0">
-                                        <i class="ti ti-headphones-filled fs-24"></i>
-                                    </span>
-                                    <div class="ms-2">
-                                        <p class="mb-1">Chăm sóc khách hàng</p>
-                                        <p class="fw-medium text-dark">+84 393771017</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
-                                    <span class="avatar avatar-lg bg-secondary rounded-circle flex-shrink-0">
-                                        <i class="ti ti-message fs-24 text-gray-9"></i>
-                                    </span>
-                                    <div class="ms-2">
-                                        <p class="mb-1">Gửi email cho chúng tôi</p>
-                                        <p class="fw-medium text-dark">
-                                            <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                               class="__cf_email__"
-                                               data-cfemail="fc95929a93bc99849d918c9099d29f9391">[email&#160;protected]</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-img">
-                    <img src="~/assets/img/bg/footer.svg" class="img-fluid" alt="img">
-                </div>
-            </div>
-        </div>
-        <!-- Footer Bottom -->
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <p class="fs-14">
-                                Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);"
-                                                                               class="text-primary fw-medium">Golocal</a>
-                            </p>
-                            <div class="d-flex align-items-center">
-                                <ul class="social-icon">
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa-brands fa-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa-brands fa-linkedin"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa-brands fa-pinterest"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <ul class="card-links">
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <img src="~/assets/img/icons/card-01.svg" alt="img">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <img src="~/assets/img/icons/card-02.svg" alt="img">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <img src="~/assets/img/icons/card-03.svg" alt="img">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <img src="~/assets/img/icons/card-04.svg" alt="img">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <img src="~/assets/img/icons/card-05.svg" alt="img">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <img src="~/assets/img/icons/card-06.svg" alt="img">
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /Footer Bottom -->
 
-    </footer>
-    <!-- /Footer -->
-    <!-- Cursor -->
-    <div class="xb-cursor tx-js-cursor">
-        <div class="xb-cursor-wrapper">
-            <div class="xb-cursor--follower xb-js-follower"></div>
+
+          </div>
         </div>
-    </div>
-    <!-- /Cursor -->
 
-    <div class="back-to-top">
-        <a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top"><i class="fa-solid fa-arrow-up"></i></a>
-    </div>
+        <!-- Right side columns -->
 
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        fetch('/Admin/GetDashboardData')
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log("Dashboard Data:", data); // Kiểm tra dữ liệu trong Console
+
+                                // Cập nhật doanh thu và tổng tiền gửi
+                                document.getElementById("revenue-amount").textContent = "$" + data.revenue.toLocaleString();
+                                document.getElementById("deposit-amount").textContent = "$" + data.totalDeposit.toLocaleString();
+
+                                // Dữ liệu biểu đồ
+                                let categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+                                let seriesData = data.reports.map(report => ({
+                                    name: report.category,  // Chữ thường
+                                    data: report.data       // Chữ thường
+                                }));
+
+                                // Render biểu đồ
+                                var options = {
+                                    series: seriesData,
+                                    chart: { height: 350, type: 'area', toolbar: { show: false } },
+                                    markers: { size: 4 },
+                                    colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                    fill: { type: "gradient", gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.4, stops: [0, 90, 100] } },
+                                    dataLabels: { enabled: false },
+                                    stroke: { curve: 'smooth', width: 2 },
+                                    xaxis: { categories: categories },
+                                    tooltip: { x: { format: 'dd/MM/yy HH:mm' } }
+                                };
+
+                                // Xóa biểu đồ cũ nếu có
+                                if (window.reportsChartInstance) {
+                                    window.reportsChartInstance.destroy();
+                                }
+                                window.reportsChartInstance = new ApexCharts(document.querySelector("#reportsChart"), options);
+                                window.reportsChartInstance.render();
+                            })
+                            .catch(error => console.error("Error loading dashboard data:", error));
+                    });
+
+
+                </script>
+               
+      </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="~/assets_admin/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="~/assets_admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="~/assets_admin/vendor/chart.js/chart.umd.js"></script>
+  <script src="~/assets_admin/vendor/echarts/echarts.min.js"></script>
+  <script src="~/assets_admin/vendor/quill/quill.js"></script>
+  <script src="~/assets_admin/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="~/assets_admin/vendor/tinymce/tinymce.min.js"></script>
+  <script src="~/assets_admin/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="~/assets_admin/js/main.js"></script>
 
 </body>
 
-
-<!-- Mirrored from dreamstour.dreamstechnologies.com/html/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Jan 2025 14:14:36 GMT -->
 </html>

@@ -32,6 +32,90 @@ namespace Booking.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> GetDashboardData()
+        {
+            var gettoteldepo = this._context.Dongtiens.Where(u => u.method.ToLower().Trim() == "Nap".ToLower().Trim() && u.IsComplete).ToList();
+
+
+            var today = DateTime.UtcNow.Date;
+            var sevenDaysAgo = today.AddDays(-6);
+            var commissionRate = 0.03m;
+            var tourEarnings = await _context.DaTours
+                .Where(dt => dt.paymentStatus.ToLower() == "paid"
+                    && dt.DatePayment.HasValue
+                    && dt.DatePayment >= sevenDaysAgo
+                    && dt.DatePayment < today.AddDays(1))
+                .GroupBy(dt => dt.DatePayment.Value.Date)
+                .OrderBy(g => g.Key)
+                .Select(g => new
+                {
+                    Date = g.Key,
+                    Revenue = g.Sum(dt => dt.totalPaid ?? 0) * commissionRate
+                })
+                .ToListAsync();
+
+            // Khởi tạo dữ liệu mặc định cho 7 ngày
+            var earningsByDay = Enumerable.Range(0, 7)
+                .Select(i => sevenDaysAgo.AddDays(i))
+                .ToDictionary(date => date, date => 0m);
+
+
+            foreach (var item in tourEarnings)
+            {
+                earningsByDay[item.Date] = item.Revenue;
+            }
+
+            var earningsList = earningsByDay.Values.Select(e => (int)e).ToList();
+
+
+            var sevenDaysAgo1 = today.AddDays(-6);
+            var commissionRate1 = 0.03m;
+            var hotelEarning = await _context.Datphongs
+                .Where(dt => dt.paymentStatus.ToLower() == "paid"
+                    && dt.DatePayment.HasValue
+                    && dt.DatePayment >= sevenDaysAgo
+                    && dt.DatePayment < today.AddDays(1))
+                .GroupBy(dt => dt.DatePayment.Value.Date)
+                .OrderBy(g => g.Key)
+                .Select(g => new
+                {
+                    Date = g.Key,
+                    Revenue = g.Sum(dt => dt.totalPaid ?? 0) * commissionRate1
+                })
+                .ToListAsync();
+
+            // Khởi tạo dữ liệu mặc định cho 7 ngày
+            var earningsByDay1 = Enumerable.Range(0, 7)
+                .Select(i => sevenDaysAgo1.AddDays(i))
+                .ToDictionary(date => date, date => 0m);
+
+
+            foreach (var item in hotelEarning)
+            {
+                earningsByDay1[item.Date] = item.Revenue;
+            }
+
+            var hotelearning = earningsByDay1.Values.Select(e => (int)e).ToList();
+
+
+            var data = new
+            {
+                Revenue = earningsByDay.Values.Sum(), 
+                TotalDeposit = gettoteldepo.Sum(u => Math.Abs(u.sotienthaydoi)),
+                Reports = new List<object>
+        {
+            new { Category = "Tour", Data = earningsList },
+            new { Category = "Hotels", Data = hotelearning }
+        }
+            };
+
+            return Json(data);
+        }
+
+
+
+
         public async Task<IActionResult> ManageSellers()
         {
             var users = await _userManager.Users.Where(x => x.isUpdateProfile == true).ToListAsync(); // Get users first
