@@ -92,11 +92,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Add Tours</h2>
+                    <h2 class="breadcrumb-title mb-2">Thêm Tour</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Tours</li>
+                            <li class="breadcrumb-item active" aria-current="page">Thêm Tour</li>
                         </ol>
                     </nav>
                 </div>
@@ -116,11 +116,11 @@
                             <div>
                                 <h5 class="mb-3">Add Tour</h5>
                                 <ul class="add-tab-list">
-                                    <li><a href="#basic_info" class="active">Tour Details</a></li>
-                                    <li><a href="#location">Locations</a></li>
+                                    <li><a href="#basic_info" class="active">Chi tiết Tour</a></li>
+                                    <li><a href="#location">Địa điểm</a></li>
                                    
-                                    <li><a href="#gallery">Gallery</a></li>
-                                    <li><a href="#description">Description</a></li>
+                                    <li><a href="#gallery">Ảnh</a></li>
+                                    <li><a href="#description">Mô tả</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -133,21 +133,21 @@
                         <div class="card shadow-none" id="basic_info">
                             <div class="card-header">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <h5 class="fs-18">Tour Details</h5>
+                                    <h5 class="fs-18">Chi tiết Tour</h5>
                                 </div>
                             </div>
                             <div class="card-body pb-1">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Tour Name</label>
+                                            <label class="form-label">Tên Tour</label>
                                             <input type="text" class="form-control" asp-for="Name">
                                              <span asp-validation-for="Name" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Category</label>
+                                            <label class="form-label">Danh mục</label>
                                             <select class="select" asp-for="Category">
                                                 <option value="Select">Select</option>
                                                 <option value="Ecotourism">Ecotourism</option>
@@ -161,7 +161,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Start Date</label>
+                                            <label class="form-label">Ngày bắt đầu</label>
                                             <div class="input-icon-end position-relative">
                                                 <input type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" value="02-05-2024" asp-for="startDate">
                                                 <span class="input-icon-addon">
@@ -173,7 +173,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">End Date</label>
+                                            <label class="form-label">Ngày kết thúc</label>
                                             <div class="input-icon-end position-relative">
                                                 <input type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" value="02-05-2024" asp-for="endDate">
                                                 <span class="input-icon-addon">
@@ -185,7 +185,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Destination</label>
+                                            <label class="form-label">Điểm đến</label>
                                             <input type="text" class="form-control" asp-for="Destination">
                                             <span asp-validation-for="Destination" class="text-danger"></span>
                                         </div>
@@ -193,14 +193,14 @@
                                     
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Total Number Of Peoples Alloted</label>
+                                            <label class="form-label">Tổng số người được phân bổ</label>
                                             <input type="text" class="form-control" asp-for="totalProple">
                                             <span asp-validation-for="totalProple" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Pricing (USD)</label>
+                                            <label class="form-label">Giá cả (VND)</label>
                                             <input type="text" class="form-control" asp-for="Pricing">
                                             <span asp-validation-for="Pricing" class="text-danger"></span>
                                         </div>
@@ -213,7 +213,7 @@
                                     </div> *@
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Min Age </label>
+                                            <label class="form-label">Tuổi tối thiểu </label>
                                             <input type="text" class="form-control" asp-for="mindAge">
                                             <span asp-validation-for="mindAge" class="text-danger"></span>
                                         </div>
@@ -231,7 +231,7 @@
                                 <div class="row">
                                     <div class="col-xl-3 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Country</label>
+                                            <label class="form-label">Quốc gia</label>
                                             <select class="select" asp-for="Country">
                                                 <option>Select</option>
                                                 <option>Việt Nam</option>
@@ -243,7 +243,7 @@
                                     </div>
                                     <div class="col-xl-3 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">City</label>
+                                            <label class="form-label">Thành phố</label>
                                             <input type="text" class="form-control" asp-for="City">
 
                                             <span asp-validation-for="City" class="text-danger"></span>
@@ -251,7 +251,7 @@
                                     </div>
                                     <div class="col-xl-3 col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">State</label>
+                                            <label class="form-label">Tình trạng</label>
                                             <input type="text" class="form-control" asp-for="State">
                                             <span asp-validation-for="State" class="text-danger"></span>
                                         </div>
@@ -265,14 +265,14 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Address</label>
+                                            <label class="form-label">Địa chỉ</label>
                                             <input type="text" class="form-control" asp-for="Address">
                                             <span asp-validation-for="Address" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Link Maps</label>
+                                            <label class="form-label">Bản đồ liên kết</label>
                                             <input type="text" class="form-control" asp-for="linkLocation">
                                             <span asp-validation-for="linkLocation" class="text-danger"></span>
                                         </div>
@@ -283,13 +283,13 @@
                      
                       <div class="card shadow-none" id="gallery">
                                     <div class="card-header">
-                                        <h5 class="fs-18">Hotel Gallery</h5>
+                                        <h5 class="fs-18">Ảnh</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column mb-2">
                                             <span class="upload-img d-block mb-2"><i class="isax isax-document-upload fs-24"></i></span>
-                                            <h6 class="mb-1">Upload Gallery Images</h6>
-                                            <p class="mb-0">Upload Feature Image First, Image size should be below 5MB</p>
+                                    <h6 class="mb-1">Tải ảnh lên</h6>
+                                    <p class="mb-0">Tải lên hình ảnh nổi bật Đầu tiên, kích thước hình ảnh phải dưới 5MB</p>
                                             <input type="file" accept="image/*" multiple id="file-input-hotel" asp-for="Images">
                                         </div>
                                         <div class="d-flex align-items-center" id="hotel-gallery">
@@ -305,7 +305,7 @@
                    
                                 <div class="card shadow-none" id="description">
                                     <div class="card-header">
-                                        <h5 class="fs-18">Description</h5>
+                                        <h5 class="fs-18">Mô tả</h5>
                                     </div>
                                     <div class="card-body text-editor">
                                         <!-- Input ẩn để lưu nội dung Summernote -->
@@ -317,8 +317,8 @@
 
 
                         <div class="d-flex align-items-center justify-content-center">
-                            <button type="button" class="btn btn-light me-2">Reset</button>
-                            <button type="submit" class="btn btn-primary">Add New Tour</button>
+                            <button type="button" class="btn btn-light me-2">Đặt lại</button>
+                            <button type="submit" class="btn btn-primary">Thêm Tour mới</button>
                         </div>
                     </form>
                 </div>
@@ -381,54 +381,54 @@
                             <h5>Pages</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="team.html">Our Team</a>
+                                    <a href="team.html">Đội ngũ của chúng tôi</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Pricing Plans</a>
+                                    <a href="pricing-plan.html">Gói giá</a>
                                 </li>
                                 <li>
-                                    <a href="gallery.html">Gallery</a>
+                                    <a href="gallery.html">Settings</a>
                                 </li>
                                 <li>
-                                    <a href="profile-settings.html">Settings</a>
+                                    <a href="profile-settings.html">Cài đặt</a>
                                 </li>
                                 <li>
-                                    <a href="my-profile.html">Profile</a>
+                                    <a href="my-profile.html">Hồ sơ</a>
                                 </li>
                                 <li>
-                                    <a href="agent-listings.html">Listings</a>
+                                    <a href="agent-listings.html">Danh sách</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Company</h5>
+                            <h5>Doanh nghiệp</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="about-us.html">About Us</a>
+                                    <a href="about-us.html">Về chúng tôi</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Careers</a>
+                                    <a href="javascript:void(0);">Cơ hội nghề nghiệp</a>
                                 </li>
                                 <li>
                                     <a href="blog-grid.html">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Affiliate Program</a>
+                                    <a href="javascript:void(0);">Chương trình liên kết</a>
                                 </li>
                                 <li>
-                                    <a href="add-flight.html">Add Your Listing</a>
+                                    <a href="add-flight.html">Thêm danh sách của bạn</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Our Partners</a>
+                                    <a href="javascript:void(0);">Đối tác của chúng tôi</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Destinations</h5>
+                            <h5>Điểm đến</h5>
                             <ul class="footer-menu">
                                 <li>
                                     <a href="javascript:void(0);">Hawai</a>
@@ -453,50 +453,50 @@
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Support</h5>
+                            <h5>Hỗ trợ</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="contact-us.html">Contact Us</a>
+                                    <a href="contact-us.html">Liên hệ</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Legal Notice</a>
+                                    <a href="javascript:void(0);">Thông báo pháp lý</a>
                                 </li>
                                 <li>
-                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                    <a href="privacy-policy.html">Chính sách quyền riêng tư</a>
                                 </li>
                                 <li>
-                                    <a href="terms-conditions.html">Terms and Conditions</a>
+                                    <a href="terms-conditions.html">Điều khoản và Điều kiện</a>
                                 </li>
                                 <li>
-                                    <a href="chat.html">Chat Support</a>
+                                    <a href="chat.html">Hỗ trợ trò chuyện</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Refund Policy</a>
+                                    <a href="javascript:void(0);">Chính sách hoàn trả</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Services</h5>
+                            <h5>Dịch vụ</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="hotel-grid.html">Hotel</a>
+                                    <a href="hotel-grid.html">Khách sạn</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Activity Finder</a>
+                                    <a href="javascript:void(0);">Trình tìm kiếm hoạt động</a>
                                 </li>
                                 <li>
-                                    <a href="flight-grid.html">Flight Finder</a>
+                                    <a href="flight-grid.html">Tìm kiếm chuyến bay</a>
                                 </li>
                                 <li>
-                                    <a href="tour-grid.html">Holiday Rental</a>
+                                    <a href="tour-grid.html">Thuê kỳ nghỉ</a>
                                 </li>
                                 <li>
-                                    <a href="car-grid.html">Car Rental</a>
+                                    <a href="car-grid.html">Thuê xe</a>
                                 </li>
                                 <li>
-                                    <a href="tour-details.html">Holiday Packages</a>
+                                    <a href="tour-details.html">Gói kỳ nghỉ</a>
                                 </li>
                             </ul>
                         </div>
@@ -532,8 +532,8 @@
                                         <i class="ti ti-headphones-filled fs-24"></i>
                                     </span>
                                     <div class="ms-2">
-                                        <p class="mb-1">Customer Support</p>
-                                        <p class="fw-medium text-dark">+1 56589 54598</p>
+                                        <p class="mb-1">Chăm sóc khách hàng</p>
+                                        <p class="fw-medium text-dark">+84 393771017</p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
@@ -541,8 +541,12 @@
                                         <i class="ti ti-message fs-24 text-gray-9"></i>
                                     </span>
                                     <div class="ms-2">
-                                        <p class="mb-1">Drop Us an Email</p>
-                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4f262129200f2a372e223f232a612c2022">[email&#160;protected]</a></p>
+                                        <p class="mb-1">Gửi email cho chúng tôi</p>
+                                        <p class="fw-medium text-dark">
+                                            <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                               class="__cf_email__"
+                                               data-cfemail="fc95929a93bc99849d918c9099d29f9391">[email&#160;protected]</a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -560,7 +564,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <p class="fs-14">Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);" class="text-primary fw-medium">Golocal</a></p>
+                            <p class="fs-14">
+                                Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);"
+                                                                               class="text-primary fw-medium">Golocal</a>
+                            </p>
                             <div class="d-flex align-items-center">
                                 <ul class="social-icon">
                                     <li>
