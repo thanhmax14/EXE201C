@@ -2,6 +2,7 @@
 {
     public class readcmt
     {
+        public Guid ID { get; set; }
         public string? UserName { get; set; }
 
         public DateTime? datecmt { get; set; }
@@ -12,5 +13,6 @@
         public DateTime? daterelay { get; set; }
         public string? relay { get; set; }
         public string? cmt { get; set; }
+        public string? nameSever { get; set; }
     }
 }

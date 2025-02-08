@@ -1,0 +1,640 @@
+﻿
+@{
+    Layout = null;
+}
+@model List<Booking.ViewModels.readcmt>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GolocalTour - Travel and Tour Booking Bootstrap 5 template</title>
+
+    <meta name="description" content="DreamsTour - A premium Bootstrap 5 template crafted for travel and tour booking. Tailored for travel agencies and booking platforms, it features flight, hotel, and tour reservations, and holiday packages.">
+    <meta name="keywords" content="travel booking template, tour booking, Bootstrap 5 travel template, DreamsTour, hotel booking, flights booking, holiday packages, tour agency website, travel agency template, travel HTML template, booking system, responsive travel template, Bootstrap travel website">
+    <meta name="author" content="Dreams Technologies">
+    <meta name="robots" content="index, follow">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/img/apple-touch-icon.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/assets/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/assets/img/favicon.png" type="image/x-icon">
+
+    <!-- Theme Settings Js -->
+    <script src="~/assets/js/theme-script.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <link rel="stylesheet" href="~/assets/css/animate.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+    <!-- Main.css -->
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+
+    <!-- Tabler Icon CSS -->
+    <link rel="stylesheet" href="~/assets/plugins/tabler-icons/tabler-icons.css">
+
+    <!-- Fontawesome Icon CSS -->
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+    <!-- Iconsax CSS -->
+    <link rel="stylesheet" href="~/assets/css/iconsax.css">
+
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap-datetimepicker.min.css">
+
+    <!-- Daterangepikcer CSS -->
+    <link rel="stylesheet" href="~/assets/plugins/daterangepicker/daterangepicker.css">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="main-header">
+        <!-- Header Topbar-->
+        <div class="header-topbar text-center bg-transparent">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Toll Free : +1 56565 56594</p>
+                    <div class="d-flex align-items-center">
+                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14"><i class="isax isax-message-text-15 me-2"></i>Email : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="432a2d252c03263b222e332f266d202c2e">[email&#160;protected]</a></p>
+                        <div class="dropdown flag-dropdown mb-2 me-3">
+                            <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
+                            </a>
+                            <ul class="dropdown-menu p-2 mt-2">
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/arab-flag.svg" class="me-2" alt="flag">ARA
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
+                                        <img src="~/assets/img/flags/france-flag.svg" class="me-2" alt="flag">FRA
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="dropdown mb-2 me-3">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                USD
+                            </a>
+                            <ul class="dropdown-menu p-2 mt-2">
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
+                                <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
+                            </ul>
+                        </div>
+                        <div class="fav-dropdown mb-2">
+                            <a href="wishlist.html" class="position-relative">
+                                <i class="isax isax-heart"></i><span class="count-icon bg-secondary text-gray-9">0</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Header Topbar-->
+        <!-- Header -->
+        @await Html.PartialAsync("_patiarialHearder")
+        <!-- /Header -->
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar breadcrumb-bg-04 text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-12">
+                    <h2 class="breadcrumb-title mb-2">Reviews</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center mb-0">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Reviews</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Breadcrumb -->
+    <!-- Page Wrapper -->
+    <div class="content">
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Sidebar -->
+                <div class="col-xl-3 col-lg-4 theiaStickySidebar">
+                    <div class="card user-sidebar agent-sidebar mb-4 mb-lg-0">
+                        @await Html.PartialAsync("_patirialSller")
+                        <div class="card-body user-sidebar-body">
+                            <ul>
+                                <li>
+                                    <a href="/manager" class="d-flex align-items-center">
+                                        <i class="isax isax-grid-55 me-2"></i>Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/manager/listing" class="d-flex align-items-center ">
+                                        <i class="isax isax-menu-14 me-2"></i>Listings
+                                    </a>
+                                </li>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="/manager/hotelsBooking" class="fs-14 d-inline-flex align-items-center">Hotels</a>
+                                        </li>
+
+
+                                        <li>
+                                            <a href="/manager/toursBooking" class="fs-14 d-inline-flex align-items-center">Tour</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                @*  <li>
+                                <a href="agent-enquirers.html" class="d-flex align-items-center">
+                                <i class="isax isax-magic-star5 me-2"></i>Enquiries
+                                </a>
+                                </li>
+                                <li>
+                                <a href="agent-earnings.html" class="d-flex align-items-center">
+                                <i class="isax isax-wallet-add-15 me-2"></i>Earnings
+                                </a>
+                                </li> *@
+                                <li>
+                                    <a href="/manager/review" class="d-flex align-items-center active">
+                                        <i class="isax isax-magic-star5 me-2"></i>Reviews
+                                    </a>
+                                </li>
+                                @*  <li>
+                                <a href="agent-settings.html" class="d-flex align-items-center">
+                                <i class="isax isax-setting-25"></i> Settings
+                                </a>
+                                </li> *@
+                                <li class="logout-link">
+                                    <a href="index.html" class="d-flex align-items-center pb-0">
+                                        <i class="isax isax-logout-15"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Sidebar -->
+
+                <div class="col-xl-9 col-lg-8">
+
+                    <!-- Review Title -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap row-gap-3">
+                                <div>
+                                    <h6>Reviews</h6>
+                                    <p class="fs-14">No of Reviews : 60</p>
+                                </div>
+                                <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+                                    <div>
+                                        <div class="input-icon-end position-relative">
+                                            <span class="input-icon-addon">
+                                                <i class="isax isax-calendar-edit"></i>
+                                            </span>
+                                            <input type="text" class="form-control date-range bookingrange" placeholder="dd/mm/yyyy - dd/mm/yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Review Title -->
+                    <!-- Reviews -->
+               
+                    @if (Model.Any())
+                    {
+                        foreach(var item in Model)
+                        {
+                            <div class="card shadow-none">
+                                <div class="card-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap row-gap-2">
+                                            <div>
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <span class="avatar avatar-lg rounded-circle flex-shrink-0 me-2">
+                                                        <img src="@item.imgUser" alt="user" class="img-fluid rounded-circle">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16">@item.UserName</h6>
+                                                        <div class="d-flex align-items-center flex-wrap">
+                                                            <span class="fs-14 d-flex align-items-center">10 days ago<i class="ti ti-point-filled text-gray mx-2"></i></span>
+                                                            <p class="fs-14"><span class="badge badge-xs badge-warning text-gray-9 me-2">@item.rating</span>Perfect for Family</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <p class="fs-14 d-flex align-items-center mb-2"><i class="isax isax-info-circle5 text-gray-9 me-2"></i>Info : @item.nameSever</p>
+                                                    <p class="fs-16 mb-0">@item.cmt</p>
+                                                </div>
+                                            </div>
+
+                                            @if (string.IsNullOrWhiteSpace(item.relay))
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <a href="javascript:void(0);" class="btn btn-light btn-sm border add-reply me-2">Reply</a>
+                                                </div>
+                                            }
+                                            
+                                        </div>
+
+                                        @if (!string.IsNullOrWhiteSpace(item.relay))
+                                        {
+
+                                            <div class="bg-light rounded p-3 mt-3 ms-5">
+                                                <p><span class="fw-medium">You Replied : </span> @item.relay</p>
+                                            </div>
+
+                                        }
+                                            <div class="review-reply border-top mt-3 pt-3">
+                                                <form class="reply-form">
+                                                    <textarea rows="3" id="row-@item.ID" class="form-control" placeholder="Add Comment"></textarea>
+                                                    <button type="button" onclick="Review('@item.ID')" class="btn btn-primary btn-sm mt-2">Submit</button>
+                                                </form>
+
+                                            </div>
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                 
+                    <!-- /Reviews -->
+                    <!-- Pagination -->
+                  
+                    <!-- /Pagination -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="~/assets/js/jquery-3.7.1.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/cute-alert/cute-alert.js"></script>
+    <link href="~/cute-alert/style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function Review(itemId) {
+            var comment = $("#row-" + itemId).val(); // Lấy nội dung từ textarea
+
+            if (comment.trim() === "") {
+                Swal.fire('Thất bại', 'Vui lòng điền câu trả lời', 'error');
+                return;
+            }
+
+            $.ajax({
+                url: '/manager/AddComment', 
+                type: 'POST',
+                data: { id: itemId, comment: comment },
+                success: function (response) {
+                    if (response.status == 'success') {
+                        cuteToast({
+                            type: "success",
+                            message: response.msg,
+                            timer: 5000
+                        });
+                        $("#row-" + itemId).val('');
+                    } else {
+                        Swal.fire(
+                            'Thất bại',
+                            response.msg,
+                            'error'
+                        );
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Thất bại',
+                        response.error,
+                        'error'
+                    );
+                }
+            });
+        }
+    </script>
+
+    <!-- /Page Wrapper -->
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1">
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Pages</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="team.html">Our Team</a>
+                                </li>
+                                <li>
+                                    <a href="pricing-plan.html">Pricing Plans</a>
+                                </li>
+                                <li>
+                                    <a href="gallery.html">Gallery</a>
+                                </li>
+                                <li>
+                                    <a href="profile-settings.html">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="my-profile.html">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="agent-listings.html">Listings</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Company</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="about-us.html">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Careers</a>
+                                </li>
+                                <li>
+                                    <a href="blog-grid.html">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Affiliate Program</a>
+                                </li>
+                                <li>
+                                    <a href="add-flight.html">Add Your Listing</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Our Partners</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Destinations</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="javascript:void(0);">Hawai</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Istanbul</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">San Diego</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Belgium</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Los Angeles</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Newyork</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Support</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="contact-us.html">Contact Us</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Legal Notice</a>
+                                </li>
+                                <li>
+                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                </li>
+                                <li>
+                                    <a href="terms-conditions.html">Terms and Conditions</a>
+                                </li>
+                                <li>
+                                    <a href="chat.html">Chat Support</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Refund Policy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-widget">
+                            <h5>Services</h5>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="hotel-grid.html">Hotel</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Activity Finder</a>
+                                </li>
+                                <li>
+                                    <a href="flight-grid.html">Flight Finder</a>
+                                </li>
+                                <li>
+                                    <a href="tour-grid.html">Holiday Rental</a>
+                                </li>
+                                <li>
+                                    <a href="car-grid.html">Car Rental</a>
+                                </li>
+                                <li>
+                                    <a href="tour-details.html">Holiday Packages</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-wrap bg-white">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-xl-3 col-xxl-3">
+                            <div class="mb-3 text-center text-xl-start">
+                                <a href="index.html" class="d-block footer-logo-light">
+                                    <img src="~/assets/img/logo-dark.svg" alt="logo">
+                                </a>
+                                <a href="index.html" class="footer-logo-dark">
+                                    <img src="~/assets/img/logo.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 col-xxl-4">
+                            <div class="d-flex align-items-center justify-content-center flex-wrap">
+                                <h6 class="fs-14 fw-medium me-2 mb-2">Available on : </h6>
+                                <a href="javascript:void(0);" class="d-block mb-3 me-2">
+                                    <img src="~/assets/img/icons/googleplay.svg" alt="logo">
+                                </a>
+                                <a href="javascript:void(0);" class="d-block mb-3">
+                                    <img src="~/assets/img/icons/appstore.svg" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-xl-5 col-xxl-5">
+                            <div class="d-sm-flex align-items-center justify-content-center justify-content-xl-end">
+                                <div class="d-flex align-items-center justify-content-center justify-content-sm-start me-0 pe-0 me-sm-3 pe-sm-3 border-end mb-3">
+                                    <span class="avatar avatar-lg bg-primary rounded-circle flex-shrink-0">
+                                        <i class="ti ti-headphones-filled fs-24"></i>
+                                    </span>
+                                    <div class="ms-2">
+                                        <p class="mb-1">Customer Support</p>
+                                        <p class="fw-medium text-dark">+1 56589 54598</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
+                                    <span class="avatar avatar-lg bg-secondary rounded-circle flex-shrink-0">
+                                        <i class="ti ti-message fs-24 text-gray-9"></i>
+                                    </span>
+                                    <div class="ms-2">
+                                        <p class="mb-1">Drop Us an Email</p>
+                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b8bfb7be91b4a9b0bca1bdb4ffb2bebc">[email&#160;protected]</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-img">
+                    <img src="~/assets/img/bg/footer.svg" class="img-fluid" alt="img">
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <p class="fs-14">Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);" class="text-primary fw-medium">DreamsTour</a></p>
+                            <div class="d-flex align-items-center">
+                                <ul class="social-icon">
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-linkedin"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa-brands fa-pinterest"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <ul class="card-links">
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-01.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-02.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-03.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-04.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-05.svg" alt="img">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/card-06.svg" alt="img">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer Bottom -->
+
+    </footer>
+    <!-- /Footer -->
+    <!-- Cursor -->
+    <div class="xb-cursor tx-js-cursor">
+        <div class="xb-cursor-wrapper">
+            <div class="xb-cursor--follower xb-js-follower"></div>
+        </div>
+    </div>
+    <!-- /Cursor -->
+
+    <div class="back-to-top">
+        <a class="back-to-top-icon align-items-center justify-content-center d-flex" href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+
+    <!-- Jquery JS -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="~/assets/js/jquery-3.7.1.min.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/assets/js/bootstrap.bundle.min.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <!-- Wow JS -->
+    <script src="~/assets/js/wow.min.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <!-- MeanMenu Js -->
+    <script src="~/assets/js/jquery.meanmenu.min.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <!-- Sticky Sidebar JS -->
+    <script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+    <script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <!-- Datepicker Core JS -->
+    <script src="~/assets/plugins/moment/moment.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+    <script src="~/assets/js/bootstrap-datetimepicker.min.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <!-- Daterangepikcer JS -->
+    <script src="~/assets/js/moment.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+    <script src="~/assets/plugins/daterangepicker/daterangepicker.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+    <script src="~/assets/js/bootstrap-datetimepicker.min.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <!-- cursor JS -->
+    <script src="~/assets/js/cursor.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <!-- Script JS -->
+    <script src="~/assets/js/script.js" type="a2d1f0e29f34625fc72683aa-text/javascript"></script>
+
+    <script src="~/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="a2d1f0e29f34625fc72683aa-|49" defer></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"90e7587e2e6ddd55","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.1.0","token":"3ca157e612a14eccbb30cf6db6691c29"}' crossorigin="anonymous"></script>
+</body>
+
+</html>

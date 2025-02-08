@@ -75,24 +75,7 @@
                 <!-- Sidebar -->
                 <div class="col-xl-3 col-lg-4 theiaStickySidebar">
                     <div class="card user-sidebar mb-4 mb-lg-0">
-                        <div class="card-header user-sidebar-header">
-                            <div class="profile-content rounded-pill">
-                                <div class="d-flex align-items-center justify-content-between ">
-                                    <div class=" d-flex align-items-center justify-content-center ">
-                                        <img src="~/assets/img/users/user-01.jpg" alt="image" class="img-fluid avatar avatar-lg rounded-circle flex-shrink-0 me-1">
-                                        <div>
-                                            <h6 class="fs-16">Jeffrey Wilson</h6>
-                                            <span class="fs-14 text-gray-6">Since 10 May 2025</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <a href="profile-settings.html" class="p-1 rounded-circle btn btn-light d-flex align-items-center justify-content-center"><i class="isax isax-edit-2 fs-14"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @await Html.PartialAsync("_ptirialUser")
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
