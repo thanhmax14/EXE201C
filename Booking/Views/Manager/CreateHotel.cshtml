@@ -95,11 +95,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Add Hotel</h2>
+                    <h2 class="breadcrumb-title mb-2">Thêm khách sạn</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Hotel</li>
+                            <li class="breadcrumb-item active" aria-current="page">Thêm khách sạn</li>
                         </ol>
                     </nav>
                 </div>
@@ -114,12 +114,12 @@
                 <ul class="nav" role="tablist">
                    <li>
                         <a href="/Manager/CreateHotel" class="nav-link active">
-                            Add New Hotel
+                            Thêm khách sạn mới
                         </a>
                     </li>
                     <li>
                         <a href="/Manager/CreateRom" class="nav-link ">
-                            Add New Room
+                            Thêm phòng mới
                         </a>
                     </li>
                 </ul>
@@ -133,16 +133,16 @@
                             <div class="card border-0 mb-4 mb-lg-0">
                                 <div class="card-body">
                                     <div>
-                                        <h5 class="mb-3">Add Hotel</h5>
+                                        <h5 class="mb-3">Thêm khách sạn</h5>
                                         <ul class="add-tab-list">
-                                            <li><a href="#basic_info" class="active">Basic Info</a></li>
-                                            <li><a href="#location">Locations</a></li>
-                                            <li><a href="#highlights">Highlights</a></li>
-                                            <li><a href="#room_types">Room Types</a></li>
-                                            <li><a href="#popular_amenities">Popular Amenities</a></li>
+                                            <li><a href="#basic_info" class="active">Thông tin cơ bản</a></li>
+                                            <li><a href="#location">Đại điểm</a></li>
+                                            <li><a href="#highlights">Điểm nổi bật</a></li>
+                                            <li><a href="#room_types">Kiểu phòng</a></li>
+                                            <li><a href="#popular_amenities">Tiện nghi phổ biến</a></li>
                                             <li><a href="#faq">FAQ</a></li>
-                                            <li><a href="#gallery">Gallery</a></li>
-                                            <li><a href="#description">Description</a></li>
+                                            <li><a href="#gallery">Ảnh</a></li>
+                                            <li><a href="#description">Mô tả</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -154,14 +154,14 @@
                                 <div class="card shadow-none" id="basic_info">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Hotel Details</h5>
+                                            <h5 class="fs-18">Chi tiết khách sạn</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Hotel Name</label>
+                                                    <label class="form-label">Tên khách sạn</label>
                                                     <input type="text" class="form-control" asp-for="Name">
                                                     <span asp-validation-for="Name" class="text-danger"></span>
                                                 </div>
@@ -169,21 +169,21 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Category</label>
+                                                    <label class="form-label">Danh mục</label>
                                                     <select class="select" asp-for="Category">
                                                         <option>Select</option>
-                                                        <option value="Hotels">Hotels</option>
-                                                        <option value="Villa">Villa</option>
-                                                        <option value="Apartment">Apartment</option>
-                                                        <option value="Guest House">Guest House</option>
-                                                        <option value="Lodge">Lodge</option>
+                                                        <option value="Hotels">Khách sạn</option>
+                                                        <option value="Villa">Biệt thự</option>
+                                                        <option value="Apartment">Căn hộ</option>
+                                                        <option value="Guest House">Nhà khách</option>
+                                                        <option value="Lodge">Nhà nghỉ</option>
                                                     </select>
                                                      <span asp-validation-for="Category" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Established</label>
+                                                    <label class="form-label">Thành lập</label>
                                                     <div class="input-icon-end position-relative">
                                                         <input type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" value="02-05-2024">
                                                         <span class="input-icon-addon">
@@ -196,7 +196,7 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Renovation</label>
+                                                    <label class="form-label">Cải tạo</label>
                                                     <div class="input-icon-end position-relative">
                                                         <input type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" value="02-05-2024">
                                                         <span class="input-icon-addon">
@@ -209,7 +209,7 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Star Ratings</label>
+                                                    <label class="form-label">Xếp hạng</label>
                                                     <select class="select" asp-for="StarRating">
                                                         <option>Select</option>
                                                         <option>1</option>
@@ -223,14 +223,14 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Total Number Of Rooms</label>
+                                                    <label class="form-label">Tổng số phòng</label>
                                                     <input type="number" class="form-control" asp-for="TotalRooms">
                                                     <span asp-validation-for="TotalRooms" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Maximum Capacity</label>
+                                                    <label class="form-label">Công suất tối đa</label>
                                                     <input type="number" class="form-control" asp-for="MaxCapacity">
                                                     <span asp-validation-for="MaxCapacity" class="text-danger"></span>
                                                 </div>
@@ -241,14 +241,14 @@
                                 <div class="card shadow-none" id="location">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Location</h5>
+                                            <h5 class="fs-18">Vị trí</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
                                         <div class="row">
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Country</label>
+                                                    <label class="form-label">Quốc gia</label>
                                                     <select class="select" asp-for="Country">
                                                         <option>Select</option>
                                                         <option>Việt Nam</option>
@@ -260,14 +260,14 @@
                                             </div>
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">City</label>
+                                                    <label class="form-label">Thành phố</label>
                                                     <input type="text" class="form-control" asp-for="City">
                                                      <span asp-validation-for="City" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">State</label>
+                                                    <label class="form-label">Tình trạng</label>
                                                     <input type="text" class="form-control" asp-for="State">
                                                      <span asp-validation-for="State" class="text-danger"></span>
                                                 </div>
@@ -281,14 +281,14 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Address</label>
+                                                    <label class="form-label">Địa chỉ</label>
                                                     <input type="text" class="form-control" asp-for="Address">
                                                      <span asp-validation-for="Address" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Link Maps</label>
+                                                    <label class="form-label">Bản đồ liên kết</label>
                                                     <input type="text" class="form-control" asp-for="linkLocation">
                                                      <span asp-validation-for="linkLocation" class="text-danger"></span>
                                                 </div>
@@ -299,27 +299,27 @@
                                 <div class="card shadow-none" id="highlights">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Highlights</h5>
+                                            <h5 class="fs-18">Điểm nổi bật</h5>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row add-highlight-info">
                                             <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Highlights</label>
+                                                    <label class="form-label">Điểm nổi bật</label>
                                                     <input type="text" class="form-control" asp-for="Highlights[0]">
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
-                                            <a href="javascript:void(0);" class="btn btn-primary btn-sm add-highlight"><i class="isax isax-add-circle me-1"></i>Add New</a>
+                                            <a href="javascript:void(0);" class="btn btn-primary btn-sm add-highlight"><i class="isax isax-add-circle me-1"></i>Thêm mới</a>
                                         </div>
                                     </div>
                                 </div>
                                     <div class="card shadow-none">
                                         <div class="card-header">
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <h5 class="fs-18">Services</h5>
+                                                <h5 class="fs-18">Dịch vụ</h5>
                                             </div>
                                         </div>
                                         <div class="card-body pb-1">
@@ -329,37 +329,37 @@
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[0]" id="service-1">
                                                             <label class="form-check-label ms-2" for="service-1">
-                                                                24-Hour Room Service
+                                                            Dịch vụ phòng 24 giờ
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[1]" id="service-2">
                                                             <label class="form-check-label ms-2" for="service-2">
-                                                                In-Room Dining
+                                                            Ăn uống trong phòng
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[2]" id="service-3">
                                                             <label class="form-check-label ms-2" for="service-3">
-                                                                Concierge Services
+                                                            Dịch vụ Concierge
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox"asp-for="IsRoomService24h[3]" id="service-4">
                                                             <label class="form-check-label ms-2" for="service-4">
-                                                                Daily Housekeeping
+                                                            Dọn dẹp nhà cửa hằng ngày
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[4]" id="service-5">
                                                             <label class="form-check-label ms-2" for="service-5">
-                                                                Front Desk Services
+                                                            Dịch vụ Front Desk
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[5]" id="service-6">
                                                             <label class="form-check-label ms-2" for="service-6">
-                                                                On-Site Restaurants
+                                                            Nhà hàng tại chỗ
                                                             </label>
                                                         </div>
                                                     </div>
@@ -369,37 +369,37 @@
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[6]" id="service-7">
                                                             <label class="form-check-label ms-2" for="service-7">
-                                                                Check-In/Check-Out Assistance
+                                                            Hỗ trợ Check-In/Check-Out
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[7]" id="service-8">
                                                             <label class="form-check-label ms-2" for="service-8">
-                                                                Free luggage deposit
+                                                            Gửi hành lý miễn phí
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[8]" id="service-9">
                                                             <label class="form-check-label ms-2" for="service-9">
-                                                                Laundry and Ironing Service
+                                                            Dịch vụ giặt ủi
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[9]" id="service-10">
                                                             <label class="form-check-label ms-2" for="service-10">
-                                                                Dry Cleaning Service
+                                                            Dịch vụ giặt khô
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[10]" id="service-11">
                                                             <label class="form-check-label ms-2" for="service-11">
-                                                                Hair and Beauty Service
+                                                            Dịch vụ làm tóc và làm đẹp
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[11]" id="service-12">
                                                             <label class="form-check-label ms-2" for="service-12">
-                                                                In-Room Spa Treatments
+                                                            Trị liệu Spa tại phòng
                                                             </label>
                                                         </div>
                                                     </div>
@@ -409,37 +409,37 @@
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox"asp-for="IsRoomService24h[12]" id="service-13">
                                                             <label class="form-check-label ms-2" for="service-13">
-                                                                Valet Parking
+                                                            Đỗ xe có người phục vụ
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[13]" id="service-14">
                                                             <label class="form-check-label ms-2" for="service-14">
-                                                                Babysitting
+                                                                Trông trẻ
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[14]" id="service-15">
                                                             <label class="form-check-label ms-2" for="service-15">
-                                                                Dry Cleaning Service
+                                                            Dịch vụ giặt khô
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[15]" id="service-16">
                                                             <label class="form-check-label ms-2" for="service-16">
-                                                                Wake-Up Call Service
+                                                            Dịch vụ gọi báo thức
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[16]" id="service-17">
                                                             <label class="form-check-label ms-2" for="service-17">
-                                                                Translator Service
+                                                            Dịch vụ biên dịch
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                             <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="IsRoomService24h[17]" id="service-18">
                                                             <label class="form-check-label ms-2" for="service-18">
-                                                                Currency Exchange Service
+                                                            Dịch vụ đổi tiền
                                                             </label>
                                                         </div>
                                                     </div>
@@ -452,7 +452,7 @@
                                 <div class="card shadow-none">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Accessibility</h5>
+                                            <h5 class="fs-18">Khả năng tiếp cận</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
@@ -462,37 +462,37 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[0]" id="accessibility-1">
                                                         <label class="form-check-label ms-2" for="accessibility-1">
-                                                            Wheelchair accessible
+                                                            Có thể sử dụng xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[1]" id="accessibility-2">
                                                         <label class="form-check-label ms-2" for="accessibility-2">
-                                                            Visual alarms in hallways
+                                                            Báo động trực quan ở hành lang
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[2]" id="accessibility-3">
                                                         <label class="form-check-label ms-2" for="accessibility-3">
-                                                            Elevator
+                                                            Thang máy
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[3]" id="accessibility-4">
                                                         <label class="form-check-label ms-2" for="accessibility-4">
-                                                            Braille/raised signage
+                                                            Chữ nổi/biển báo nổi
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[4]" id="accessibility-5">
                                                         <label class="form-check-label ms-2" for="accessibility-5">
-                                                            Roll-in shower with a bench or seat
+                                                            Vòi sen lăn có ghế dài hoặc ghế ngồi
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[5]" id="accessibility-6">
                                                         <label class="form-check-label ms-2" for="accessibility-6">
-                                                            Grab bars near the toilet and shower
+                                                            Thanh vịn gần bồn cầu và vòi hoa sen
                                                         </label>
                                                     </div>
                                                 </div>
@@ -502,37 +502,37 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[6]" id="accessibility-7">
                                                         <label class="form-check-label ms-2" for="accessibility-7">
-                                                            Wheelchair-accessible gym
+                                                            Phòng tập thể dục dành cho xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[7]" id="accessibility-8">
                                                         <label class="form-check-label ms-2" for="accessibility-8">
-                                                            Wheelchair-accessible business center
+                                                            Trung tâm thương mại dành cho xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[8]" id="accessibility-9">
                                                         <label class="form-check-label ms-2" for="accessibility-9">
-                                                            Wheelchair-accessible lounge
+                                                            Phòng chờ dành cho xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[9]" id="accessibility-10">
                                                         <label class="form-check-label ms-2" for="accessibility-10">
-                                                            Wheelchair-accessible concierge desk
+                                                            Bàn lễ tân dành cho xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[10]" id="accessibility-11">
                                                         <label class="form-check-label ms-2" for="accessibility-11">
-                                                            Lowered towel racks
+                                                            Giá treo khăn hạ thấp
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[11]" id="accessibility-12">
                                                         <label class="form-check-label ms-2" for="accessibility-12">
-                                                            Braille on room numbers, elevator buttons
+                                                            Chữ nổi trên số phòng, nút bấm thang máy
                                                         </label>
                                                     </div>
                                                 </div>
@@ -542,37 +542,37 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[12]" id="accessibility-13">
                                                         <label class="form-check-label ms-2" for="accessibility-13">
-                                                            Step-free or ramped access
+                                                            Lối vào không có bậc thang hoặc có dốc
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[13]" id="accessibility-14">
                                                         <label class="form-check-label ms-2" for="accessibility-14">
-                                                            Automatic doors
+                                                            Cửa tự động
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="Accessibility[14]" id="accessibility-15">
                                                         <label class="form-check-label ms-2" for="accessibility-15">
-                                                            Grab bars in the bathroom
+                                                            Thanh vịn trong phòng tắm
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[15]" id="accessibility-16">
                                                         <label class="form-check-label ms-2" for="accessibility-16">
-                                                            Wide doorways
+                                                            Cửa ra vào rộng
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[16]" id="accessibility-17">
                                                         <label class="form-check-label ms-2" for="accessibility-17">
-                                                            Lowered switches
+                                                            Công tắc hạ thấp
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox"  asp-for="Accessibility[17]" id="accessibility-18">
                                                         <label class="form-check-label ms-2" for="accessibility-18">
-                                                            Accessible curtains
+                                                            Rèm cửa có thể tiếp cận
                                                         </label>
                                                     </div>
                                                 </div>
@@ -583,7 +583,7 @@
                                 <div class="card shadow-none" id="room_types">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Room Types</h5>
+                                            <h5 class="fs-18">Kiểu phòng</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
@@ -593,31 +593,31 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[0]" id="room-1">
                                                         <label class="form-check-label ms-2" for="room-1">
-                                                            Single Room
+                                                            Phòng đơn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[1]" id="room-2">
                                                         <label class="form-check-label ms-2" for="room-2">
-                                                            Double Room
+                                                            Phòng một giường đôi
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[2]" id="room-3">
                                                         <label class="form-check-label ms-2" for="room-3">
-                                                            Twin Room
+                                                            Phòng hai giường đơn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[3]" id="room-4">
                                                         <label class="form-check-label ms-2" for="room-4">
-                                                            Deluxe Room
+                                                            Phòng sang trọng
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[4]" id="room-5">
                                                         <label class="form-check-label ms-2" for="room-5">
-                                                            Suite
+                                                            Phòng Suite
                                                         </label>
                                                     </div>
                                                 </div>
@@ -627,31 +627,31 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[5]" id="room-6">
                                                         <label class="form-check-label ms-2" for="room-6">
-                                                            Junior Suite
+                                                            Phòng Suite nhỏ
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[6]" id="room-7">
                                                         <label class="form-check-label ms-2" for="room-7">
-                                                            Family Room
+                                                            Phòng gia đình
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[7]" id="room-8">
                                                         <label class="form-check-label ms-2" for="room-8">
-                                                            Connecting Rooms
+                                                            Phòng thông nhau
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[8]" id="room-9">
                                                         <label class="form-check-label ms-2" for="room-9">
-                                                            Accessible Room
+                                                            Phòng có thể tiếp cận
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[9]" id="room-10">
                                                         <label class="form-check-label ms-2" for="room-10">
-                                                            Studio Room
+                                                            Phòng Studio
                                                         </label>
                                                     </div>
                                                 </div>
@@ -661,31 +661,31 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[10]" id="room-11">
                                                         <label class="form-check-label ms-2" for="room-11">
-                                                            Penthouse
+                                                            Căn hộ áp mái
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[11]" id="room-12">
                                                         <label class="form-check-label ms-2" for="room-12">
-                                                            Villa
+                                                            Biệt thự
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[12]" id="room-13">
                                                         <label class="form-check-label ms-2" for="room-13">
-                                                            Economy Room
+                                                            Phòng Tiết Kiệm
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[13]" id="room-14">
                                                         <label class="form-check-label ms-2" for="room-14">
-                                                            City View
+                                                            View thành phố
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" asp-for="RoomTypes[14]" id="room-15">
                                                         <label class="form-check-label ms-2" for="room-15">
-                                                            Ocean View
+                                                            View đại dương
                                                         </label>
                                                     </div>
                                                 </div>
@@ -850,13 +850,13 @@
                                 </div> *@
                                 <div class="card shadow-none" id="gallery">
                                     <div class="card-header">
-                                        <h5 class="fs-18">Hotel Gallery</h5>
+                                        <h5 class="fs-18">Bộ sưu tập ảnh khách sạn</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column mb-2">
                                             <span class="upload-img d-block mb-2"><i class="isax isax-document-upload fs-24"></i></span>
-                                            <h6 class="mb-1">Upload Gallery Images</h6>
-                                            <p class="mb-0">Upload Feature Image First, Image size should be below 5MB</p>
+                                            <h6 class="mb-1">Tải ảnh lên</h6>
+                                            <p class="mb-0">Tải lên hình ảnh nổi bật Đầu tiên, kích thước hình ảnh phải dưới 5MB</p>
                                             <input type="file" accept="image/*" multiple id="file-input-hotel" asp-for="Images">
                                         </div>
                                         <div class="d-flex align-items-center" id="hotel-gallery">
@@ -870,7 +870,7 @@
 
                                 <div class="card shadow-none" id="description">
                                     <div class="card-header">
-                                        <h5 class="fs-18">Description</h5>
+                                        <h5 class="fs-18">Mô tả</h5>
                                     </div>
                                     <div class="card-body text-editor">
                                         <!-- Input ẩn để lưu nội dung Summernote -->
@@ -881,8 +881,8 @@
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <button type="button" class="btn btn-light me-2">Reset</button>
-                                    <button type="submit" class="btn btn-primary">Add New Hotel</button>
+                                    <button type="button" class="btn btn-light me-2">Đặt lại</button>
+                                    <button type="submit" class="btn btn-primary">Thêm khách sạn mới</button>
                                 </div>
                             </form>
                         </div>
@@ -896,15 +896,15 @@
                             <div class="card border-0">
                                 <div class="card-body">
                                     <div>
-                                        <h5 class="mb-3">Add Room</h5>
+                                        <h5 class="mb-3">Thêm phòng</h5>
                                         <ul class="add-tab-list">
-                                            <li><a href="#basic_info_2" class="active">Basic Info</a></li>
-                                            <li><a href="#description_2">Description</a></li>
-                                            <li><a href="#specification">Specifications</a></li>
-                                            <li><a href="#services">Services</a></li>
-                                            <li><a href="#accssibilty">Accessibility</a></li>
-                                            <li><a href="#popular_amenities_2">Amenities</a></li>
-                                            <li><a href="#gallery_2">Gallery</a></li>
+                                            <li><a href="#basic_info_2" class="active">Thông tin cơ bản</a></li>
+                                            <li><a href="#description_2">Mô tả</a></li>
+                                            <li><a href="#specification">Thông số kỹ thuật</a></li>
+                                            <li><a href="#services">Dịch vụ</a></li>
+                                            <li><a href="#accssibilty">Khả năng tiếp cận</a></li>
+                                            <li><a href="#popular_amenities_2">Tiện nghi</a></li>
+                                            <li><a href="#gallery_2">Ảnh</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -960,20 +960,20 @@
                                 <div class="card shadow-none" id="basic_info_2">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Basic Info</h5>
+                                            <h5 class="fs-18">Thông tin cơ bản</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Room Name</label>
+                                                    <label class="form-label">Tên phòng</label>
                                                     <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Room Type</label>
+                                                    <label class="form-label">Kiểu phòng</label>
                                                     <select class="select">
                                                         <option>Select</option>
                                                         <option>Queen Room</option>
@@ -985,7 +985,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Hotel Name</label>
+                                                    <label class="form-label">Tên khách sạn</label>
                                                     <select class="select">
                                                         <option>Select</option>
                                                         <option>Hotel Plaza Athenee</option>
@@ -1000,7 +1000,7 @@
                                 </div>
                                 <div class="card shadow-none" id="description_2">
                                     <div class="card-header">
-                                        <h5 class="fs-18">Description</h5>
+                                        <h5 class="fs-18">Mô tả</h5>
                                     </div>
                                     <div class="card-body text-editor">
                                         <div class="summernote"></div>
@@ -1009,14 +1009,14 @@
                                 <div class="card shadow-none" id="specification">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Specifications</h5>
+                                            <h5 class="fs-18">Thông số kỹ thuật</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Maximum Occupancy</label>
+                                                    <label class="form-label">Sức chứa tối đa</label>
                                                     <select class="select">
                                                         <option>Select</option>
                                                         <option>1-2</option>
@@ -1028,13 +1028,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Room Size</label>
+                                                    <label class="form-label">Cỡ phòng</label>
                                                     <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Sleeps</label>
+                                                    <label class="form-label">Số người ngủ tối đa</label>
                                                     <select class="select">
                                                         <option>Select</option>
                                                         <option>1</option>
@@ -1045,7 +1045,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Bed Type</label>
+                                                    <label class="form-label">Kiểu giường</label>
                                                     <select class="select">
                                                         <option>Select</option>
                                                         <option>Single Bed</option>
@@ -1069,7 +1069,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Price Per Night</label>
+                                                    <label class="form-label">Giá qua đêm</label>
                                                     <input type="text" class="form-control">
                                                 </div>
                                             </div>
@@ -1079,7 +1079,7 @@
                                 <div class="card shadow-none" id="services">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Services</h5>
+                                            <h5 class="fs-18">Dịch vụ</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
@@ -1089,25 +1089,25 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-19">
                                                         <label class="form-check-label ms-2" for="service-19">
-                                                            24-Hour Room Service
+                                                            Dịch vụ phòng 24 giờ
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-20">
                                                         <label class="form-check-label ms-2" for="service-20">
-                                                            In-Room Dining
+                                                            Ăn uống trong phòng
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-21">
                                                         <label class="form-check-label ms-2" for="service-21">
-                                                            Concierge Services
+                                                            Dịch vụ Concierge
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-22">
                                                         <label class="form-check-label ms-2" for="service-22">
-                                                            Daily Housekeeping
+                                                            Dọn dẹp nhà cửa hằng ngày
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1117,25 +1117,25 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-23">
                                                         <label class="form-check-label ms-2" for="service-23">
-                                                            Check-In/Check-Out Assistance
+                                                            Hỗ trợ nhận phòng/trả phòng
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-24">
                                                         <label class="form-check-label ms-2" for="service-24">
-                                                            Free luggage deposit
+                                                            Gửi hành lý miễn phí
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-25">
                                                         <label class="form-check-label ms-2" for="service-25">
-                                                            Laundry and Ironing Service
+                                                            Dịch vụ giặt ủi
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-26">
                                                         <label class="form-check-label ms-2" for="service-26">
-                                                            Dry Cleaning Service
+                                                            Dịch vụ giặt khô
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1145,25 +1145,25 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-27">
                                                         <label class="form-check-label ms-2" for="service-27">
-                                                            Valet Parking
+                                                            Đỗ xe có người phục vụ
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-28">
                                                         <label class="form-check-label ms-2" for="service-28">
-                                                            Babysitting
+                                                            Trông trẻ
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-29">
                                                         <label class="form-check-label ms-2" for="service-29">
-                                                            Dry Cleaning Service
+                                                            Dịch vụ giặt khô
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="service-30">
                                                         <label class="form-check-label ms-2" for="service-30">
-                                                            Wake-Up Call Service
+                                                            Dịch vụ gọi báo thức
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1174,7 +1174,7 @@
                                 <div class="card shadow-none" id="accssibilty">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Accessibility</h5>
+                                            <h5 class="fs-18">Khả năng tiếp cận</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
@@ -1184,25 +1184,25 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-19">
                                                         <label class="form-check-label ms-2" for="accessibility-19">
-                                                            Wheelchair accessible
+                                                            Có thể sử dụng xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-20">
                                                         <label class="form-check-label ms-2" for="accessibility-20">
-                                                            Visual alarms in hallways
+                                                            Báo động trực quan ở hành lang
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-21">
                                                         <label class="form-check-label ms-2" for="accessibility-21">
-                                                            Elevator
+                                                            Thang máy
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-22">
                                                         <label class="form-check-label ms-2" for="accessibility-22">
-                                                            Braille/raised signage
+                                                            Chữ nổi/biển báo nổi
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1212,25 +1212,25 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-23">
                                                         <label class="form-check-label ms-2" for="accessibility-23">
-                                                            Wheelchair-accessible gym
+                                                            Phòng tập thể dục dành cho xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-24">
                                                         <label class="form-check-label ms-2" for="accessibility-24">
-                                                            Wheelchair-accessible business center
+                                                            Trung tâm thương mại dành cho xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-25">
                                                         <label class="form-check-label ms-2" for="accessibility-25">
-                                                            Wheelchair-accessible lounge
+                                                            Phòng chờ dành cho xe lăn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-26">
                                                         <label class="form-check-label ms-2" for="accessibility-26">
-                                                            Wheelchair-accessible concierge desk
+                                                            Bàn lễ tân dành cho xe lăn
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1240,19 +1240,19 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-27">
                                                         <label class="form-check-label ms-2" for="accessibility-27">
-                                                            Step-free or ramped access
+                                                            Lối vào không có bậc thang hoặc có dốc
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-28">
                                                         <label class="form-check-label ms-2" for="accessibility-28">
-                                                            Automatic doors
+                                                            Cửa tự động
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="accessibility-29">
                                                         <label class="form-check-label ms-2" for="accessibility-29">
-                                                            Grab bars in the bathroom
+                                                            Thanh vịn trong phòng tắm
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1263,7 +1263,7 @@
                                 <div class="card shadow-none" id="popular_amenities_2">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="fs-18">Amenities</h5>
+                                            <h5 class="fs-18">Tiện nghi</h5>
                                         </div>
                                     </div>
                                     <div class="card-body pb-1">
@@ -1279,13 +1279,13 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-17">
                                                         <label class="form-check-label ms-2" for="amenities-17">
-                                                            Air Conditioning
+                                                            Điều hòa không khí
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-18">
                                                         <label class="form-check-label ms-2" for="amenities-18">
-                                                            Heater
+                                                            Máy sưởi
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1295,19 +1295,19 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-19">
                                                         <label class="form-check-label ms-2" for="amenities-19">
-                                                            Safe Deposit Box
+                                                            Hộp ký gửi an toàn
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-20">
                                                         <label class="form-check-label ms-2" for="amenities-20">
-                                                            Iron/Ironing Board
+                                                            Bàn là/Bàn ủi
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-21">
                                                         <label class="form-check-label ms-2" for="amenities-21">
-                                                            Hair Dryer
+                                                            Máy sấy tóc
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1317,19 +1317,19 @@
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-22">
                                                         <label class="form-check-label ms-2" for="amenities-22">
-                                                            Bluetooth Speaker
+                                                            Loa Bluetooth
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-23">
                                                         <label class="form-check-label ms-2" for="amenities-23">
-                                                            Sofa/Seating Area
+                                                            Ghế sofa/Khu vực ngồi
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center ps-0 mb-2">
                                                         <input class="form-check-input ms-0 mt-0" type="checkbox" id="amenities-24">
                                                         <label class="form-check-label ms-2" for="amenities-24">
-                                                            Extra Pillows and Blankets
+                                                            Gối và chăn thêm
                                                         </label>
                                                     </div>
                                                 </div>
@@ -1339,13 +1339,13 @@
                                 </div>
                                 <div class="card shadow-none" id="gallery_2">
                                     <div class="card-header">
-                                        <h5 class="fs-18">Gallery</h5>
+                                        <h5 class="fs-18">Ảnh</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column mb-2">
                                             <span class="upload-img d-block mb-2"><i class="isax isax-document-upload fs-24"></i></span>
-                                            <h6 class="mb-1">Upload Gallery Images</h6>
-                                            <p class="mb-0">Upload Feature Image First, Image size should below 5MB</p>
+                                            <h6 class="mb-1">Tải ảnh lên</h6>
+                                            <p class="mb-0">Tải lên hình ảnh nổi bật Đầu tiên, kích thước hình ảnh phải dưới 5MB</p>
                                             <input type="file" accept="video/image">
                                         </div>
                                         <div class="d-flex align-items-center">
@@ -1373,8 +1373,8 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <button type="button" class="btn btn-light me-2">Reset</button>
-                                    <button type="submit" class="btn btn-primary">Add New Room</button>
+                                    <button type="button" class="btn btn-light me-2">Đặt lại</button>
+                                    <button type="submit" class="btn btn-primary">Thêm phòng mới</button>
                                 </div>
                             </form>
                         </div>
@@ -1396,54 +1396,54 @@
                             <h5>Pages</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="team.html">Our Team</a>
+                                    <a href="team.html">Đội ngũ của chúng tôi</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Pricing Plans</a>
+                                    <a href="pricing-plan.html">Gói giá</a>
                                 </li>
                                 <li>
-                                    <a href="gallery.html">Gallery</a>
+                                    <a href="gallery.html">Settings</a>
                                 </li>
                                 <li>
-                                    <a href="profile-settings.html">Settings</a>
+                                    <a href="profile-settings.html">Cài đặt</a>
                                 </li>
                                 <li>
-                                    <a href="my-profile.html">Profile</a>
+                                    <a href="my-profile.html">Hồ sơ</a>
                                 </li>
                                 <li>
-                                    <a href="agent-listings.html">Listings</a>
+                                    <a href="agent-listings.html">Danh sách</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Company</h5>
+                            <h5>Doanh nghiệp</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="about-us.html">About Us</a>
+                                    <a href="about-us.html">Về chúng tôi</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Careers</a>
+                                    <a href="javascript:void(0);">Cơ hội nghề nghiệp</a>
                                 </li>
                                 <li>
                                     <a href="blog-grid.html">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Affiliate Program</a>
+                                    <a href="javascript:void(0);">Chương trình liên kết</a>
                                 </li>
                                 <li>
-                                    <a href="add-flight.html">Add Your Listing</a>
+                                    <a href="add-flight.html">Thêm danh sách của bạn</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Our Partners</a>
+                                    <a href="javascript:void(0);">Đối tác của chúng tôi</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Destinations</h5>
+                            <h5>Điểm đến</h5>
                             <ul class="footer-menu">
                                 <li>
                                     <a href="javascript:void(0);">Hawai</a>
@@ -1468,50 +1468,50 @@
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Support</h5>
+                            <h5>Hỗ trợ</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="contact-us.html">Contact Us</a>
+                                    <a href="contact-us.html">Liên hệ</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Legal Notice</a>
+                                    <a href="javascript:void(0);">Thông báo pháp lý</a>
                                 </li>
                                 <li>
-                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                    <a href="privacy-policy.html">Chính sách quyền riêng tư</a>
                                 </li>
                                 <li>
-                                    <a href="terms-conditions.html">Terms and Conditions</a>
+                                    <a href="terms-conditions.html">Điều khoản và Điều kiện</a>
                                 </li>
                                 <li>
-                                    <a href="chat.html">Chat Support</a>
+                                    <a href="chat.html">Hỗ trợ trò chuyện</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Refund Policy</a>
+                                    <a href="javascript:void(0);">Chính sách hoàn trả</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Services</h5>
+                            <h5>Dịch vụ</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="hotel-grid.html">Hotel</a>
+                                    <a href="hotel-grid.html">Khách sạn</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Activity Finder</a>
+                                    <a href="javascript:void(0);">Trình tìm kiếm hoạt động</a>
                                 </li>
                                 <li>
-                                    <a href="flight-grid.html">Flight Finder</a>
+                                    <a href="flight-grid.html">Tìm kiếm chuyến bay</a>
                                 </li>
                                 <li>
-                                    <a href="tour-grid.html">Holiday Rental</a>
+                                    <a href="tour-grid.html">Thuê kỳ nghỉ</a>
                                 </li>
                                 <li>
-                                    <a href="car-grid.html">Car Rental</a>
+                                    <a href="car-grid.html">Thuê xe</a>
                                 </li>
                                 <li>
-                                    <a href="tour-details.html">Holiday Packages</a>
+                                    <a href="tour-details.html">Gói kỳ nghỉ</a>
                                 </li>
                             </ul>
                         </div>
@@ -1547,8 +1547,8 @@
                                         <i class="ti ti-headphones-filled fs-24"></i>
                                     </span>
                                     <div class="ms-2">
-                                        <p class="mb-1">Customer Support</p>
-                                        <p class="fw-medium text-dark">+1 56589 54598</p>
+                                        <p class="mb-1">Chăm sóc khách hàng</p>
+                                        <p class="fw-medium text-dark">+84 393771017</p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
@@ -1556,8 +1556,12 @@
                                         <i class="ti ti-message fs-24 text-gray-9"></i>
                                     </span>
                                     <div class="ms-2">
-                                        <p class="mb-1">Drop Us an Email</p>
-                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddb4b3bbb29db8a5bcb0adb1b8f3beb2b0">[email&#160;protected]</a></p>
+                                        <p class="mb-1">Gửi email cho chúng tôi</p>
+                                        <p class="fw-medium text-dark">
+                                            <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                               class="__cf_email__"
+                                               data-cfemail="fc95929a93bc99849d918c9099d29f9391">[email&#160;protected]</a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -1575,7 +1579,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <p class="fs-14">Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);" class="text-primary fw-medium">Golocal</a></p>
+                            <p class="fs-14">
+                                Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);"
+                                                                               class="text-primary fw-medium">Golocal</a>
+                            </p>
                             <div class="d-flex align-items-center">
                                 <ul class="social-icon">
                                     <li>

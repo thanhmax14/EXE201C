@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+@inject SignInManager<AppUser> SignInManager
 @{
     Layout = null;
 }
@@ -92,11 +94,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Agent Dashboard</h2>
+                    <h2 class="breadcrumb-title mb-2">Bảng điều khiển của đại lý</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Agent Dashboard</li>
+                            <li class="breadcrumb-item active" aria-current="page">Bảng điều khiển của đại lý</li>
                         </ol>
                     </nav>
                 </div>
@@ -118,29 +120,28 @@
 
                         @await Html.PartialAsync("_patirialSller")
 
-
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
                                     <a href="/manager" class="d-flex align-items-center active">
-                                        <i class="isax isax-grid-55 me-2"></i>Dashboard
+                                        <i class="isax isax-grid-55 me-2"></i>Bảng điều khiển
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/manager/listing" class="d-flex align-items-center">
-                                        <i class="isax isax-menu-14 me-2"></i>Listings
+                                        <i class="isax isax-menu-14 me-2"></i>Danh sách
                                     </a>
                                 </li>
                                 <li class="submenu">
                                     <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
                                         <li>
-                                            <a href="/manager/hotelsBooking" class="fs-14 d-inline-flex align-items-center">Hotels</a>
+                                            <a href="/manager/hotelsBooking" class="fs-14 d-inline-flex align-items-center">Khách sạn</a>
                                         </li>
                                        
                                       
                                         <li>
-                                            <a href="/manager/toursBooking" class="fs-14 d-inline-flex align-items-center">Tour</a>
+                                            <a href="/manager/toursBooking" class="fs-14 d-inline-flex align-items-center">Tour du lịch</a>
                                         </li>
                                         
                                     </ul>
@@ -157,7 +158,7 @@
                                 </li> *@
                                 <li>
                                     <a href="/manager/review" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5 me-2"></i>Reviews
+                                        <i class="isax isax-magic-star5 me-2"></i>Đánh giá
                                     </a>
                                 </li>
                                @*  <li>
@@ -166,8 +167,8 @@
                                     </a>
                                 </li> *@
                                 <li class="logout-link">
-                                    <a href="index.html" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Logout
+                                    <a href="/Home/Logout" class="d-flex align-items-center pb-0">
+                                        <i class="isax isax-logout-15"></i> Đăng xuất
                                     </a>
                                 </li>
                             </ul>
@@ -184,9 +185,9 @@
                                     <span class="avatar avatar rounded-circle bg-success mb-2">
                                         <i class="isax isax-calendar-15 fs-24"></i>
                                     </span>
-                                    <p class="mb-1">Total Bookings</p>
+                                    <p class="mb-1">Tổng số đặt phòng</p>
                                     <h5 class="mb-2">@Model.totelBoking</h5>
-                                    <p class="d-flex align-items-center justify-content-center fs-14"><i class="isax isax-arrow-up-15 me-1 text-success"></i>20% From Last Month </p>
+                                    <p class="d-flex align-items-center justify-content-center fs-14"><i class="isax isax-arrow-up-15 me-1 text-success"></i>20% so với tháng trước. </p>
                                 </div>
                             </div>
                         </div>
@@ -196,9 +197,9 @@
                                     <span class="avatar avatar rounded-circle bg-orange mb-2">
                                         <i class="isax isax-money-time5 fs-24"></i>
                                     </span>
-                                    <p class="mb-1">Total Listings</p>
+                                    <p class="mb-1">Tổng số danh sách</p>
                                     <h5 class="mb-2">@Model.totekList</h5>
-                                    <a href="/manager/listing" class="fs-14 link-primary text-decoration-underline">View All</a>
+                                    <a href="/manager/listing" class="fs-14 link-primary text-decoration-underline">Xem tất cả</a>
                                 </div>
                             </div>
                         </div>
@@ -220,9 +221,9 @@
                                     <span class="avatar avatar rounded-circle bg-indigo mb-2">
                                         <i class="isax isax-magic-star5 fs-24"></i>
                                     </span>
-                                    <p class="mb-1">Total Reviews</p>
+                                    <p class="mb-1">Tổng số đánh giá</p>
                                     <h5 class="mb-2">@Model.totelReviw</h5>
-                                    <a href="/manager/ViewReview" class="fs-14 link-primary text-decoration-underline">View All</a>
+                                    <a href="/manager/ViewReview" class="fs-14 link-primary text-decoration-underline">Xem tất cả</a>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +236,7 @@
                             <div class="card shadow-none flex-fill">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h6>Bookings Statistics</h6>
+                                        <h6>Thống kê đặt chỗ</h6>
                                         <div class="dropdown">
                                             <a href="javascript:void(0);" class="dropdown-toggle btn bg-light-200 btn-sm text-gray-6 rounded-pill fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
                                                 <i class="isax isax-calendar-2 me-2 fs-14 text-gray-6"></i>2025
@@ -251,11 +252,11 @@
                                         <div id="booking-chart"></div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <h6 class="border-icon teal">Hotels</h6>
+                                        <h6 class="border-icon teal">Khách sạn</h6>
                                         <p class="fs-14"><span id="hotel-bookings" class="text-gray-9 fw-medium">0</span> Bookings</p>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-0">
-                                        <h6 class="border-icon primary">Tour</h6>
+                                        <h6 class="border-icon primary">Tour du lịch</h6>
                                         <p class="fs-14"><span id="tour-bookings" class="text-gray-9 fw-medium">0</span> Bookings</p>
                                     </div>
                                 </div>
@@ -269,7 +270,7 @@
                             <div class="card shadow-none flex-fill">
                                 <div class="card-body pb-0">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h6>Earnings</h6>
+                                        <h6>Thu nhập</h6>
                                         <div class="dropdown ">
                                             <a href="javascript:void(0);" class="dropdown-toggle btn bg-light-200 btn-sm text-gray-6 rounded-pill fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
                                                 <i class="isax isax-calendar-2 me-2 fs-14 text-gray-6"></i>2025
@@ -296,11 +297,11 @@
                                     <div class="row">
                                         <div class="d-flex align-items-center justify-content-between flex-wrap">
                                             <div class="mb-2">
-                                                <p class="mb-0">Total Earnings this Year</p>
+                                                <p class="mb-0">Tổng thu nhập năm nay</p>
                                                 <h3 id="total-earnings">$0</h3> <!-- ID để cập nhật số tiền -->
                                             </div>
                                             <div class="d-flex align-items-center mb-2">
-                                                <p class="fs-14"><span class="badge badge-soft-success badge-md border border-success rounded-pill me-2"><i class="isax isax-arrow-up-3 "></i>12%</span>vs last years</p>
+                                                <p class="fs-14"><span class="badge badge-soft-success badge-md border border-success rounded-pill me-2"><i class="isax isax-arrow-up-3 "></i>12%</span>so với năm trước.</p>
                                             </div>
                                         </div>
                                         <div id="earning-chart"></div>

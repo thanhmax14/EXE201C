@@ -749,6 +749,7 @@ namespace Booking.Controllers
                 user.Ward = model.Ward;
                 user.address = model.Address;
                 user.RequestSeller = "true";
+                user.isUpdateProfile = true;
 
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)

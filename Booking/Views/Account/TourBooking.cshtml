@@ -3,7 +3,9 @@
     Layout = null;
 }
 @model List<Booking.ViewModels.TourBookingViewodels>
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,7 +110,7 @@
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-grid-55"></i></a></li>
                             <li class="breadcrumb-item" aria-current="page">My Bookings</li>
-                            <li class="breadcrumb-item active" aria-current="page">Tours</li>
+                            <li class="breadcrumb-item active" aria-current="page">Tour du lịch</li>
                         </ol>
                     </nav>
                 </div>
@@ -129,84 +131,88 @@
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Main</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Chính</span>
                                 </li>
                                 <li>
-                                    <a href="dashboard.html" class="d-flex align-items-center">
-                                        <i class="isax isax-grid-55"></i> Dashboard
+                                    <a href="/account" class="d-flex align-items-center ">
+                                        <i class="isax isax-grid-55"></i> Bảng điều khiển
                                     </a>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);" class="d-block active subdrop">
-                                        <i class="isax isax-calendar-tick5"></i><span>My Bookings</span>
-                                        <span class="menu-arrow"></span>
-                                    </a>
+                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5"></i><span>My Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
-                                       
+                                        @* <li>
+                         <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
+                         </li> *@
                                         <li>
-                                            <a href="/account/HotelsBooking" class="fs-14 d-inline-flex align-items-center ">Hotels</a>
-                                        </li>           
-                                        <li>
-                                            <a href="/account/TourBooking" class="fs-14 d-inline-flex align-items-center active">Tour</a>
+                                            <a href="/account/HotelsBooking" class="fs-14 d-inline-flex align-items-center ">Khách sạn</a>
                                         </li>
-
+                                        @*  <li>
+                         <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
+                         </li>
+                         <li>
+                         <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
+                         </li> *@
+                                        <li>
+                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center active">Tour du lịch</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="/account/review" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5"></i> My Reviews
+                                        <i class="isax isax-magic-star5"></i> Đánh giá
                                     </a>
                                 </li>
                                 @* <li>
-                                <div class="message-content">
-                                <a href="chat.html" class="d-flex align-items-center">
-                                <i class="isax isax-message-square5"></i> Messages
-                                </a>
-                                <span class="msg-count rounded-circle">02</span>
-                                </div>
-                                </li> *@
+                 <div class="message-content">
+                 <a href="chat.html" class="d-flex align-items-center">
+                 <i class="isax isax-message-square5"></i> Messages
+                 </a>
+                 <span class="msg-count rounded-circle">02</span>
+                 </div>
+                 </li> *@
                                 <li class="mb-2">
                                     <a href="/account/Wishlist" class="d-flex align-items-center">
-                                        <i class="isax isax-heart5"></i> Wishlist
+                                        <i class="isax isax-heart5"></i> Danh sách mong muốn
                                     </a>
                                 </li>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Finance</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài chính</span>
                                 </li>
                                 <li>
-                                    <a href="/account/wallet" class="d-flex align-items-center">
-                                        <i class="isax isax-wallet-add-15"></i> Wallet
+                                    <a href="/account/wallet" class="d-flex align-items-center ">
+                                        <i class="isax isax-wallet-add-15"></i> Ví
                                     </a>
                                 </li>
                                 <li class="mb-2">
                                     <a href="/account/payment" class="d-flex align-items-center">
-                                        <i class="isax isax-money-recive5"></i> Payments
+                                        <i class="isax isax-money-recive5"></i> Thanh toán
                                     </a>
                                 </li>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Account</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài khoản</span>
                                 </li>
                                 <li>
                                     <a href="/account/profile" class="d-flex align-items-center">
-                                        <i class="isax isax-profile-tick5"></i> My Profile
+                                        <i class="isax isax-profile-tick5"></i> Hồ sơ
                                     </a>
                                 </li>
                                 @*    <li>
-                                <div class="message-content">
-                                <a href="notification.html" class="d-flex align-items-center">
-                                <i class="isax isax-notification-bing5"></i> Notifications
-                                </a>
-                                <span class="msg-count bg-purple rounded-circle">05</span>
-                                </div>
-                                </li> *@
+                 <div class="message-content">
+                 <a href="notification.html" class="d-flex align-items-center">
+                 <i class="isax isax-notification-bing5"></i> Notifications
+                 </a>
+                 <span class="msg-count bg-purple rounded-circle">05</span>
+                 </div>
+                 </li> *@
                                 <li>
                                     <a href="/account/settings" class="d-flex align-items-center">
-                                        <i class="isax isax-setting-25"></i> Settings
+                                        <i class="isax isax-setting-25"></i> Cài đặt
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/Home/Logout" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Logout
+                                        <i class="isax isax-logout-15"></i> Đăng xuất
                                     </a>
                                 </li>
                             </ul>
@@ -222,7 +228,7 @@
                         <div class="card-body header-content d-flex align-items-center justify-content-between flex-wrap ">
                             <div>
                                 <h6>Tour</h6>
-                                <p class="fs-14 text-gray-6 fw-normal ">No of Booking : 40</p>
+                                <p class="fs-14 text-gray-6 fw-normal ">Số lượng đặt phòng : 40</p>
                             </div>
 
                             <div class="d-flex align-items-center flex-wrap">
@@ -230,20 +236,20 @@
                                     <span class="icon-addon">
                                         <i class="isax isax-calendar-edit fs-14"></i>
                                     </span>
-                                    <input type="text" class="form-control date-range bookingrange" placeholder="Select" value="Academic Year : 2024 / 2025">
+                                    <input type="text" class="form-control date-range bookingrange" placeholder="Select" value="Niên khoá : 2024 / 2025">
                                 </div>
                                 <div class="dropdown ">
                                     <a href="javascript:void(0);" class="dropdown-toggle btn border text-gray-6 rounded  fw-normal fs-14 d-inline-flex align-items-center" data-bs-toggle="dropdown">
-                                        <i class="ti ti-file-export me-2 fs-14 text-gray-6"></i>Export
+                                        <i class="ti ti-file-export me-2 fs-14 text-gray-6"></i>Xuất
                                     </a>
                                     <ul class="dropdown-menu  dropdown-menu-end p-3">
                                         <li>
                                             <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                                <i class="ti ti-file-type-pdf me-1"></i>Export as PDF
+                                                <i class="ti ti-file-type-pdf me-1"></i>Xuất file PDF
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel</a>
+                                            <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Xuất file Excel</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -255,7 +261,7 @@
                     <div class="card hotel-list">
                         <div class="card-body p-0">
                             <div class="list-header d-flex align-items-center justify-content-between flex-wrap">
-                                <h6 class="">Booking List</h6>
+                                <h6 class="">Danh sách đặt chỗ</h6>
                                 <div class="d-flex align-items-center flex-wrap">
                                     <div class="input-icon-start  me-2 position-relative">
                                         <span class="icon-addon">
@@ -265,7 +271,7 @@
                                     </div>
                                     <div class="dropdown me-3">
                                         <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Tour Type
+                                            Loại Tour
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
@@ -299,10 +305,10 @@
                                         </ul>
                                     </div>
                                     <div class="d-flex align-items-center sort-by">
-                                        <span class="fs-14 text-gray-9 fw-medium">Sort By :</span>
+                                        <span class="fs-14 text-gray-9 fw-medium">Xếp theo :</span>
                                         <div class="dropdown me-3">
                                             <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Recommended
+                                                Khuyến khích
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-end p-3">
                                                 <li>
@@ -333,12 +339,12 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th>STT</th>
-                                            <th>Tour & Type</th>
-                                            <th>Travellers</th>
-                                            <th>Days</th>
-                                            <th>Price</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
+                                            <th>Tour & Loại</th>
+                                            <th>Khách du lịch</th>
+                                            <th>Ngày</th>
+                                            <th>Giá</th>
+                                            <th>Ngày</th>
+                                            <th>Tình trạng</th>
                                             <th></th>
                                         </tr>
                                     </thead>

@@ -602,31 +602,31 @@
                         <div class="card-body">
                             <h5 class="d-flex align-items-center fs-18 mb-3">
                                 <span class="avatar avatar-md rounded-circle bg-primary me-2"><i class="isax isax-signpost5"></i></span>
-                                Tour Details
+                                Chi tiết Tour
                             </h5>
                             <div>
                                 <div class="d-flex align-items-center justify-content-between details-info">
-                                    <h6 class="fw-medium">Date</h6>
+                                    <h6 class="fw-medium">Ngày</h6>
                                     <p class="flex-fill">@Model.strarDate - @Model.endDate</p>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between details-info">
-                                    <h6 class="fw-medium">Destination</h6>
+                                    <h6 class="fw-medium">Điểm đến</h6>
                                     <p class="flex-fill">Eidnesburg</p>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between details-info">
-                                    <h6 class="fw-medium">Duration</h6>
+                                    <h6 class="fw-medium">Khoảng thời gian</h6>
                                     <p class="flex-fill">@Model.duration</p>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between details-info">
-                                    <h6 class="fw-medium">Departure</h6>
+                                    <h6 class="fw-medium">Khởi hành</h6>
                                     <p class="flex-fill">@Model.ngaydi</p>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between details-info">
-                                    <h6 class="fw-medium">Return</h6>
+                                    <h6 class="fw-medium">Trở lại</h6>
                                     <p class="flex-fill">@Model.ngaive</p>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between details-info">
-                                    <h6 class="fw-medium">Total Peoples</h6>
+                                    <h6 class="fw-medium">Tổng số người</h6>
                                     <p class="flex-fill">@Model.TotalPreople</p>
                                 </div>
                             </div>
@@ -636,8 +636,8 @@
                     <div class="card shadow-none">
                         <div class="card-body">
                             <div class="mb-3">
-                                <p class="fs-13 fw-medium mb-1">Starts From</p>
-                                <h5 class="text-primary mb-1">$@Model.price <span class="fs-14 text-default fw-normal"></span></h5>
+                                <p class="fs-13 fw-medium mb-1">Bắt đầu từ</p>
+                                <h5 class="text-primary mb-1">@Model.price VND<span class="fs-14 text-default fw-normal"></span></h5>
                             </div>
                             <div class="banner-form">
                                 <form>
@@ -656,11 +656,11 @@
                                         <div class="card shadow-none mb-3">
                                             <div class="card-body p-3 pb-0">
                                                 <div class="border-bottom pb-2 mb-2">
-                                                    <h6>Details</h6>
+                                                    <h6>Chi tiết</h6>
                                                 </div>
                                                 <div class="custom-increment">
                                                     <div class="mb-3 d-flex align-items-center justify-content-between">
-                                                        <label class="form-label text-gray-9 mb-0">Adults</label>
+                                                        <label class="form-label text-gray-9 mb-0">Người lớn</label>
                                                         <div class="custom-increment">
                                                             <div class="input-group">
                                                                 <span class="input-group-btn float-start">
@@ -681,7 +681,7 @@
                                                     </div>
                                                     <div class="mb-3 d-flex align-items-center justify-content-between">
                                                         <label class="form-label text-gray-9">
-                                                            Infants <span class="text-default fw-normal mb-0">(0-12 Yrs)</span>
+                                                            Trẻ sơ sinh <span class="text-default fw-normal mb-0">(0-12 Tuổi)</span>
                                                         </label>
                                                         <div class="custom-increment">
                                                             <div class="input-group">
@@ -703,7 +703,7 @@
                                                     </div>
                                                     <div class="mb-3 d-flex align-items-center justify-content-between">
                                                         <label class="form-label text-gray-9 mb-0">
-                                                            Children <span class="text-default fw-normal">(2-12 Yrs)</span>
+                                                            Trẻ em <span class="text-default fw-normal">(2-12 Tuổi)</span>
                                                         </label>
                                                         <div class="custom-increment">
                                                             <div class="input-group">
@@ -727,20 +727,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" id="book-now-btn" class="btn btn-primary btn-lg search-btn ms-0 w-100 fs-14">Book Now</button>
+                                    <button type="button" id="book-now-btn" class="btn btn-primary btn-lg search-btn ms-0 w-100 fs-14">Đặt Ngay</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="card shadow-none">
                         <div class="card-body">
-                            <h5 class="fs-18 mb-3">Why Book With Us</h5>
+                            <h5 class="fs-18 mb-3">Tại sao nên book của chúng tôi?</h5>
                             <div>
-                                <p class="d-flex align-items-center mb-3"><i class="isax isax-medal-star text-primary me-2"></i>Expertise and Experience</p>
-                                <p class="d-flex align-items-center mb-3"><i class="isax isax-menu text-primary me-2"></i>Tailored Services</p>
-                                <p class="d-flex align-items-center mb-3"><i class="isax isax-message-minus text-primary me-2"></i>Comprehensive Planning</p>
-                                <p class="d-flex align-items-center mb-3"><i class="isax isax-user-add text-primary me-2"></i>Client Satisfaction</p>
-                                <p class="d-flex align-items-center"><i class="isax isax-grammerly text-primary me-2"></i>24/7 Support</p>
+                                <p class="d-flex align-items-center mb-3"><i class="isax isax-medal-star text-primary me-2"></i>Chuyên môn và Kinh nghiệm</p>
+                                <p class="d-flex align-items-center mb-3"><i class="isax isax-menu text-primary me-2"></i>Dịch vụ theo yêu cầu</p>
+                                <p class="d-flex align-items-center mb-3"><i class="isax isax-message-minus text-primary me-2"></i>Kế hoạch toàn diện</p>
+                                <p class="d-flex align-items-center mb-3"><i class="isax isax-user-add text-primary me-2"></i>Sự hài lòng của khách hàng</p>
+                                <p class="d-flex align-items-center"><i class="isax isax-grammerly text-primary me-2"></i>Hỗ trợ 24/7</p>
                             </div>
                         </div>
                     </div>
@@ -750,7 +750,7 @@
                         <div class="card shadow-none">
                             <div class="card-body">
                                 <form action="">
-                                    <h5 class="mb-3 fs-18">Enquire Us</h5>
+                                    <h5 class="mb-3 fs-18">Hỏi chúng tôi</h5>
                                     <div class="py-1">
                                         <div class="mb-3">
                                             <label class="form-label">Name</label>
@@ -780,21 +780,21 @@
                     }
                     <div class="card shadow-none mb-0">
                         <div class="card-body">
-                            <h5 class="fs-18 mb-3">Provider Details</h5>
+                            <h5 class="fs-18 mb-3">Chi tiết nhà cung cấp</h5>
                             <div class="py-1">
                                 <div class="bg-light-500 br-10 mb-3 d-flex align-items-center p-3">
                                     <a href="javascript:void(0);" class="avatar avatar-lg flex-shrink-0">
                                         <img src="~/assets/img/users/user-05.jpg" alt="img" class="rounded-circle">
                                     </a>
                                     <div class="ms-2 overflow-hidden">
-                                        <h6 class="fw-medium text-truncate"><a href="javascript:void(0);">Adrian Hendriques</a></h6>
-                                        <p class="fs-14">Member Since :  @Model.dateCreateSeller</p>
+                                        <h6 class="fw-medium text-truncate"><a href="javascript:void(0);">Gabi depchai</a></h6>
+                                        <p class="fs-14">Thành viên từ :  @Model.dateCreateSeller</p>
                                     </div>
                                 </div>
                                 <div class="border br-10 mb-3 p-3">
                                     <div class="d-flex align-items-center border-bottom pb-3 mb-3">
                                         <span class="avatar avatar-sm me-2 rounded-circle flex-shrink-0 bg-primary"><i class="isax isax-call-outgoing5"></i></span>
-                                        <p>Call Us : +1 12545 45548</p>
+                                        <p>Gọi chúng tôi : +84 12545 4554</p>
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <span class="avatar avatar-sm me-2 rounded-circle flex-shrink-0 bg-primary"><i class="isax isax-message-search5"></i></span>
@@ -807,7 +807,7 @@
                                     <a href="javascript:void(0);" class="btn btn-light d-flex align-items-center justify-content-center"><i class="isax isax-messages5 me-2"></i>Whatsapp Us</a>
                                 </div>
                                 <div class="col-sm-6">
-                                    <a href="chat.html" class="btn btn-primary d-flex align-items-center justify-content-center"><i class="isax isax-message-notif5 me-2"></i>Chat Now</a>
+                                    <a href="" class="btn btn-primary d-flex align-items-center justify-content-center"><i class="isax isax-message-notif5 me-2"></i>Nhắn ngay</a>
                                 </div>
                             </div>
                         </div>
