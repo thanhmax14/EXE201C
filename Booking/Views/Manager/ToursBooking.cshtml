@@ -1,6 +1,10 @@
 ﻿@{
     Layout = null;
 }
+
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+@inject SignInManager<AppUser> SignInManager
 @model List<Booking.ViewModels.ManaHotelBoking>
 
 <!DOCTYPE html>
@@ -67,41 +71,14 @@
         <div class="header-topbar text-center bg-transparent">
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between flex-wrap">
-                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Toll Free : +1 56565 56594</p>
+                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Hotline: +84 123456789</p>
                     <div class="d-flex align-items-center">
-                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14"><i class="isax isax-message-text-15 me-2"></i>Email : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="650c0b030a25001d04081509004b060a08">[email&#160;protected]</a></p>
-                        <div class="dropdown flag-dropdown mb-2 me-3">
-                            <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
-                            </a>
-                            <ul class="dropdown-menu p-2 mt-2">
-                                <li>
-                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
-                                        <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
-                                        <img src="~/assets/img/flags/arab-flag.svg" class="me-2" alt="flag">ARA
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
-                                        <img src="~/assets/img/flags/france-flag.svg" class="me-2" alt="flag">FRA
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="dropdown mb-2 me-3">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-								USD
-							</a>
-                            <ul class="dropdown-menu p-2 mt-2">
-                                <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
-                                <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
-                                <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
-                            </ul>
-                        </div>
+                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14">
+                            <i class="isax isax-message-text-15 me-2"></i>Email : <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                                                                     class="__cf_email__"
+                                                                                     data-cfemail="0f666169604f6a776e627f636a216c6062">[email&#160;protected]</a>
+                        </p>
+
                         <div class="fav-dropdown mb-2">
                             <a href="wishlist.html" class="position-relative">
                                 <i class="isax isax-heart"></i><span class="count-icon bg-secondary text-gray-9">0</span>
@@ -112,7 +89,6 @@
             </div>
         </div>
         <!-- /Header Topbar-->
-
         <!-- Header -->
         @await Html.PartialAsync("_patiarialHearder")
         <!-- /Header -->
@@ -123,11 +99,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Tour Bookings</h2>
+                    <h2 class="breadcrumb-title mb-2">Đặt Tour</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-grid-55"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tour Bookings</li>
+                            <li class="breadcrumb-item active" aria-current="page">Đặt Tour</li>
                         </ol>
                     </nav>
                 </div>
@@ -143,9 +119,21 @@
             <div class="row">
 
                  <!-- Sidebar -->
-                 <div class="col-xl-3 col-lg-4 theiaStickySidebar">
+                <div class="col-xl-3 col-lg-4 theiaStickySidebar">
                     <div class="card user-sidebar agent-sidebar mb-4 mb-lg-0">
-                        <div class="card-header user-sidebar-header text-center bg-gray-transparent">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            var tien = await UserManager.GetUserAsync(User);
+                            <div class="card-header user-sidebar-header text-center bg-gray-transparent">
+                                <div class="agent-profile d-inline-flex">
+                                    <img src="@tien.img" alt="image" class="img-fluid rounded-circle">
+                                    <a href="agent-settings.html" class="avatar avatar-sm rounded-circle btn btn-primary d-flex align-items-center justify-content-center p-0"><i class="isax isax-edit-2 fs-14"></i></a>
+                                </div>
+                                <h6 class="fs-16">@tien.UserName</h6>
+                                <span class="fs-14 text-gray-6">@tien.joinin</span>
+                            </div>
+                        }
+                        @* <div class="card-header user-sidebar-header text-center bg-gray-transparent">
                             <div class="agent-profile d-inline-flex">
                                 <img src="~/assets/img/users/user-43.jpg" alt="image" class="img-fluid rounded-circle">
                                 <a href="agent-settings.html" class="avatar avatar-sm rounded-circle btn btn-primary d-flex align-items-center justify-content-center p-0"><i class="isax isax-edit-2 fs-14"></i></a>
@@ -162,56 +150,56 @@
                                     <span class="position-absolute p-1 bg-danger rounded-circle"></span>
                                 </a>
                             </div>
-                        </div>
+                        </div> *@
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
                                     <a href="/manager" class="d-flex align-items-center">
-                                        <i class="isax isax-grid-55 me-2"></i>Dashboard
+                                        <i class="isax isax-grid-55 me-2"></i>Bảng điều khiển
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/manager/listing" class="d-flex align-items-center ">
-                                        <i class="isax isax-menu-14 me-2"></i>Listings
+                                    <a href="/manager/listing" class="d-flex align-items-center">
+                                        <i class="isax isax-menu-14 me-2"></i>Danh sách
                                     </a>
                                 </li>
                                 <li class="submenu">
                                     <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
                                         <li>
-                                            <a href="/manager/hotelsBooking" class="fs-14 d-inline-flex align-items-center">Hotels</a>
+                                            <a href="/manager/hotelsBooking" class="fs-14 d-inline-flex align-items-center">Khách sạn</a>
                                         </li>
 
 
                                         <li>
-                                            <a href="/manager/toursBooking" class="fs-14 d-inline-flex align-items-center active">Tour</a>
+                                            <a href="/manager/toursBooking" class="fs-14 d-inline-flex align-items-center active">Tour du lịch</a>
                                         </li>
 
                                     </ul>
                                 </li>
                                 @*  <li>
-                                <a href="agent-enquirers.html" class="d-flex align-items-center">
-                                <i class="isax isax-magic-star5 me-2"></i>Enquiries
-                                </a>
+                                    <a href="agent-enquirers.html" class="d-flex align-items-center">
+                                        <i class="isax isax-magic-star5 me-2"></i>Enquiries
+                                    </a>
                                 </li>
                                 <li>
-                                <a href="agent-earnings.html" class="d-flex align-items-center">
-                                <i class="isax isax-wallet-add-15 me-2"></i>Earnings
-                                </a>
+                                    <a href="agent-earnings.html" class="d-flex align-items-center">
+                                        <i class="isax isax-wallet-add-15 me-2"></i>Earnings
+                                    </a>
                                 </li> *@
                                 <li>
-                                    <a href="agent-review.html" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5 me-2"></i>Reviews
+                                    <a href="/manager/review" class="d-flex align-items-center">
+                                        <i class="isax isax-magic-star5 me-2"></i>Đánh giá
                                     </a>
                                 </li>
                                 @*  <li>
-                                <a href="agent-settings.html" class="d-flex align-items-center">
-                                <i class="isax isax-setting-25"></i> Settings
-                                </a>
+                                    <a href="agent-settings.html" class="d-flex align-items-center">
+                                        <i class="isax isax-setting-25"></i> Settings
+                                    </a>
                                 </li> *@
                                 <li class="logout-link">
-                                    <a href="index.html" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Logout
+                                    <a href="/Home/Logout" class="d-flex align-items-center pb-0">
+                                        <i class="isax isax-logout-15"></i> Đăng xuất
                                     </a>
                                 </li>
                             </ul>
@@ -227,15 +215,15 @@
                     <div class="card booking-header border-0">
                         <div class="card-body header-content d-flex align-items-center justify-content-between flex-wrap ">
                             <div>
-                                <h6 class="mb-1">Tour Bookings</h6>
-                                <p class="fs-14 text-gray-6 fw-normal ">No of Booking : 40</p>
+                                <h6 class="mb-1">Đặt Tour</h6>
+                                <p class="fs-14 text-gray-6 fw-normal ">Số lượng đặt : 40</p>
                             </div>
                             <div class="d-flex align-items-center flex-wrap">
                                 <div class="input-icon-start position-relative">
                                     <span class="icon-addon">
 										<i class="isax isax-calendar-edit fs-14"></i>
 									</span>
-                                    <input type="text" class="form-control date-range bookingrange" placeholder="Select" value="Academic Year : 2024 / 2025">
+                                    <input type="text" class="form-control date-range bookingrange" placeholder="Select" value="Niên khoá : 2024 / 2025">
                                 </div>
                             </div>
                         </div>
@@ -256,7 +244,7 @@
                                     </div>
                                     <div class="dropdown me-3">
                                         <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-										Tour Type
+										Loại Tour
 									</a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
@@ -272,7 +260,7 @@
                                     </div>
                                     <div class="dropdown me-3">
                                         <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-										Status
+										Trạng thái
 									</a>
                                         <ul class="dropdown-menu dropdown-menu-end p-3">
                                             <li>
@@ -290,7 +278,7 @@
                                         <span class="fs-14 text-gray-9 fw-medium">Sort By :</span>
                                         <div class="dropdown me-3">
                                             <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-										Recommended
+										Khuyến khích
 										</a>
                                             <ul class="dropdown-menu dropdown-menu-end p-3">
                                                 <li>
@@ -321,13 +309,13 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tour & Type</th>
-                                            <th>Booked By</th>
-                                            <th>Travellers</th>
-                                            <th>Days</th>
-                                            <th>Pricing</th>
-                                            <th>Booked on</th>
-                                            <th>Status</th>
+                                            <th>Tour & Loại</th>
+                                            <th>Đặt bởi</th>
+                                            <th>Khách du lịch</th>
+                                            <th>Ngày</th>
+                                            <th>Giá</th>
+                                            <th>Đặt vào</th>
+                                            <th>Trạng thái</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -407,7 +395,7 @@
                                 <option>10</option>
                                 <option>20</option>
                             </select>
-                            <span>entries</span>
+                            <span>mục</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-center">
                             <a href="javascript:void(0);"><span class="me-3"><i class="isax isax-arrow-left-2"></i></span></a>
@@ -438,54 +426,54 @@
                             <h5>Pages</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="team.html">Our Team</a>
+                                    <a href="team.html">Đội ngũ của chúng tôi</a>
                                 </li>
                                 <li>
-                                    <a href="pricing-plan.html">Pricing Plans</a>
+                                    <a href="pricing-plan.html">Gói giá</a>
                                 </li>
                                 <li>
-                                    <a href="gallery.html">Gallery</a>
+                                    <a href="gallery.html">Settings</a>
                                 </li>
                                 <li>
-                                    <a href="profile-settings.html">Settings</a>
+                                    <a href="profile-settings.html">Cài đặt</a>
                                 </li>
                                 <li>
-                                    <a href="my-profile.html">Profile</a>
+                                    <a href="my-profile.html">Hồ sơ</a>
                                 </li>
                                 <li>
-                                    <a href="agent-listings.html">Listings</a>
+                                    <a href="agent-listings.html">Danh sách</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Company</h5>
+                            <h5>Doanh nghiệp</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="about-us.html">About Us</a>
+                                    <a href="about-us.html">Về chúng tôi</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Careers</a>
+                                    <a href="javascript:void(0);">Cơ hội nghề nghiệp</a>
                                 </li>
                                 <li>
                                     <a href="blog-grid.html">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Affiliate Program</a>
+                                    <a href="javascript:void(0);">Chương trình liên kết</a>
                                 </li>
                                 <li>
-                                    <a href="add-flight.html">Add Your Listing</a>
+                                    <a href="add-flight.html">Thêm danh sách của bạn</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Our Partners</a>
+                                    <a href="javascript:void(0);">Đối tác của chúng tôi</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Destinations</h5>
+                            <h5>Điểm đến</h5>
                             <ul class="footer-menu">
                                 <li>
                                     <a href="javascript:void(0);">Hawai</a>
@@ -510,50 +498,50 @@
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Support</h5>
+                            <h5>Hỗ trợ</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="contact-us.html">Contact Us</a>
+                                    <a href="contact-us.html">Liên hệ</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Legal Notice</a>
+                                    <a href="javascript:void(0);">Thông báo pháp lý</a>
                                 </li>
                                 <li>
-                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                    <a href="privacy-policy.html">Chính sách quyền riêng tư</a>
                                 </li>
                                 <li>
-                                    <a href="terms-conditions.html">Terms and Conditions</a>
+                                    <a href="terms-conditions.html">Điều khoản và Điều kiện</a>
                                 </li>
                                 <li>
-                                    <a href="chat.html">Chat Support</a>
+                                    <a href="chat.html">Hỗ trợ trò chuyện</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Refund Policy</a>
+                                    <a href="javascript:void(0);">Chính sách hoàn trả</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Services</h5>
+                            <h5>Dịch vụ</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="hotel-grid.html">Hotel</a>
+                                    <a href="hotel-grid.html">Khách sạn</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Activity Finder</a>
+                                    <a href="javascript:void(0);">Trình tìm kiếm hoạt động</a>
                                 </li>
                                 <li>
-                                    <a href="flight-grid.html">Flight Finder</a>
+                                    <a href="flight-grid.html">Tìm kiếm chuyến bay</a>
                                 </li>
                                 <li>
-                                    <a href="tour-grid.html">Holiday Rental</a>
+                                    <a href="tour-grid.html">Thuê kỳ nghỉ</a>
                                 </li>
                                 <li>
-                                    <a href="car-grid.html">Car Rental</a>
+                                    <a href="car-grid.html">Thuê xe</a>
                                 </li>
                                 <li>
-                                    <a href="tour-details.html">Holiday Packages</a>
+                                    <a href="tour-details.html">Gói kỳ nghỉ</a>
                                 </li>
                             </ul>
                         </div>
@@ -586,20 +574,24 @@
                             <div class="d-sm-flex align-items-center justify-content-center justify-content-xl-end">
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start me-0 pe-0 me-sm-3 pe-sm-3 border-end mb-3">
                                     <span class="avatar avatar-lg bg-primary rounded-circle flex-shrink-0">
-										<i class="ti ti-headphones-filled fs-24"></i>
-									</span>
-                                    <div>
-                                        <p class="mb-1">Customer Support</p>
-                                        <p class="fw-medium text-dark">+1 56589 54598</p>
+                                        <i class="ti ti-headphones-filled fs-24"></i>
+                                    </span>
+                                    <div class="ms-2">
+                                        <p class="mb-1">Chăm sóc khách hàng</p>
+                                        <p class="fw-medium text-dark">+84 393771017</p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
                                     <span class="avatar avatar-lg bg-secondary rounded-circle flex-shrink-0">
-										<i class="ti ti-message fs-24 text-gray-9"></i>
-									</span>
-                                    <div>
-                                        <p class="mb-1">Drop Us an Email</p>
-                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e777078715e7b667f736e727b307d7173">[email&#160;protected]</a></p>
+                                        <i class="ti ti-message fs-24 text-gray-9"></i>
+                                    </span>
+                                    <div class="ms-2">
+                                        <p class="mb-1">Gửi email cho chúng tôi</p>
+                                        <p class="fw-medium text-dark">
+                                            <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                               class="__cf_email__"
+                                               data-cfemail="fc95929a93bc99849d918c9099d29f9391">[email&#160;protected]</a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -617,7 +609,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <p class="fs-14">Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);" class="text-primary fw-medium">DreamsTour</a></p>
+                            <p class="fs-14">
+                                Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);"
+                                                                               class="text-primary fw-medium">Golocal</a>
+                            </p>
                             <div class="d-flex align-items-center">
                                 <ul class="social-icon">
                                     <li>

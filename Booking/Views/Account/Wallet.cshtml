@@ -1,5 +1,9 @@
 ﻿@model Booking.ViewModels.walletViewModels
 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
 @{
     Layout = null; 
 }
@@ -98,11 +102,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Wallet</h2>
+                    <h2 class="breadcrumb-title mb-2">Ví</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Wallet</li>
+                            <li class="breadcrumb-item active" aria-current="page">Ví</li>
                         </ol>
                     </nav>
                 </div>
@@ -118,110 +122,118 @@
 
                 <!-- Sidebar -->
                 <div class="col-xl-3 col-lg-4 theiaStickySidebar">
-                    <div class="card user-sidebar mb-4 mb-lg-0">
-                        <div class="card-header user-sidebar-header">
-                            <div class="profile-content rounded-pill">
-                                <div class="d-flex align-items-center justify-content-between ">
-                                    <div class=" d-flex align-items-center justify-content-center ">
-                                        <img src="~/assets/img/users/user-01.jpg" alt="image" class="img-fluid avatar avatar-lg rounded-circle flex-shrink-0 me-1">
-                                        <div>
-                                            <h6 class="fs-16">Jeffrey Wilson</h6>
-                                            <span class="fs-14 text-gray-6">Since 10 May 2025</span>
+                    <div class="card user-sidebar mb-4">
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            var tien = await UserManager.GetUserAsync(User);
+                            <div class="card-header user-sidebar-header">
+                                <div class="profile-content rounded-pill">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class=" d-flex align-items-center justify-content-center">
+                                            <img src="@tien.img" alt="image" class="img-fluid avatar avatar-lg rounded-circle me-1">
+                                            <div>
+                                                <h6 class="fs-16">@tien.UserName</h6>
+                                                <span class="fs-14 text-gray-6">@tien.joinin</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <a href="profile-settings.html" class="p-1 rounded-circle btn btn-light d-flex align-items-center justify-content-center"><i class="isax isax-edit-2 fs-14"></i></a>
+                                        <div>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
+
+
+
+
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Main</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Chính</span>
                                 </li>
                                 <li>
-                                    <a href="/account" class="d-flex align-items-center">
-                                        <i class="isax isax-grid-55"></i> Dashboard
+                                    <a href="/account" class="d-flex align-items-center ">
+                                        <i class="isax isax-grid-55"></i> Bảng điều khiển
                                     </a>
                                 </li>
                                 <li class="submenu">
                                     <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5"></i><span>My Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
                                         @* <li>
-                                        <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
-                                        </li> *@
+                         <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
+                         </li> *@
                                         <li>
-                                            <a href="/account/hotelBooking" class="fs-14 d-inline-flex align-items-center">Hotels</a>
+                                            <a href="/account/HotelsBooking" class="fs-14 d-inline-flex align-items-center ">Khách sạn</a>
                                         </li>
                                         @*  <li>
-                                        <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
-                                        </li>
+                         <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
+                         </li>
+                         <li>
+                         <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
+                         </li> *@
                                         <li>
-                                        <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
-                                        </li> *@
-                                        <li>
-                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour</a>
+                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour du lịch</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="/account/review" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5"></i> My Reviews
+                                        <i class="isax isax-magic-star5"></i> Đánh giá
                                     </a>
                                 </li>
                                 @* <li>
-                                <div class="message-content">
-                                <a href="chat.html" class="d-flex align-items-center">
-                                <i class="isax isax-message-square5"></i> Messages
-                                </a>
-                                <span class="msg-count rounded-circle">02</span>
-                                </div>
-                                </li> *@
+                 <div class="message-content">
+                 <a href="chat.html" class="d-flex align-items-center">
+                 <i class="isax isax-message-square5"></i> Messages
+                 </a>
+                 <span class="msg-count rounded-circle">02</span>
+                 </div>
+                 </li> *@
                                 <li class="mb-2">
                                     <a href="/account/Wishlist" class="d-flex align-items-center">
-                                        <i class="isax isax-heart5"></i> Wishlist
+                                        <i class="isax isax-heart5"></i> Danh sách mong muốn
                                     </a>
                                 </li>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Finance</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài chính</span>
                                 </li>
                                 <li>
                                     <a href="/account/wallet" class="d-flex align-items-center active">
-                                        <i class="isax isax-wallet-add-15"></i> Wallet
+                                        <i class="isax isax-wallet-add-15"></i> Ví
                                     </a>
                                 </li>
                                 <li class="mb-2">
                                     <a href="/account/payment" class="d-flex align-items-center">
-                                        <i class="isax isax-money-recive5"></i> Payments
+                                        <i class="isax isax-money-recive5"></i> Thanh toán
                                     </a>
                                 </li>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Account</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài khoản</span>
                                 </li>
                                 <li>
                                     <a href="/account/profile" class="d-flex align-items-center">
-                                        <i class="isax isax-profile-tick5"></i> My Profile
+                                        <i class="isax isax-profile-tick5"></i> Hồ sơ
                                     </a>
                                 </li>
                                 @*    <li>
-                                <div class="message-content">
-                                <a href="notification.html" class="d-flex align-items-center">
-                                <i class="isax isax-notification-bing5"></i> Notifications
-                                </a>
-                                <span class="msg-count bg-purple rounded-circle">05</span>
-                                </div>
-                                </li> *@
+                 <div class="message-content">
+                 <a href="notification.html" class="d-flex align-items-center">
+                 <i class="isax isax-notification-bing5"></i> Notifications
+                 </a>
+                 <span class="msg-count bg-purple rounded-circle">05</span>
+                 </div>
+                 </li> *@
                                 <li>
                                     <a href="/account/settings" class="d-flex align-items-center">
-                                        <i class="isax isax-setting-25"></i> Settings
+                                        <i class="isax isax-setting-25"></i> Cài đặt
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/Home/Logout" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Logout
+                                        <i class="isax isax-logout-15"></i> Đăng xuất
                                     </a>
                                 </li>
                             </ul>
@@ -241,8 +253,8 @@
                                         <div class="card-body">
                                             <span class="avatar avatar-lg rounded-circle bg-primary mb-3"><i class="isax isax-calendar-15 text-white"></i></span>
                                             <div class="mb-3">
-                                                <p class="mb-0 text-truncate line-ellipsis-2">Wallet Balance</p>
-                                                <h4>$@Model.tien</h4>
+                                                <p class="mb-0 text-truncate line-ellipsis-2">Số dư ví</p>
+                                                <h4>@Model.tien VND</h4>
                                             </div>
                                            @*  <p class="fs-14"><span class="text-teal fw-medium">+8%</span> last Month</p> *@
                                         </div>
@@ -278,7 +290,7 @@
                                             <span class="avatar avatar-lg rounded-circle bg-teal mb-3"><i class="isax isax-money-time5 text-white"></i></span>
                                             <div class="mb-3">
                                                 <h4>@Model.numberTrans</h4>
-                                                <p class="mb-0">Transactions</p>
+                                                <p class="mb-0">Giao dịch</p>
                                             </div>
                                          @*    <p class="fs-14"><span class="text-teal fw-medium">+7%</span> last Month</p> *@
                                         </div>
@@ -291,17 +303,17 @@
                         <div class="col-xl-7 col-lg-12 d-flex">
                             <div class="card payment-details flex-fill mb-4">
                                 <div class="card-header">
-                                    <h5>Wallet</h5>
+                                    <h5>Ví</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="mb-3">
                                         @Html.AntiForgeryToken()
-                                        <label class="form-label">Add Amount</label>
+                                        <label class="form-label">Thêm số tiền</label>
                                         <input type="number" class="form-control" id="numOrder">
                                     </div>
                                     <div class="tab-pane fade active show" id="wallet">
                                         <div class="d-flex align-items-center  flex-wrap mb-1">
-                                            <h6 class="fs-16 me-3 mb-2">Payment Type</h6>
+                                            <h6 class="fs-16 me-3 mb-2">Loại thanh toán</h6>
                                             <div class="d-flex align-items-center flex-wrap payment-form">
                                                 <div class="form-check d-flex align-items-center me-3 mb-2">
                                                     <input class="form-check-input mt-0" type="radio" name="Radio" id="credit-card" value="credit-card" checked>
@@ -313,7 +325,7 @@
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-end">
-                                            <button id="btnDeposit" type="button" class="btn btn-primary">Add Payment</button>
+                                            <button id="btnDeposit" type="button" class="btn btn-primary">Thêm thanh toán</button>
                                         </div>
                                     </div>
                                 </div>
@@ -328,8 +340,8 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center flex-wrap row-gap-3">
                                 <div>
-                                    <h6>Transactions</h6>
-                                    <p class="fs-14">No of Transactions : @Model.numberTrans</p>
+                                    <h6>Giao dịch</h6>
+                                    <p class="fs-14">Số lượng giao dịch : @Model.numberTrans</p>
                                 </div>
                                 <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
                                     <div class="input-icon-end position-relative">
@@ -353,7 +365,7 @@
                         <div class="card hotel-list mb-0">
                             <div class="card-body p-0">
                                 <div class="list-header d-flex align-items-center justify-content-between flex-wrap">
-                                    <h6>Transactions List</h6>
+                                    <h6>Danh sách giao dịch</h6>
                                     <div class="d-flex align-items-center flex-wrap">
                                         <div class="input-icon-start  me-2 position-relative">
                                             <span class="icon-addon">
@@ -383,13 +395,13 @@
                                     <table class="table">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>Payment Type</th>
-                                                <th>Type</th>
-                                                <th>Date</th>
-                                                <th>Amount</th>
-                                                <th>Balance</th>
-                                                <th>Status</th>
-                                                <th>Detail</th>
+                                                <th>Loại thanh toán</th>
+                                                <th>Loại</th>
+                                                <th>Ngày</th>
+                                                <th>Số tiền</th>
+                                                <th>Số dư</th>
+                                                <th>Trạng thái</th>
+                                                <th>Chi tiết</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -403,11 +415,11 @@
                                                     <td>
                                                         @if (item.amount >= 0)
                                                         {
-                                                            <span class="text-success">+$@item.amount</span>
+                                                            <span class="text-success">+@item.amount VND</span>
                                                         }
                                                         else
                                                         {
-                                                            <span class="text-danger">-$@item.amount</span>
+                                                            <span class="text-danger">-@item.amount VND</span>
                                                         }
                                                     </td>
                                                     <td>$@item.Balance</td>
@@ -429,7 +441,7 @@
  
                                                         }
                                                     </td>
-                                                    <td><a href="@item.detail" target="_blank"> View Detail</a></td>
+                                                    <td><a href="@item.detail" target="_blank"> Xem chi tiết</a></td>
                                                 </tr>
                                             }
                                         </tbody>

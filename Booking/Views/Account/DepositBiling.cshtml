@@ -88,12 +88,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Invoice</h2>
+                    <h2 class="breadcrumb-title mb-2">Hóa đơn</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active" aria-current="page">Invoice</li>
+                            <li class="breadcrumb-item">Trang</li>
+                            <li class="breadcrumb-item active" aria-current="page">Hóa đơn</li>
                         </ol>
                     </nav>
                 </div>
@@ -126,7 +126,7 @@
                                         <div class=" text-end mb-3">
                                             <h6 class="text-default mb-1">Invoice No <span id="orderCode" class="text-primary fw-medium"></span></h6>
 
-                                            <p class="fs-14 mb-1 fw-medium">Created Date : <span class="text-gray-9" id="create"></span> </p>
+                                            <p class="fs-14 mb-1 fw-medium">Ngày tạo : <span class="text-gray-9" id="create"></span> </p>
                                           @*   <p class="fs-14 fw-medium">Due Date : <span class="text-gray-9">Sep 30, 2023</span> </p> *@
                                         </div>
                                     </div>
@@ -154,8 +154,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <h6 class="mb-1 fs-14 fw-medium">Payment Status </h6>
-                                            <span id="paymentStatus" class="badge badge-danger align-items-center fs-10 mb-4"><i class="ti ti-point-filled "></i>Due in 10 Days</span>
+                                            <h6 class="mb-1 fs-14 fw-medium">Trạng thái thanh toán </h6>
+                                            <span id="paymentStatus" class="badge badge-danger align-items-center fs-10 mb-4"><i class="ti ti-point-filled "></i>Đến hạn trong 10 ngày</span>
                                            @*  <div>
                                                 <img src="/assets/img/zalo-0939371017.jpg" class="img-fluid" alt="QR">
                                             </div> *@
@@ -164,15 +164,15 @@
                                 </div>
                             </div>
                             <div>
-                                <p class="fw-medium mb-3">Invoice For : <span class="text-dark fw-medium">Nạp tiền</span></p>
+                                <p class="fw-medium mb-3">Hóa đơn cho : <span class="text-dark fw-medium">Nạp tiền</span></p>
                                 <div class="table-responsive">
                                     <table class="table invoice-table">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th class="w-50 bg-light-400">Description</th>                                              
-                                                <th class="text-end bg-light-400">Cost</th>
-                                                <th class="text-end bg-light-400">Discount</th>
-                                                <th class="text-end bg-light-400">Total</th>
+                                                <th class="w-50 bg-light-400">Sự miêu tả</th>
+                                                <th class="text-end bg-light-400">Trị giá</th>
+                                                <th class="text-end bg-light-400">Giảm giá</th>
+                                                <th class="text-end bg-light-400">Tổng cộng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -181,7 +181,7 @@
                                                     <h6 class="fs-14">Yêu cầu nạp tiền vào tài khoản </h6>
                                                 </td>
                                                 <td class="text-gray fs-14 fw-medium text-end"> <span class="amount"></span></td>
-                                                <td class="text-gray fs-14 fw-medium text-end">$0</td>
+                                                <td class="text-gray fs-14 fw-medium text-end">0 VND</td>
                                                 <td class="text-gray fs-14 fw-medium text-end"><span class="amount"></span></td>
                                             </tr>
                                             
@@ -193,30 +193,30 @@
                                 <div class="col-md-7">
                                     <div class="py-4">
                                         <div class="mb-3">
-                                            <h6 class="fs-14 mb-1">Terms and Conditions</h6>
-                                            <p class="fs-12">Please pay within 15 days from the date of invoice, overdue interest  14% will be charged on delayed payments.</p>
+                                            <h6 class="fs-14 mb-1">Điều khoản và điều kiện</h6>
+                                            <p class="fs-12">Vui lòng thanh toán trong vòng 15 ngày kể từ ngày xuất hóa đơn, lãi suất quá hạn 14% sẽ được tính cho các khoản thanh toán chậm.</p>
                                         </div>
                                         <div class="mb-3">
-                                            <h6 class="fs-14 mb-1">Notes</h6>
-                                            <p class="fs-12">Please quote invoice number when remitting funds.</p>
+                                            <h6 class="fs-14 mb-1">Lưu ý</h6>
+                                            <p class="fs-12">Vui lòng ghi rõ số hóa đơn khi chuyển tiền.</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="d-flex justify-content-between align-items-center border-bottom my-2 pe-3">
-                                        <p class="fs-14 fw-medium text-gray mb-0">Sub Total</p>
+                                        <p class="fs-14 fw-medium text-gray mb-0">Tổng cộng</p>
                                         <p class="text-gray-9 fs-14 fw-medium mb-2" id="amount"></p>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center border-bottom my-2 pe-3">
-                                        <p class="fs-14 fw-medium text-gray mb-0">Discount (0%)</p>
-                                        <p class="text-gray-9 fs-14 fw-medium mb-2">$0</p>
+                                        <p class="fs-14 fw-medium text-gray mb-0">Giảm giá (0%)</p>
+                                        <p class="text-gray-9 fs-14 fw-medium mb-2">0 VND</p>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
                                         <p class="fs-14 fw-medium text-gray mb-0">VAT (0%)</p>
                                         <p class="text-gray-9 fs-14 fw-medium mb-2">$0</p>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mb-2 pe-3">
-                                        <h6>Total Amount</h6>
+                                        <h6>Tổng số tiền</h6>
                                         <h6><span class="amount"></span></h6>
                                     </div>
                                    @*  <p class="fs-12">
@@ -231,7 +231,7 @@
                                     </div>
                                     <div class="text-end mb-3">
                                         <h6 class="fs-14 fw-medium pe-3">P.Q.Thanh</h6>
-                                        <p>Assistant Manager</p>
+                                        <p>Trợ lý quản lý</p>
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@
                                 <div class="mb-3 invoice-logo-white">
                                     <img src="~/assets/img/logo.svg" class="img-fluid" alt="logo">
                                 </div>
-                                <p class="text-gray-9 fs-12 mb-1">Payment Made Via bank transfer / Cheque in the name of Thomas Lawler</p>
+                                <p class="text-gray-9 fs-12 mb-1">Thanh toán qua chuyển khoản ngân hàng / Séc mang tên Thomas Lawler</p>
                                 <div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
                                     <p class="fs-12 mb-0">Bank Name : <span class="text-gray-9">ViettinBank</span></p>
                                     <p class="fs-12 mb-0">Account Number : <span class="text-gray-9">45366287987</span></p>
