@@ -647,6 +647,7 @@ namespace Booking.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "User");
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                  
                 var confirmationLink = Url.Action("ConfirmEmail", "Home",
