@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+
+     @if (SignInManager.IsSignedIn(User))
+ {
+     var tien = await UserManager.GetUserAsync(User);
+
+    <div class="card-header user-sidebar-header text-center bg-gray-transparent">
+        <div class="agent-profile d-inline-flex">
+            <img src="@tien.img" alt="image" class="img-fluid rounded-circle">
+            <a href="/account/settings" class="avatar avatar-sm rounded-circle btn btn-primary d-flex align-items-center justify-content-center p-0"><i class="isax isax-edit-2 fs-14"></i></a>
+        </div>
+        <h6 class="fs-16">@tien.firstName @tien.lastName</h6>
+        <p class="fs-14 mb-2">@tien.joinin</p>
+   @*      <div class="d-flex align-items-center justify-content-center notify-item">
+            <a href="agent-notifications.html" class="rounded-circle btn btn-white d-flex align-items-center justify-content-center p-0 me-2 position-relative">
+                <i class="isax isax-notification-bing5 fs-20"></i>
+                <span class="position-absolute p-1 bg-secondary rounded-circle"></span>
+            </a>
+            <a href="agent-chat.html" class="rounded-circle btn btn-white d-flex align-items-center justify-content-center p-0 position-relative">
+                <i class="isax isax-message-square5 fs-20"></i>
+                <span class="position-absolute p-1 bg-danger rounded-circle"></span>
+            </a>
+        </div> *@
+    </div>
+
+ }

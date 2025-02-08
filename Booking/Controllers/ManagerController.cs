@@ -3268,8 +3268,124 @@ namespace Booking.Controllers
             return Json(earningsByMonth);
         }
 
+        public async Task<IActionResult> Review()
+        {
+            var tem = new List<readcmt>();
 
 
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Erro404", "Home");
+            }
+
+            var getMyHotel = await this._context.Hotels.Where(u => u.UserID == user.Id).ToListAsync();
+
+            if (getMyHotel.Any())
+            {
+                foreach (var item in getMyHotel)
+                {
+                    var getHotel = await this._context.ReviewHotels.Where(u => u.HotelID == item.ID).OrderByDescending(q => q.datecmt).ToListAsync();
+
+                    if (getHotel.Any())
+                    {
+                        foreach (var itemRom in getHotel)
+                        {
+                            var infoUser = await this._userManager.FindByIdAsync(itemRom.UserID);
+                            var infoSeller = await this._userManager.FindByIdAsync(item.UserID);
+                            tem.Add(new readcmt
+                            {
+                                ID = itemRom.ID,
+                                datecmt = itemRom.datecmt,
+                                daterelay = itemRom.dateRelay,
+                                imgSeller = infoSeller.img,
+                                imgUser = infoUser.img,
+                                rating = itemRom.rating + ".0",
+                                relay = itemRom.relay ?? "",
+                                SellerName = $"{infoSeller.firstName} {infoSeller.lastName}",
+                                UserName = $"{infoUser.firstName} {infoUser.lastName}",
+                                cmt = itemRom.cmt,
+                                nameSever = item.HotelName
+
+                            });
+                        }
+                    }
+
+                }
+            }
+
+            var getRoom = await this._context.Tours.Where(u => u.UserID == user.Id).ToListAsync();
+
+            if (getRoom.Any())
+            {
+                foreach (var item in getRoom)
+                {
+                    var getHotel = await this._context.ReviewTours.Where(u => u.TourID == item.ID).OrderByDescending(q => q.datecmt).ToListAsync();
+
+                    if (getHotel.Any())
+                    {
+
+                        foreach (var itemRom in getHotel)
+                        {
+                            var infoUser = await this._userManager.FindByIdAsync(itemRom.UserID);
+                            var infoSeller = await this._userManager.FindByIdAsync(item.UserID);
+                            tem.Add(new readcmt
+                            {
+                                ID = itemRom.ID,
+                                datecmt = itemRom.datecmt,
+                                daterelay = itemRom.dateRelay,
+                                imgSeller = infoSeller.img,
+                                imgUser = infoUser.img,
+                                rating = itemRom.rating + ".0",
+                                relay = itemRom.relay ?? "",
+                                SellerName = $"{infoSeller.firstName} {infoSeller.lastName}",
+                                UserName = $"{infoUser.firstName} {infoUser.lastName}",
+                                cmt = itemRom.cmt,
+                                nameSever = item.TourName
+
+                            });
+                        }
+                    }
+
+                }
+            }
+            return View(tem);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(Guid id, string comment)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Json(new { status = "error", message = "Bạn phải đăng nhập thể thực hiện hành động này!" });
+            }
+            if (string.IsNullOrEmpty(comment))
+            {
+                return Ok(new { status = "error", msg="Bạn phải điền câu trả lời." });;
+            }
+            var getInfoCme = await this._context.ReviewHotels.FindAsync(id);
+            if (getInfoCme != null)
+            {
+                getInfoCme.relay = comment;
+                getInfoCme.dateRelay = DateTime.Now;
+                this._context.ReviewHotels.Update(getInfoCme);
+                this._context.SaveChanges();
+                return Ok(new { status = "success", msg = "Trả lời bình luận thành công" }); ;
+            }
+            var getinfoTour = await this._context.ReviewTours.FindAsync(id);
+            if (getinfoTour != null)
+            {
+                getInfoCme.relay = comment;
+                getInfoCme.dateRelay = DateTime.Now;
+                this._context.ReviewTours.Update(getinfoTour);
+                this._context.SaveChanges();
+                return Ok(new { status = "success", msg = "Trả lời bình luận thành công" }); ;
+            }
+
+
+            return Ok(new { status = "error", msg = "Bình luận không tồn tại.!" }); ;
+        }
 
     }
 }
