@@ -1,6 +1,9 @@
 ﻿﻿@{
     Layout = null;
 }
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+@inject SignInManager<AppUser> SignInManager
 
 @model List<Booking.ViewModels.ListProduct>
 <!DOCTYPE html>
@@ -64,41 +67,14 @@
         <div class="header-topbar text-center bg-transparent">
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between flex-wrap">
-                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Toll Free : +1 56565 56594</p>
+                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i class="isax isax-call5 me-2"></i>Hotline: +84 123456789</p>
                     <div class="d-flex align-items-center">
-                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14"><i class="isax isax-message-text-15 me-2"></i>Email : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b72757d745b7e637a766b777e35787476">[email&#160;protected]</a></p>
-                        <div class="dropdown flag-dropdown mb-2 me-3">
-                            <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
-                            </a>
-                            <ul class="dropdown-menu p-2 mt-2">
-                                <li>
-                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
-                                        <img src="~/assets/img/flags/us-flag.svg" class="me-2" alt="flag">ENG
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
-                                        <img src="~/assets/img/flags/arab-flag.svg" class="me-2" alt="flag">ARA
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item rounded d-flex align-items-center" href="javascript:void(0);">
-                                        <img src="~/assets/img/flags/france-flag.svg" class="me-2" alt="flag">FRA
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="dropdown mb-2 me-3">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-								USD
-							</a>
-                            <ul class="dropdown-menu p-2 mt-2">
-                                <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
-                                <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
-                                <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
-                            </ul>
-                        </div>
+                        <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14">
+                            <i class="isax isax-message-text-15 me-2"></i>Email : <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                                                                     class="__cf_email__"
+                                                                                     data-cfemail="0f666169604f6a776e627f636a216c6062">[email&#160;protected]</a>
+                        </p>
+
                         <div class="fav-dropdown mb-2">
                             <a href="wishlist.html" class="position-relative">
                                 <i class="isax isax-heart"></i><span class="count-icon bg-secondary text-gray-9">0</span>
@@ -109,7 +85,6 @@
             </div>
         </div>
         <!-- /Header Topbar-->
-
         <!-- Header -->
         @await Html.PartialAsync("_patiarialHearder")
         <!-- /Header -->
@@ -120,11 +95,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Listings</h2>
+                    <h2 class="breadcrumb-title mb-2">Danh sách</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Listings</li>
+                            <li class="breadcrumb-item active" aria-current="page">Danh sách</li>
                         </ol>
                     </nav>
                 </div>
@@ -142,7 +117,61 @@
                 <!-- Sidebar -->
                 <div class="col-xl-3 col-lg-4 theiaStickySidebar">
                     <div class="card user-sidebar agent-sidebar mb-4 mb-lg-0">
+                      
                         @await Html.PartialAsync("_patirialSller")
+                        <div class="card-body user-sidebar-body">
+                            <ul>
+                                <li>
+                                    <a href="/manager" class="d-flex align-items-center">
+                                        <i class="isax isax-grid-55 me-2"></i>Bảng điều khiển
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/manager/listing" class="d-flex align-items-center active">
+                                        <i class="isax isax-menu-14 me-2"></i>Danh sách
+                                    </a>
+                                </li>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5 me-2"></i><span>Bookings</span><span class="menu-arrow"></span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="/manager/hotelsBooking" class="fs-14 d-inline-flex align-items-center">Khách sạn</a>
+                                        </li>
+
+
+                                        <li>
+                                            <a href="/manager/toursBooking" class="fs-14 d-inline-flex align-items-center">Tour du lịch</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                @*  <li>
+                                    <a href="agent-enquirers.html" class="d-flex align-items-center">
+                                        <i class="isax isax-magic-star5 me-2"></i>Enquiries
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="agent-earnings.html" class="d-flex align-items-center">
+                                        <i class="isax isax-wallet-add-15 me-2"></i>Earnings
+                                    </a>
+                                </li> *@
+                                <li>
+                                    <a href="/manager/review" class="d-flex align-items-center">
+                                        <i class="isax isax-magic-star5 me-2"></i>Đánh giá
+                                    </a>
+                                </li>
+                                @*  <li>
+                                    <a href="agent-settings.html" class="d-flex align-items-center">
+                                        <i class="isax isax-setting-25"></i> Settings
+                                    </a>
+                                </li> *@
+                                <li class="logout-link">
+                                    <a href="/Home/Logout" class="d-flex align-items-center pb-0">
+                                        <i class="isax isax-logout-15"></i> Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <!-- /Sidebar -->
@@ -153,13 +182,13 @@
                             <ul class="nav mb-2">
                                 <li class="me-2">
                                     <a href="javascript:void(0);" class="nav-link active" data-bs-toggle="tab" data-bs-target="#Hotels-list">
-                                        Hotels
+                                        Khách sạn
                                     </a>
                                 </li>
                                
                                 <li class="me-2">
                                     <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab" data-bs-target="#Tour-list">
-                                        Tour
+                                        Tour du lịch
                                     </a>
                                 </li>
                                 
@@ -167,7 +196,7 @@
                         </div>
                         <div class="dropdown mb-4">
                             <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                All Listing
+                                Tất cả danh sách
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end p-3">
                                 <li>
@@ -186,11 +215,11 @@
                             <div class="card border-0">
                                 <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
                                     <div>
-                                        <h5 class="mb-1">Listings</h5>
-                                        <p>No of  Listings : 200</p>
+                                        <h5 class="mb-1">Danh sách</h5>
+                                        <p>Số lượng niêm yết : 200</p>
                                     </div>
                                    <div>
-                                        <a href="/manager/createHotel" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
+                                        <a href="/manager/createHotel" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Thêm sanh sách</a>
                                    </div>
                                 </div>
                             </div>
@@ -220,7 +249,7 @@
                                                         <h5 class="mb-1 text-truncate"><a href="hotel-details.html">@itemHotel.HotelName</a></h5>
                                                         <p class="d-flex align-items-center mb-2"><i class="isax isax-location5 me-2"></i>@itemHotel.Location</p>
                                                         <div class="d-flex align-items-center justify-content-between border-top pt-3">
-                                                            <h5 class="text-primary text-nowrap me-2">$@itemHotel.price <span class="fs-14 fw-normal text-default">/ Night</span></h5>
+                                                            <h5 class="text-primary text-nowrap me-2">@itemHotel.price VND<span class="fs-14 fw-normal text-default">/ Đêm</span></h5>
                                                             <div class="d-flex align-items-center lh-1">
                                                                 <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
                                                             </div>
@@ -275,11 +304,11 @@
                             <div class="card border-0">
                                 <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
                                     <div>
-                                        <h5 class="mb-1">Listings</h5>
-                                        <p>No of  Listings : 200</p>
+                                        <h5 class="mb-1">Danh sách</h5>
+                                        <p>Số lượng niêm yết : 200</p>
                                     </div>
                                    <div>
-                                        <a href="/manager/createtour" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
+                                        <a href="/manager/createtour" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Thêm danh sách</a>
                                    </div>
                                 </div>
                             </div>
@@ -325,11 +354,11 @@
                             <div class="card border-0">
                                 <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2">
                                     <div>
-                                        <h5 class="mb-1">Listings</h5>
-                                        <p>No of  Listings : 200</p>
+                                        <h5 class="mb-1">Danh sách</h5>
+                                        <p>Số lượng niêm yết : 200</p>
                                     </div>
                                    <div>
-                                    <a href="add-flight.html" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Add Listing</a>
+                                    <a href="add-flight.html" class="btn btn-primary d-inline-flex align-items-center me-0"><i class="isax isax-add me-1 fs-16"></i>Thêm danh sách</a>
                                    </div>
                                 </div>
                             </div>
@@ -358,7 +387,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$500 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">500.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
@@ -392,7 +421,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$600 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">600.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
@@ -426,7 +455,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$300 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">300.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#active_list" data-bs-toggle="modal" class="d-flex align-items-center text-danger"><i class="isax isax-info-circle me-1"></i>Inactive</a>
@@ -460,7 +489,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$300 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">300.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
@@ -494,7 +523,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$550 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">550.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
@@ -528,7 +557,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$450 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">450.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
@@ -562,7 +591,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$350 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">350.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
@@ -596,7 +625,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$700 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">700.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
@@ -630,7 +659,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between border-top pt-3">
                                                 <div class="d-flex flex-wrap align-items-center me-2">
-                                                    <h5 class="text-primary">$650 <span class="fs-14 text-gray-6 fw-normal">/ day</span></h5>
+                                                    <h5 class="text-primary">650.000 VND <span class="fs-14 text-gray-6 fw-normal">/ ngày</span></h5>
                                                 </div>
                                                 <div class="d-flex align-items-center lh-1">
                                                     <a href="#inactive_list" data-bs-toggle="modal" class="d-flex align-items-center"><i class="isax isax-info-circle me-1"></i>Active</a>
@@ -685,54 +714,54 @@
                             <h5>Pages</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="team.html">Our Team</a>
+                                    <a href="team.html">Đội ngũ của chúng tôi</a>
                                 </li>
                                 <li>
-                                    <a href="pricing-plan.html">Pricing Plans</a>
+                                    <a href="pricing-plan.html">Gói giá</a>
                                 </li>
                                 <li>
-                                    <a href="gallery.html">Gallery</a>
+                                    <a href="gallery.html">Settings</a>
                                 </li>
                                 <li>
-                                    <a href="profile-settings.html">Settings</a>
+                                    <a href="profile-settings.html">Cài đặt</a>
                                 </li>
                                 <li>
-                                    <a href="my-profile.html">Profile</a>
+                                    <a href="my-profile.html">Hồ sơ</a>
                                 </li>
                                 <li>
-                                    <a href="agent-listings.html">Listings</a>
+                                    <a href="agent-listings.html">Danh sách</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Company</h5>
+                            <h5>Doanh nghiệp</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="about-us.html">About Us</a>
+                                    <a href="about-us.html">Về chúng tôi</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Careers</a>
+                                    <a href="javascript:void(0);">Cơ hội nghề nghiệp</a>
                                 </li>
                                 <li>
                                     <a href="blog-grid.html">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Affiliate Program</a>
+                                    <a href="javascript:void(0);">Chương trình liên kết</a>
                                 </li>
                                 <li>
-                                    <a href="add-flight.html">Add Your Listing</a>
+                                    <a href="add-flight.html">Thêm danh sách của bạn</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Our Partners</a>
+                                    <a href="javascript:void(0);">Đối tác của chúng tôi</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Destinations</h5>
+                            <h5>Điểm đến</h5>
                             <ul class="footer-menu">
                                 <li>
                                     <a href="javascript:void(0);">Hawai</a>
@@ -757,50 +786,50 @@
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Support</h5>
+                            <h5>Hỗ trợ</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="contact-us.html">Contact Us</a>
+                                    <a href="contact-us.html">Liên hệ</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Legal Notice</a>
+                                    <a href="javascript:void(0);">Thông báo pháp lý</a>
                                 </li>
                                 <li>
-                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                    <a href="privacy-policy.html">Chính sách quyền riêng tư</a>
                                 </li>
                                 <li>
-                                    <a href="terms-conditions.html">Terms and Conditions</a>
+                                    <a href="terms-conditions.html">Điều khoản và Điều kiện</a>
                                 </li>
                                 <li>
-                                    <a href="chat.html">Chat Support</a>
+                                    <a href="chat.html">Hỗ trợ trò chuyện</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Refund Policy</a>
+                                    <a href="javascript:void(0);">Chính sách hoàn trả</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-widget">
-                            <h5>Services</h5>
+                            <h5>Dịch vụ</h5>
                             <ul class="footer-menu">
                                 <li>
-                                    <a href="hotel-grid.html">Hotel</a>
+                                    <a href="hotel-grid.html">Khách sạn</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">Activity Finder</a>
+                                    <a href="javascript:void(0);">Trình tìm kiếm hoạt động</a>
                                 </li>
                                 <li>
-                                    <a href="flight-grid.html">Flight Finder</a>
+                                    <a href="flight-grid.html">Tìm kiếm chuyến bay</a>
                                 </li>
                                 <li>
-                                    <a href="tour-grid.html">Holiday Rental</a>
+                                    <a href="tour-grid.html">Thuê kỳ nghỉ</a>
                                 </li>
                                 <li>
-                                    <a href="car-grid.html">Car Rental</a>
+                                    <a href="car-grid.html">Thuê xe</a>
                                 </li>
                                 <li>
-                                    <a href="tour-details.html">Holiday Packages</a>
+                                    <a href="tour-details.html">Gói kỳ nghỉ</a>
                                 </li>
                             </ul>
                         </div>
@@ -833,24 +862,27 @@
                             <div class="d-sm-flex align-items-center justify-content-center justify-content-xl-end">
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start me-0 pe-0 me-sm-3 pe-sm-3 border-end mb-3">
                                     <span class="avatar avatar-lg bg-primary rounded-circle flex-shrink-0">
-										<i class="ti ti-headphones-filled fs-24"></i>
-									</span>
+                                        <i class="ti ti-headphones-filled fs-24"></i>
+                                    </span>
                                     <div class="ms-2">
-                                        <p class="mb-1">Customer Support</p>
-                                        <p class="fw-medium text-dark">+1 56589 54598</p>
+                                        <p class="mb-1">Chăm sóc khách hàng</p>
+                                        <p class="fw-medium text-dark">+84 393771017</p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center justify-content-sm-start mb-3">
                                     <span class="avatar avatar-lg bg-secondary rounded-circle flex-shrink-0">
-										<i class="ti ti-message fs-24 text-gray-9"></i>
-									</span>
+                                        <i class="ti ti-message fs-24 text-gray-9"></i>
+                                    </span>
                                     <div class="ms-2">
-                                        <p class="mb-1">Drop Us an Email</p>
-                                        <p class="fw-medium text-dark"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e28b8c848da2879a838f928e87cc818d8f">[email&#160;protected]</a></p>
+                                        <p class="mb-1">Gửi email cho chúng tôi</p>
+                                        <p class="fw-medium text-dark">
+                                            <a href="https://dreamstour.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                               class="__cf_email__"
+                                               data-cfemail="fc95929a93bc99849d918c9099d29f9391">[email&#160;protected]</a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -865,7 +897,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <p class="fs-14">Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);" class="text-primary fw-medium">DreamsTour</a></p>
+                            <p class="fs-14">
+                                Copyright &copy; 2025. All Rights Reserved, <a href="javascript:void(0);"
+                                                                               class="text-primary fw-medium">Golocal</a>
+                            </p>
                             <div class="d-flex align-items-center">
                                 <ul class="social-icon">
                                     <li>

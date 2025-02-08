@@ -1,4 +1,8 @@
 ﻿@model List<Booking.ViewModels.WishList>
+
+    @using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,11 +56,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">Wishlist</h2>
+                    <h2 class="breadcrumb-title mb-2">Danh sách mong muốn</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
+                            <li class="breadcrumb-item active" aria-current="page">Danh sách mong muốn</li>
                         </ol>
                     </nav>
                 </div>
@@ -77,88 +81,88 @@
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Main</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Chính</span>
                                 </li>
                                 <li>
-                                    <a href="/account" class="d-flex align-items-center">
-                                        <i class="isax isax-grid-55"></i> Dashboard
+                                    <a href="/account" class="d-flex align-items-center ">
+                                        <i class="isax isax-grid-55"></i> Bảng điều khiển
                                     </a>
                                 </li>
                                 <li class="submenu">
                                     <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5"></i><span>My Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
                                         @* <li>
-                                        <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
-                                        </li> *@
+                         <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
+                         </li> *@
                                         <li>
-                                            <a href="/account/hotelBooking" class="fs-14 d-inline-flex align-items-center">Hotels</a>
+                                            <a href="/account/HotelsBooking" class="fs-14 d-inline-flex align-items-center ">Khách sạn</a>
                                         </li>
                                         @*  <li>
-                                        <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
-                                        </li>
+                         <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
+                         </li>
+                         <li>
+                         <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
+                         </li> *@
                                         <li>
-                                        <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
-                                        </li> *@
-                                        <li>
-                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour</a>
+                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour du lịch</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="/account/review" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5"></i> My Reviews
+                                        <i class="isax isax-magic-star5"></i> Đánh giá
                                     </a>
                                 </li>
                                 @* <li>
-                                <div class="message-content">
-                                <a href="chat.html" class="d-flex align-items-center">
-                                <i class="isax isax-message-square5"></i> Messages
-                                </a>
-                                <span class="msg-count rounded-circle">02</span>
-                                </div>
-                                </li> *@
+                 <div class="message-content">
+                 <a href="chat.html" class="d-flex align-items-center">
+                 <i class="isax isax-message-square5"></i> Messages
+                 </a>
+                 <span class="msg-count rounded-circle">02</span>
+                 </div>
+                 </li> *@
                                 <li class="mb-2">
                                     <a href="/account/Wishlist" class="d-flex align-items-center active">
-                                        <i class="isax isax-heart5"></i> Wishlist
+                                        <i class="isax isax-heart5"></i> Danh sách mong muốn
                                     </a>
                                 </li>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Finance</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài chính</span>
                                 </li>
                                 <li>
                                     <a href="/account/wallet" class="d-flex align-items-center ">
-                                        <i class="isax isax-wallet-add-15"></i> Wallet
+                                        <i class="isax isax-wallet-add-15"></i> Ví
                                     </a>
                                 </li>
                                 <li class="mb-2">
                                     <a href="/account/payment" class="d-flex align-items-center">
-                                        <i class="isax isax-money-recive5"></i> Payments
+                                        <i class="isax isax-money-recive5"></i> Thanh toán
                                     </a>
                                 </li>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Account</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài khoản</span>
                                 </li>
                                 <li>
                                     <a href="/account/profile" class="d-flex align-items-center">
-                                        <i class="isax isax-profile-tick5"></i> My Profile
+                                        <i class="isax isax-profile-tick5"></i> Hồ sơ
                                     </a>
                                 </li>
                                 @*    <li>
-                                <div class="message-content">
-                                <a href="notification.html" class="d-flex align-items-center">
-                                <i class="isax isax-notification-bing5"></i> Notifications
-                                </a>
-                                <span class="msg-count bg-purple rounded-circle">05</span>
-                                </div>
-                                </li> *@
+                 <div class="message-content">
+                 <a href="notification.html" class="d-flex align-items-center">
+                 <i class="isax isax-notification-bing5"></i> Notifications
+                 </a>
+                 <span class="msg-count bg-purple rounded-circle">05</span>
+                 </div>
+                 </li> *@
                                 <li>
                                     <a href="/account/settings" class="d-flex align-items-center">
-                                        <i class="isax isax-setting-25"></i> Settings
+                                        <i class="isax isax-setting-25"></i> Cài đặt
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/Home/Logout" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Logout
+                                        <i class="isax isax-logout-15"></i> Đăng xuất
                                     </a>
                                 </li>
                             </ul>
@@ -170,8 +174,8 @@
                 <div class="col-xl-9 col-lg-8">
                     <div class="card">
                         <div class="card-body">
-                            <h6>My Wishlist</h6>
-                            <p class="fs-14">Items in Wishlist : 60</p>
+                            <h6>Danh sách mong muốn</h6>
+                            <p class="fs-14">Các mục trong danh sách : 60</p>
                         </div>
                     </div>
 
@@ -228,7 +232,7 @@
                                             
                                             <div class="d-flex align-items-center justify-content-between flex-wrap border-top pt-3">
                                                 <h6 class="d-flex align-items-center mb-3">Facillities :<i class="isax isax-home-wifi ms-2 me-2 text-primary"></i><i class="isax isax-scissor me-2 text-primary"></i><i class="isax isax-profile-2user me-2 text-primary"></i><i class="isax isax-wind-2 me-2 text-primary"></i><a href="javascript:void(0);" class="fs-14 fw-normal text-default d-inline-block">+2</a></h6>
-                                                <h5 class="text-primary text-nowrap me-2 mb-3">$@itemhotel.price <span class="fs-14 fw-normal text-default">/ Night</span></h5>
+                                                <h5 class="text-primary text-nowrap me-2 mb-3">@itemhotel.price VND<span class="fs-14 fw-normal text-default">/ Đêm</span></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -283,7 +287,7 @@
                                                     <p class="fs-14">(@itemhotel.NumberReview Reviews)</p>
                                                 </div>
                                             </div>
-                                            <p class="fs-14 border-bottom pb-3 mb-3">Journey through majestic peaks and serene valleys, where nature’s beauty surrounds you at every turn.</p>
+                                            <p class="fs-14 border-bottom pb-3 mb-3">Hành trình qua những đỉnh núi hùng vĩ và những thung lũng thanh bình, nơi vẻ đẹp của thiên nhiên bao quanh bạn ở mọi ngóc ngách.</p>
                                             <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-2">
                                                 <div class="d-flex align-items-center">
                                                     <span class="me-2"><i class="isax isax-calendar-tick text-gray-6"></i></span>

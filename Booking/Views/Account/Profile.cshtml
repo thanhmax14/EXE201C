@@ -1,5 +1,7 @@
 ﻿@model Booking.ViewModels.settingViewModels
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,11 +55,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">My Profile</h2>
+                    <h2 class="breadcrumb-title mb-2">Hồ sơ</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="index.html"><i class="isax isax-home5"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+                            <li class="breadcrumb-item active" aria-current="page">Hồ sơ</li>
                         </ol>
                     </nav>
                 </div>
@@ -78,89 +80,88 @@
                         <div class="card-body user-sidebar-body">
                             <ul>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Main</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Chính</span>
                                 </li>
                                 <li>
-                                    <a href="dashboard.html" class="d-flex align-items-center">
-                                        <i class="isax isax-grid-55"></i> Dashboard
+                                    <a href="/account" class="d-flex align-items-center ">
+                                        <i class="isax isax-grid-55"></i> Bảng điều khiển
                                     </a>
                                 </li>
                                 <li class="submenu">
                                     <a href="javascript:void(0);" class="d-block"><i class="isax isax-calendar-tick5"></i><span>My Bookings</span><span class="menu-arrow"></span></a>
                                     <ul>
+                                        @* <li>
+                         <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
+                         </li> *@
                                         <li>
-                                            <a href="customer-flight-booking.html" class="fs-14 d-inline-flex align-items-center">Flights</a>
+                                            <a href="/account/HotelsBooking" class="fs-14 d-inline-flex align-items-center ">Khách sạn</a>
                                         </li>
+                                        @*  <li>
+                         <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
+                         </li>
+                         <li>
+                         <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
+                         </li> *@
                                         <li>
-                                            <a href="customer-hotel-booking.html" class="fs-14 d-inline-flex align-items-center">Hotels</a>
+                                            <a href="/account/tourBooking" class="fs-14 d-inline-flex align-items-center">Tour du lịch</a>
                                         </li>
-                                        <li>
-                                            <a href="customer-car-booking.html" class="fs-14 d-inline-flex align-items-center">Cars</a>
-                                        </li>
-                                        <li>
-                                            <a href="customer-cruise-booking.html" class="fs-14 d-inline-flex align-items-center">Cruise</a>
-                                        </li>
-                                        <li>
-                                            <a href="customer-tour-booking.html" class="fs-14 d-inline-flex align-items-center">Tour</a>
-                                        </li>
-
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="review.html" class="d-flex align-items-center">
-                                        <i class="isax isax-magic-star5"></i> My Reviews
+                                    <a href="/account/review" class="d-flex align-items-center">
+                                        <i class="isax isax-magic-star5"></i> Đánh giá
+                                    </a>
+                                </li>
+                                @* <li>
+                 <div class="message-content">
+                 <a href="chat.html" class="d-flex align-items-center">
+                 <i class="isax isax-message-square5"></i> Messages
+                 </a>
+                 <span class="msg-count rounded-circle">02</span>
+                 </div>
+                 </li> *@
+                                <li class="mb-2">
+                                    <a href="/account/Wishlist" class="d-flex align-items-center">
+                                        <i class="isax isax-heart5"></i> Danh sách mong muốn
                                     </a>
                                 </li>
                                 <li>
-                                    <div class="message-content">
-                                        <a href="chat.html" class="d-flex align-items-center">
-                                            <i class="isax isax-message-square5"></i> Messages
-                                        </a>
-                                        <span class="msg-count rounded-circle">02</span>
-                                    </div>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài chính</span>
+                                </li>
+                                <li>
+                                    <a href="/account/wallet" class="d-flex align-items-center ">
+                                        <i class="isax isax-wallet-add-15"></i> Ví
+                                    </a>
                                 </li>
                                 <li class="mb-2">
-                                    <a href="wishlist.html" class="d-flex align-items-center">
-                                        <i class="isax isax-heart5"></i> Wishlist
+                                    <a href="/account/payment" class="d-flex align-items-center">
+                                        <i class="isax isax-money-recive5"></i> Thanh toán
                                     </a>
                                 </li>
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Finance</span>
+                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Tài khoản</span>
                                 </li>
                                 <li>
-                                    <a href="wallet.html" class="d-flex align-items-center">
-                                        <i class="isax isax-wallet-add-15"></i> Wallet
+                                    <a href="/account/profile" class="d-flex align-items-center active">
+                                        <i class="isax isax-profile-tick5"></i> Hồ sơ
                                     </a>
                                 </li>
-                                <li class="mb-2">
-                                    <a href="payment.html" class="d-flex align-items-center">
-                                        <i class="isax isax-money-recive5"></i> Payments
-                                    </a>
-                                </li>
+                                @*    <li>
+                 <div class="message-content">
+                 <a href="notification.html" class="d-flex align-items-center">
+                 <i class="isax isax-notification-bing5"></i> Notifications
+                 </a>
+                 <span class="msg-count bg-purple rounded-circle">05</span>
+                 </div>
+                 </li> *@
                                 <li>
-                                    <span class="fs-14 text-gray-3 fw-medium mb-2">Account</span>
-                                </li>
-                                <li>
-                                    <a href="my-profile.html" class="d-flex align-items-center active">
-                                        <i class="isax isax-profile-tick5"></i> My Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="message-content">
-                                        <a href="notification.html" class="d-flex align-items-center">
-                                            <i class="isax isax-notification-bing5"></i> Notifications
-                                        </a>
-                                        <span class="msg-count bg-purple rounded-circle">05</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="profile-settings.html" class="d-flex align-items-center">
-                                        <i class="isax isax-setting-25"></i> Settings
+                                    <a href="/account/settings" class="d-flex align-items-center">
+                                        <i class="isax isax-setting-25"></i> Cài đặt
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="index.html" class="d-flex align-items-center pb-0">
-                                        <i class="isax isax-logout-15"></i> Logout
+                                    <a href="/Home/Logout" class="d-flex align-items-center pb-0">
+                                        <i class="isax isax-logout-15"></i> Đăng xuất
                                     </a>
                                 </li>
                             </ul>
@@ -172,13 +173,13 @@
                 <div class="col-xl-9 col-lg-8">
                     <div class="card shadow-none mb-0">
                         <div class="card-header d-flex align-items-center justify-content-between">
-                            <h6>My Profile</h6>
+                            <h6>Hồ sơ</h6>
                             <div class="d-flex align-items-center justify-content-center">
                                 <a href="profile-settings.html" class="p-1 rounded-circle btn btn-light d-flex align-items-center justify-content-center"><i class="isax isax-edit-2 fs-14"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="fs-16 mb-3">Basic Information</h6>
+                            <h6 class="fs-16 mb-3">Thông tin cơ bản</h6>
                          @*    <div class="d-flex align-items-center mb-3">
                                 <span class="avatar avatar-xl flex-shrink-0 me-3 ">
                                     <img src="~/assets/img/users/user-01.jpg" alt="Img" class="img-fluid rounded">
@@ -199,13 +200,13 @@
                             <div class="row border-bottom pb-2 mb-3">
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                        <h6 class="fs-14">First Name</h6>
+                                        <h6 class="fs-14">Tên</h6>
                                         <p>@Model.firstName </p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                        <h6 class="fs-14">Last Name</h6>
+                                        <h6 class="fs-14">Họ</h6>
                                         <p>@Model.lastName</p>
                                     </div>
                                 </div>
@@ -217,29 +218,29 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                        <h6 class="fs-14">Phone</h6>
+                                        <h6 class="fs-14">Điện thoại</h6>
                                         <p>+84 @Model.phone</p>
                                     </div>
                                 </div>
                             </div>
-                            <h6 class="fs-16 mb-3">Address Information</h6>
+                            <h6 class="fs-16 mb-3">Thông tin địa chỉ</h6>
                             <div class="row g-2">
                              
                                 <div class="col-md-6">
                                     <div>
-                                        <h6 class="fs-14">Province/City</h6>
+                                        <h6 class="fs-14">Tỉnh/Thành phố</h6>
                                         <p>@Model.Province</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <h6 class="fs-14">District</h6>
+                                        <h6 class="fs-14">Huyện</h6>
                                         <p>@Model.District</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <h6 class="fs-14">Ward</h6>
+                                        <h6 class="fs-14">Phường</h6>
                                         <p>@Model.Ward</p>
                                     </div>
                                 </div>
@@ -251,7 +252,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div>
-                                        <h6 class="fs-14">Address</h6>
+                                        <h6 class="fs-14">Địa chỉ</h6>
                                         <p>@Model.address</p>
                                     </div>
                                 </div>
